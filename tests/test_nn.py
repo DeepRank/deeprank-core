@@ -16,23 +16,28 @@ from deeprank_gnn.simple_ginet import SimpleGiNetwork
 
 def _model_base_test(work_directory, database, model, task='reg', target='irmsd', plot=False):
 
-    NN = NeuralNet(database, model,
-                   node_feature=['type', 'polarity', 'bsa',
-                                 'depth', 'hse', 'ic', 'pssm'],
-                   edge_feature=['dist'],
-                   target=target,
-                   index=None,
-                   task=task,
-                   batch_size=64,
-                   percent=[0.8, 0.2],
-                   outdir=work_directory)
+    tmp_dir = tempfile.mkdtemp()
 
-    NN.train(nepoch=5, validate=True)
+    try:
+        NN = NeuralNet(database, model,
+                       node_feature=['type', 'polarity', 'bsa',
+                                     'depth', 'hse', 'ic', 'pssm'],
+                       edge_feature=['dist'],
+                       target=target,
+                       index=None,
+                       task=task,
+                       batch_size=64,
+                       percent=[0.8, 0.2],
+                       outdir=work_directory)
 
-    NN.save_model('test.pth.tar')
+        NN.train(nepoch=5, validate=True, tensorboard_directory=tmp_dir)
 
-    NN_cpy = NeuralNet(database, model,
-                       pretrained_model='test.pth.tar')
+        NN.save_model('test.pth.tar')
+
+        NN_cpy = NeuralNet(database, model,
+                           pretrained_model='test.pth.tar')
+    finally:
+        shutil.rmtree(tmp_dir)
 
     if plot:
         NN.plot_scatter()

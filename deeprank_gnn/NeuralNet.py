@@ -10,6 +10,7 @@ import torch.nn as nn
 from torch.nn import MSELoss
 import torch.nn.functional as F
 from torch_geometric.data import DataLoader
+from torch.utils.tensorboard import SummaryWriter
 
 # deeprank_gnn import
 from .DataSet import HDF5DataSet, DivideDataSet, PreCluster
@@ -266,7 +267,9 @@ class NeuralNet(object):
             self.loss = nn.CrossEntropyLoss(
                 weight=self.weights, reduction='mean')
 
-    def train(self, nepoch=1, validate=False, save_model='last', hdf5='train_data.hdf5', save_epoch='intermediate', save_every=5):
+    def train(self, nepoch=1, validate=False, save_model='last',
+              hdf5='train_data.hdf5', save_epoch='intermediate', save_every=5,
+              tensorboard_directory=None):
         """
         Trains the model
 
@@ -277,88 +280,93 @@ class NeuralNet(object):
             hdf5 (str, optional): hdf5 output file
             save_epoch (all, intermediate, optional)
             save_every (int, optional): save data every n epoch if save_epoch == 'intermediate'. Defaults to 5
+            tensorboard_directory (directory path, optional): where to store the tensorflow files
         """
-        # Output file name
-        data_hdf5_path = self.update_name(hdf5, self.outdir)
 
-        # Number of epochs
-        self.nepoch = nepoch
+        with SummaryWriter(log_dir=tensorboard_directory,
+                           filename_suffix="_train",
+                           comment="train") as tensorboard_writer:
 
-        # Loop over epochs
-        self.data = {}
-        for epoch in range(1, nepoch+1):
+            # Output file name
+            data_hdf5_path = self.update_name(hdf5, self.outdir)
 
-            # Train the model
-            self.model.train()
+            # Number of epochs
+            self.nepoch = nepoch
 
-            t0 = time()
-            _out, _y, _loss, self.data['train'] = self._epoch(epoch)
-            t = time() - t0
-            self.train_loss.append(_loss)
-            self.train_out = _out
-            self.train_y = _y
-            _acc = self.get_metrics('train', self.threshold).accuracy
-            self.train_acc.append(_acc)
+            # Loop over epochs
+            self.data = {}
+            for epoch in range(1, nepoch+1):
 
-            # Print the loss and accuracy (training set)
-            self.log_epoch_data(
-                'train', epoch, _loss, _acc, t)
-
-            # Validate the model
-            if validate is True:
+                # Train the model
+                self.model.train()
 
                 t0 = time()
-                _out, _y, _val_loss, self.data['eval'] = self.eval(
-                    self.valid_loader)
+                _out, _y, _loss, self.data['train'] = self._epoch(epoch)
                 t = time() - t0
+                self.train_loss.append(_loss)
+                self.train_out = _out
+                self.train_y = _y
+                _acc = self.get_metrics('train', self.threshold).accuracy
+                self.train_acc.append(_acc)
 
-                self.valid_loss.append(_val_loss)
-                self.valid_out = _out
-                self.valid_y = _y
-                _val_acc = self.get_metrics(
-                    'eval', self.threshold).accuracy
-                self.valid_acc.append(_val_acc)
-
-                # Print loss and accuracy (validation set)
+                # Print the loss and accuracy (training set)
                 self.log_epoch_data(
-                    'valid', epoch, _val_loss, _val_acc, t)
+                    'train', epoch, _loss, _acc, t)
 
-                # save the best model (i.e. lowest loss value on validation data)
-                if save_model == 'best':
+                # Validate the model
+                if validate is True:
 
-                    if min(self.valid_loss) == _val_loss:
-                        self.save_model(filename='t{}_y{}_b{}_e{}_lr{}_{}.pth.tar'.format(
-                            self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr), str(epoch)))
+                    t0 = time()
+                    _out, _y, _val_loss, self.data['eval'] = self.eval(
+                        self.valid_loader)
+                    t = time() - t0
 
-            else:
-                # if no validation set, saves the best performing model on the traing set
-                if save_model == 'best':
-                    if min(self.train_loss) == _loss:
-                        print(
-                            'WARNING: The training set is used both for learning and model selection.')
-                        print(
-                            'this may lead to training set data overfitting.')
-                        print(
-                            'We advice you to use an external validation set.')
-                        self.save_model(filename='t{}_y{}_b{}_e{}_lr{}_{}.pth.tar'.format(
-                            self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr), str(epoch)))
+                    self.valid_loss.append(_val_loss)
+                    self.valid_out = _out
+                    self.valid_y = _y
+                    _val_acc = self.get_metrics(
+                        'eval', self.threshold).accuracy
+                    self.valid_acc.append(_val_acc)
 
-            # Save epoch data
-            if (save_epoch == 'all') or (epoch == nepoch):
-                with h5py.File(data_hdf5_path, 'a') as data_hdf5_file:
-                    self._export_epoch_hdf5(epoch, self.data, data_hdf5_file)
+                    # Print loss and accuracy (validation set)
+                    self.log_epoch_data(
+                        'valid', epoch, _val_loss, _val_acc, t)
 
-            elif (save_epoch == 'intermediate') and (epoch % save_every == 0):
-                with h5py.File(data_hdf5_path, 'a') as data_hdf5_file:
-                    self._export_epoch_hdf5(epoch, self.data, data_hdf5_file)
+                    # save the best model (i.e. lowest loss value on validation data)
+                    if save_model == 'best':
 
-        # Save the last model
-        if save_model == 'last':
-            self.save_model(filename='t{}_y{}_b{}_e{}_lr{}.pth.tar'.format(
-                self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr)))
+                        if min(self.valid_loss) == _val_loss:
+                            self.save_model(filename='t{}_y{}_b{}_e{}_lr{}_{}.pth.tar'.format(
+                                self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr), str(epoch)))
+
+                else:
+                    # if no validation set, saves the best performing model on the traing set
+                    if save_model == 'best':
+                        if min(self.train_loss) == _loss:
+                            print(
+                                'WARNING: The training set is used both for learning and model selection.')
+                            print(
+                                'this may lead to training set data overfitting.')
+                            print(
+                                'We advice you to use an external validation set.')
+                            self.save_model(filename='t{}_y{}_b{}_e{}_lr{}_{}.pth.tar'.format(
+                                self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr), str(epoch)))
+
+                # Save epoch data
+                if (save_epoch == 'all') or (epoch == nepoch):
+                    self._export_epoch_hdf5(epoch, self.data, tensorboard_writer)
+
+                elif (save_epoch == 'intermediate') and (epoch % save_every == 0):
+                    self._export_epoch_hdf5(epoch, self.data, tensorboard_writer)
+
+            # Save the last model
+            if save_model == 'last':
+                self.save_model(filename='t{}_y{}_b{}_e{}_lr{}.pth.tar'.format(
+                    self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr)))
 
 
-    def test(self, database_test=None, threshold=4, hdf5='test_data.hdf5'):
+    def test(self, database_test=None, threshold=4, hdf5='test_data.hdf5',
+             tensorboard_directory=None):
         """
         Tests the model
 
@@ -366,54 +374,59 @@ class NeuralNet(object):
             database_test ([type], optional): test database
             threshold (int, optional): threshold use to tranform data into binary values. Defaults to 4.
             hdf5 (str, optional): output hdf5 file. Defaults to 'test_data.hdf5'.
+            tensorboard_directory (directory path, optional): where to store the tensorflow files
         """
-        # Output file name
-        data_hdf5_path = self.update_name(hdf5, self.outdir)
 
-        # Loads the test dataset if provided
-        if database_test is not None:
-            # Load the test set
-            test_dataset = HDF5DataSet(root='./', database=database_test,
-                                       node_feature=self.node_feature, edge_feature=self.edge_feature,
-                                       target=self.target, clustering_method=self.cluster_nodes)
-            print('Test set loaded')
-            PreCluster(test_dataset, method='mcl')
+        with SummaryWriter(log_dir=tensorboard_directory,
+                           filename_suffix="_test",
+                           comment="test") as tensorboard_writer:
 
-            self.test_loader = DataLoader(
-                test_dataset)
+            # Output file name
+            data_hdf5_path = self.update_name(hdf5, self.outdir)
 
-        else:
-            if self.load_pretrained_model == None:
-                raise ValueError(
-                    "You need to upload a test dataset \n\t"
-                    "\n\t"
-                    ">> model.test(test_dataset)\n\t"
-                    "if a pretrained network is loaded, you can directly test the model on the loaded dataset :\n\t"
-                    ">> model = NeuralNet(database_test, gnn, pretrained_model = model_saved, target=None)\n\t"
-                    ">> model.test()\n\t")
-        self.data = {}
+            # Loads the test dataset if provided
+            if database_test is not None:
+                # Load the test set
+                test_dataset = HDF5DataSet(root='./', database=database_test,
+                                           node_feature=self.node_feature, edge_feature=self.edge_feature,
+                                           target=self.target, clustering_method=self.cluster_nodes)
+                print('Test set loaded')
+                PreCluster(test_dataset, method='mcl')
 
-        # Run test
-        _out, _y, _test_loss, self.data['test'] = self.eval(
-            self.test_loader)
+                self.test_loader = DataLoader(
+                    test_dataset)
 
-        self.test_out = _out
+            else:
+                if self.load_pretrained_model == None:
+                    raise ValueError(
+                        "You need to upload a test dataset \n\t"
+                        "\n\t"
+                        ">> model.test(test_dataset)\n\t"
+                        "if a pretrained network is loaded, you can directly test the model on the loaded dataset :\n\t"
+                        ">> model = NeuralNet(database_test, gnn, pretrained_model = model_saved, target=None)\n\t"
+                        ">> model.test()\n\t")
+            self.data = {}
 
-        if len(_y) == 0:
-            self.test_y = None
-            self.test_acc = None
-        else:
-            self.test_y = _y
-            _test_acc = self.get_metrics('test', threshold).accuracy
-            self.test_acc = _test_acc
+            # Run test
+            _out, _y, _test_loss, self.data['test'] = self.eval(
+                self.test_loader)
 
-            self.log_epoch_data(
-                'test', 0, _test_loss, _test_acc, 0.0)
+            self.test_out = _out
 
-        self.test_loss = _test_loss
+            if len(_y) == 0:
+                self.test_y = None
+                self.test_acc = None
+            else:
+                self.test_y = _y
+                _test_acc = self.get_metrics('test', threshold).accuracy
+                self.test_acc = _test_acc
 
-        with h5py.File(data_hdf5_path, 'a') as data_hdf5_file:
-            self._export_epoch_hdf5(0, self.data, data_hdf5_file)
+                self.log_epoch_data(
+                    'test', 0, _test_loss, _test_acc, 0.0)
+
+            self.test_loss = _test_loss
+
+            self._export_epoch_hdf5(0, self.data, tensorboard_writer)
 
 
     def eval(self, loader):
@@ -816,7 +829,7 @@ class NeuralNet(object):
         self.opt_loaded_state_dict = state['optimizer']
         self.model_load_state_dict = state['model']
 
-    def _export_epoch_hdf5(self, epoch, data, data_hdf5_file):
+    def _export_epoch_hdf5(self, epoch, data, tensorboard_writer):
         """
         Exports the epoch data to the hdf5 file.
 
@@ -827,38 +840,36 @@ class NeuralNet(object):
         Args:
             epoch (int): index of the epoch
             data (dict): data of the epoch
+            tensorboard_writer (torch.utils.tensorboard.writer.SummaryWriter): where the data should go
         """
         # create a group
-        grp_name = 'epoch_%04d' % epoch
-        grp = data_hdf5_file.create_group(grp_name)
-
-        grp.attrs['task'] = self.task
-        grp.attrs['target'] = self.target
-        grp.attrs['batch_size'] = self.batch_size
+        tensorboard_writer.add_text("task", self.task, epoch)
+        tensorboard_writer.add_text("target", self.target, epoch)
+        tensorboard_writer.add_scalar("batch_size", self.batch_size, epoch)
 
         # loop over the pass_type : train/valid/test
         for pass_type, pass_data in data.items():
 
-            # we don't want to breack the process in case of issue
+            # we don't want to break the process in case of issue
             try:
-
-                # create subgroup for the pass
-                sg = grp.create_group(pass_type)
-
                 # loop over the data : target/output/molname
                 for data_name, data_value in pass_data.items():
 
                     # mol name is a bit different
                     # since there are strings
                     if data_name == 'mol':
+
                         data_value = np.string_(data_value)
-                        string_dt = h5py.special_dtype(vlen=str)
-                        sg.create_dataset(
-                            data_name, data=data_value, dtype=string_dt)
+
+                        for batch_index, value in enumerate(data_value):
+                            tensorboard_writer.add_text(f"{data_name}/{batch_index}/{pass_type}/", value.decode(), epoch)
 
                     # output/target values
                     else:
-                        sg.create_dataset(data_name, data=data_value)
+                        data_value = np.array(data_value)
+
+                        for batch_index, value in enumerate(data_value):
+                            tensorboard_writer.add_scalar(f"{data_name}/{batch_index}/{pass_type}", value, epoch)
 
             except TypeError:
                 raise ValueError("Error in export epoch to hdf5")
