@@ -433,7 +433,7 @@ class NeuralNet(object):
             if output > 0.0 and target > 0.0:
                 tp += 1
 
-            elif output <=0.0 and target <= 0.0:
+            elif output <= 0.0 and target <= 0.0:
                 tn += 1
 
             elif output > 0.0 and target <= 0.0:
@@ -447,7 +447,7 @@ class NeuralNet(object):
             tensorboard_writer.add_scalar("MCC", mcc, epoch_number)
 
             accuracy = (tp + tn) / (tp + tn + fp + fn)
-            tensorboard_writer.add_scalar("accuracy", mcc, epoch_number)
+            tensorboard_writer.add_scalar("accuracy", accuracy, epoch_number)
 
 
     def eval(self, loader, epoch_number, pass_name, tensorboard_writer):
