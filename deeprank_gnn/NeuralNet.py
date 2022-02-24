@@ -423,26 +423,24 @@ class NeuralNet(object):
 
         fp, fn, tp, tn = 0, 0, 0, 0
 
-        for mol_index, mol_name in enumerate(epoch_data['mol']):
-            output = epoch_data['outputs'][mol_index]
-            tensorboard_writer.add_scalar(f"{mol_name}_output", output, epoch_number)
-
-            target = epoch_data['targets'][mol_index]
-            tensorboard_writer.add_scalar(f"{mol_name}_target", target, epoch_number)
-
-            if output > 0.0 and target > 0.0:
-                tp += 1
-
-            elif output <= 0.0 and target <= 0.0:
-                tn += 1
-
-            elif output > 0.0 and target <= 0.0:
-                fp += 1
-
-            elif output <= 0.0 and target > 0.0:
-                fn += 1
-
         if task == "class":
+            for mol_index, mol_name in enumerate(epoch_data['mol']):
+
+                output = epoch_data['outputs'][mol_index]
+                target = epoch_data['targets'][mol_index]
+
+                if output > 0.0 and target > 0.0:
+                    tp += 1
+
+                elif output <= 0.0 and target <= 0.0:
+                    tn += 1
+
+                elif output > 0.0 and target <= 0.0:
+                    fp += 1
+
+                elif output <= 0.0 and target > 0.0:
+                    fn += 1
+
             mcc = (tn * tp - fp * fn) / np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
             tensorboard_writer.add_scalar("MCC", mcc, epoch_number)
 
@@ -522,7 +520,7 @@ class NeuralNet(object):
         Returns:
             tuple: prediction, ground truth, running loss
         """
-        running_loss = 0
+        losses = []
         out = []
         y = []
         data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
@@ -534,7 +532,7 @@ class NeuralNet(object):
             pred, data_batch.y = self.format_output(pred, data_batch.y)
 
             loss = self.loss(pred, data_batch.y)
-            running_loss += loss.detach().item()
+            losses.append(loss.detach().item())
             loss.backward()
             self.optimizer.step()
 
@@ -565,11 +563,13 @@ class NeuralNet(object):
             data['targets'] += y
             data['outputs'] += out
 
-        data['loss'] += [running_loss]
+        epoch_loss = sum(losses) / len(losses)
+
+        data['loss'] += [epoch_loss]
 
         self._export_epoch_tensorboard(epoch_number, pass_name, self.task, data, tensorboard_writer)
 
-        return out, y, running_loss, data
+        return out, y, epoch_loss, data
 
     def get_metrics(self, data='eval', threshold=4.0, binary=True):
         """
