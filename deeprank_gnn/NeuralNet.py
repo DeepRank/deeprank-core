@@ -268,7 +268,7 @@ class NeuralNet(object):
                 weight=self.weights, reduction='mean')
 
     def train(self, nepoch=1, validate=False, save_model='last',
-              hdf5='train_data.hdf5', save_epoch='intermediate', save_every=5,
+              hdf5='train_data.hdf5',
               tensorboard_directory=None):
         """
         Trains the model
@@ -278,8 +278,6 @@ class NeuralNet(object):
             validate (bool, optional): perform validation. Defaults to False.
             save_model (last, best, optional): save the model. Defaults to 'last'
             hdf5 (str, optional): hdf5 output file
-            save_epoch (all, intermediate, optional)
-            save_every (int, optional): save data every n epoch if save_epoch == 'intermediate'. Defaults to 5
             tensorboard_directory (directory path, optional): where to store the tensorflow files
         """
 
@@ -301,7 +299,7 @@ class NeuralNet(object):
                 self.model.train()
 
                 t0 = time()
-                _out, _y, _loss, self.data['train'] = self._epoch(epoch)
+                _out, _y, _loss, self.data['train'] = self._epoch(epoch, "training", tensorboard_writer)
                 t = time() - t0
                 self.train_loss.append(_loss)
                 self.train_out = _out
@@ -317,8 +315,7 @@ class NeuralNet(object):
                 if validate is True:
 
                     t0 = time()
-                    _out, _y, _val_loss, self.data['eval'] = self.eval(
-                        self.valid_loader)
+                    _out, _y, _val_loss, self.data['eval'] = self.eval(self.valid_loader, epoch, "validation", tensorboard_writer)
                     t = time() - t0
 
                     self.valid_loss.append(_val_loss)
@@ -351,13 +348,6 @@ class NeuralNet(object):
                                 'We advice you to use an external validation set.')
                             self.save_model(filename='t{}_y{}_b{}_e{}_lr{}_{}.pth.tar'.format(
                                 self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr), str(epoch)))
-
-                # Save epoch data
-                if (save_epoch == 'all') or (epoch == nepoch):
-                    self._export_epoch_hdf5(epoch, self.data, tensorboard_writer)
-
-                elif (save_epoch == 'intermediate') and (epoch % save_every == 0):
-                    self._export_epoch_hdf5(epoch, self.data, tensorboard_writer)
 
             # Save the last model
             if save_model == 'last':
@@ -408,8 +398,7 @@ class NeuralNet(object):
             self.data = {}
 
             # Run test
-            _out, _y, _test_loss, self.data['test'] = self.eval(
-                self.test_loader)
+            _out, _y, _test_loss, self.data['test'] = self.eval(self.test_loader, 0, "testing", tensorboard_writer)
 
             self.test_out = _out
 
@@ -426,15 +415,50 @@ class NeuralNet(object):
 
             self.test_loss = _test_loss
 
-            self._export_epoch_hdf5(0, self.data, tensorboard_writer)
+    @staticmethod
+    def _export_epoch_tensorboard(epoch_number, pass_, task, epoch_data, tensorboard_writer):
+
+        loss = epoch_data['loss'][0]
+        tensorboard_writer.add_scalar("loss", loss, epoch_number)
+
+        fp, fn, tp, tn = 0, 0, 0, 0
+
+        for mol_index, mol_name in enumerate(epoch_data['mol']):
+            output = epoch_data['outputs'][mol_index]
+            tensorboard_writer.add_scalar(f"{mol_name}_output", output, epoch_number)
+
+            target = epoch_data['targets'][mol_index]
+            tensorboard_writer.add_scalar(f"{mol_name}_target", target, epoch_number)
+
+            if output > 0.0 and target > 0.0:
+                tp += 1
+
+            elif output <=0.0 and target <= 0.0:
+                tn += 1
+
+            elif output > 0.0 and target <= 0.0:
+                fp += 1
+
+            elif output <= 0.0 and target > 0.0:
+                fn += 1
+
+        if task == "class":
+            mcc = (tn * tp - fp * fn) / np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
+            tensorboard_writer.add_scalar("MCC", mcc, epoch_number)
+
+            accuracy = (tp + tn) / (tp + tn + fp + fn)
+            tensorboard_writer.add_scalar("accuracy", mcc, epoch_number)
 
 
-    def eval(self, loader):
+    def eval(self, loader, epoch_number, pass_name, tensorboard_writer):
         """
         Evaluates the model
 
         Args:
             loader (DataLoader): [description]
+            epoch_number (int)
+            pass_name (str): 'training', 'validation' or 'testing'
+            tensorboard_writer (SummaryWriter)
 
         Returns:
             (tuple):
@@ -473,22 +497,27 @@ class NeuralNet(object):
 
         # Save targets
         if self.task == 'class':
-            data['targets'] += [self.idx_to_classes[x]
-                                for x in y]
-            data['outputs'] += [self.idx_to_classes[x]
-                                for x in out]
 
+            data['targets'] += [self.idx_to_classes[x] for x in y]
+            data['outputs'] += [self.idx_to_classes[x] for x in out]
         else:
             data['targets'] += y
             data['outputs'] += out
 
         data['loss'] += [loss_val]
 
+        self._export_epoch_tensorboard(epoch_number, pass_name, self.task, data, tensorboard_writer)
+
         return out, y, loss_val, data
 
-    def _epoch(self, epoch):
+    def _epoch(self, epoch_number, pass_name, tensorboard_writer):
         """
         Runs a single epoch
+
+        Args:
+            epoch_number (int)
+            pass_name (str): 'training', 'validation' or 'testing'
+            tensorboard_writer (SummaryWriter)
 
         Returns:
             tuple: prediction, ground truth, running loss
@@ -502,8 +531,7 @@ class NeuralNet(object):
             data_batch = data_batch.to(self.device)
             self.optimizer.zero_grad()
             pred = self.model(data_batch)
-            pred, data_batch.y = self.format_output(
-                pred, data_batch.y)
+            pred, data_batch.y = self.format_output(pred, data_batch.y)
 
             loss = self.loss(pred, data_batch.y)
             running_loss += loss.detach().item()
@@ -530,15 +558,16 @@ class NeuralNet(object):
 
         # save targets and predictions
         if self.task == 'class':
-            data['targets'] += [self.idx_to_classes[x]
-                                for x in y]
-            data['outputs'] += [self.idx_to_classes[x]
-                                for x in out]
+
+            data['targets'] += [self.idx_to_classes[x] for x in y]
+            data['outputs'] += [self.idx_to_classes[x] for x in out]
         else:
             data['targets'] += y
             data['outputs'] += out
 
         data['loss'] += [running_loss]
+
+        self._export_epoch_tensorboard(epoch_number, pass_name, self.task, data, tensorboard_writer)
 
         return out, y, running_loss, data
 
@@ -829,47 +858,3 @@ class NeuralNet(object):
         self.opt_loaded_state_dict = state['optimizer']
         self.model_load_state_dict = state['model']
 
-    def _export_epoch_hdf5(self, epoch, data, tensorboard_writer):
-        """
-        Exports the epoch data to the hdf5 file.
-
-        Exports the data of a given epoch in train/valid/test group.
-        In each group are stored the predicted values (outputs),
-        ground truth (targets) and molecule name (mol).
-
-        Args:
-            epoch (int): index of the epoch
-            data (dict): data of the epoch
-            tensorboard_writer (torch.utils.tensorboard.writer.SummaryWriter): where the data should go
-        """
-        # create a group
-        tensorboard_writer.add_text("task", self.task, epoch)
-        tensorboard_writer.add_text("target", self.target, epoch)
-        tensorboard_writer.add_scalar("batch_size", self.batch_size, epoch)
-
-        # loop over the pass_type : train/valid/test
-        for pass_type, pass_data in data.items():
-
-            # we don't want to break the process in case of issue
-            try:
-                # loop over the data : target/output/molname
-                for data_name, data_value in pass_data.items():
-
-                    # mol name is a bit different
-                    # since there are strings
-                    if data_name == 'mol':
-
-                        data_value = np.string_(data_value)
-
-                        for batch_index, value in enumerate(data_value):
-                            tensorboard_writer.add_text(f"{data_name}/{batch_index}/{pass_type}/", value.decode(), epoch)
-
-                    # output/target values
-                    else:
-                        data_value = np.array(data_value)
-
-                        for batch_index, value in enumerate(data_value):
-                            tensorboard_writer.add_scalar(f"{data_name}/{batch_index}/{pass_type}", value, epoch)
-
-            except TypeError:
-                raise ValueError("Error in export epoch to hdf5")
