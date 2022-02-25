@@ -3,6 +3,7 @@ from time import time
 import h5py
 import os
 import logging
+import csv
 
 # torch import
 import torch
@@ -447,6 +448,24 @@ class NeuralNet(object):
             accuracy = (tp + tn) / (tp + tn + fp + fn)
             tensorboard_writer.add_scalar(f"{pass_name} accuracy", accuracy, epoch_number)
 
+    @staticmethod
+    def _export_epoch_prediction_table(epoch_number, pass_name, task, epoch_data, directory_path):
+
+        table_path = os.path.join(directory_path, f"predictions_{pass_name}_epoch{epoch_number}.csv")
+
+        with open(table_path, 'w') as f:
+            w = csv.writer(f)
+
+            header = ["entry id", "output", "target"]
+            w.writerow(header)
+
+            for mol_index, mol_name in enumerate(epoch_data['mol']):
+
+                output = epoch_data['outputs'][mol_index]
+                target = epoch_data['targets'][mol_index]
+
+                row = [mol_name, output, target]
+                w.writerow(row)
 
     def eval(self, loader, epoch_number, pass_name, tensorboard_writer):
         """
@@ -505,6 +524,7 @@ class NeuralNet(object):
         data['loss'] += [loss_val]
 
         self._export_epoch_tensorboard(epoch_number, pass_name, self.task, data, tensorboard_writer)
+        self._export_epoch_prediction_table(epoch_number, pass_name, self.task, data, tensorboard_writer.log_dir)
 
         return out, y, loss_val, data
 
@@ -568,6 +588,7 @@ class NeuralNet(object):
         data['loss'] += [epoch_loss]
 
         self._export_epoch_tensorboard(epoch_number, pass_name, self.task, data, tensorboard_writer)
+        self._export_epoch_prediction_table(epoch_number, pass_name, self.task, data, tensorboard_writer.log_dir)
 
         return out, y, epoch_loss, data
 
