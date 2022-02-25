@@ -416,10 +416,10 @@ class NeuralNet(object):
             self.test_loss = _test_loss
 
     @staticmethod
-    def _export_epoch_tensorboard(epoch_number, pass_, task, epoch_data, tensorboard_writer):
+    def _export_epoch_tensorboard(epoch_number, pass_name, task, epoch_data, tensorboard_writer):
 
         loss = epoch_data['loss'][0]
-        tensorboard_writer.add_scalar("loss", loss, epoch_number)
+        tensorboard_writer.add_scalar(f"{pass_name} loss", loss, epoch_number)
 
         fp, fn, tp, tn = 0, 0, 0, 0
 
@@ -442,10 +442,10 @@ class NeuralNet(object):
                     fn += 1
 
             mcc = (tn * tp - fp * fn) / np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
-            tensorboard_writer.add_scalar("MCC", mcc, epoch_number)
+            tensorboard_writer.add_scalar(f"{pass_name} MCC", mcc, epoch_number)
 
             accuracy = (tp + tn) / (tp + tn + fp + fn)
-            tensorboard_writer.add_scalar("accuracy", accuracy, epoch_number)
+            tensorboard_writer.add_scalar(f"{pass_name} accuracy", accuracy, epoch_number)
 
 
     def eval(self, loader, epoch_number, pass_name, tensorboard_writer):
