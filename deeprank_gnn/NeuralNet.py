@@ -583,7 +583,7 @@ class NeuralNet(object):
             data['targets'] += y
             data['outputs'] += out
 
-        epoch_loss = sum(losses) / len(losses)
+        epoch_loss = sum(losses)
 
         data['loss'] += [epoch_loss]
 
