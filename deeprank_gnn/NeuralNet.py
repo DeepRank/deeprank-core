@@ -417,36 +417,40 @@ class NeuralNet(object):
             self.test_loss = _test_loss
 
     @staticmethod
-    def _export_epoch_tensorboard(epoch_number, pass_name, task, epoch_data, tensorboard_writer):
+    def _export_metrics_tensorboard(epoch_number, batch_number, batches_per_epoch, pass_name,
+                                    task, loss, prediction, target, tensorboard_writer):
 
-        loss = epoch_data['loss'][0]
-        tensorboard_writer.add_scalar(f"{pass_name} loss", loss, epoch_number)
+        iteration_number = np.ceil(100 * ((epoch_number - 1) + (batch_number / batches_per_epoch)))
+
+        tensorboard_writer.add_scalar(f"{pass_name} loss", loss, iteration_number)
 
         fp, fn, tp, tn = 0, 0, 0, 0
 
         if task == "class":
-            for mol_index, mol_name in enumerate(epoch_data['mol']):
+            for mol_index, target_value in enumerate(target):
+                prediction_value = prediction[mol_index]
 
-                output = epoch_data['outputs'][mol_index]
-                target = epoch_data['targets'][mol_index]
-
-                if output > 0.0 and target > 0.0:
+                if prediction_value > 0.0 and target_value > 0.0:
                     tp += 1
 
-                elif output <= 0.0 and target <= 0.0:
+                elif prediction_value <= 0.0 and target_value <= 0.0:
                     tn += 1
 
-                elif output > 0.0 and target <= 0.0:
+                elif prediction_value > 0.0 and target_value <= 0.0:
                     fp += 1
 
-                elif output <= 0.0 and target > 0.0:
+                elif prediction_value <= 0.0 and target_value > 0.0:
                     fn += 1
 
-            mcc = (tn * tp - fp * fn) / np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
-            tensorboard_writer.add_scalar(f"{pass_name} MCC", mcc, epoch_number)
+            mcc_quotient = np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
+            if mcc_quotient == 0:
+                mcc = 0.0
+            else:
+                mcc = (tn * tp - fp * fn) / mcc_quotient
+            tensorboard_writer.add_scalar(f"{pass_name} MCC", mcc, iteration_number)
 
             accuracy = (tp + tn) / (tp + tn + fp + fn)
-            tensorboard_writer.add_scalar(f"{pass_name} accuracy", accuracy, epoch_number)
+            tensorboard_writer.add_scalar(f"{pass_name} accuracy", accuracy, iteration_number)
 
     @staticmethod
     def _export_epoch_prediction_table(epoch_number, pass_name, task, epoch_data, directory_path):
@@ -487,7 +491,9 @@ class NeuralNet(object):
         y = []
         data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
 
-        for data_batch in loader:
+        batch_count = len(loader)
+
+        for batch_index, data_batch in enumerate(loader):
 
             data_batch = data_batch.to(self.device)
             pred = self.model(data_batch)
@@ -497,8 +503,8 @@ class NeuralNet(object):
             # Check if a target value was provided (i.e. benchmarck scenario)
             if data_batch.y is not None:
                 y += data_batch.y.tolist()
-                loss_val += loss_func(pred,
-                                      data_batch.y).detach().item()
+                loss = loss_func(pred, data_batch.y).detach().item()
+                loss_val += loss
 
             # get the outputs for export
             if self.task == 'class':
@@ -512,6 +518,9 @@ class NeuralNet(object):
             # get the data
             data['mol'] += data_batch['mol']
 
+            self._export_metrics_tensorboard(epoch_number, batch_index + 1, batch_count, pass_name,
+                                             self.task, loss, pred, data_batch.y, tensorboard_writer)
+
         # Save targets
         if self.task == 'class':
 
@@ -523,7 +532,6 @@ class NeuralNet(object):
 
         data['loss'] += [loss_val]
 
-        self._export_epoch_tensorboard(epoch_number, pass_name, self.task, data, tensorboard_writer)
         self._export_epoch_prediction_table(epoch_number, pass_name, self.task, data, tensorboard_writer.log_dir)
 
         return out, y, loss_val, data
@@ -545,7 +553,10 @@ class NeuralNet(object):
         y = []
         data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
 
-        for data_batch in self.train_loader:
+        batch_count = len(self.train_loader)
+
+        for batch_index, data_batch in enumerate(self.train_loader):
+
             data_batch = data_batch.to(self.device)
             self.optimizer.zero_grad()
             pred = self.model(data_batch)
@@ -574,6 +585,9 @@ class NeuralNet(object):
             # get the data
             data['mol'] += data_batch['mol']
 
+            self._export_metrics_tensorboard(epoch_number, batch_index + 1, batch_count, pass_name,
+                                             self.task, loss.detach().item(), pred, data_batch.y, tensorboard_writer)
+
         # save targets and predictions
         if self.task == 'class':
 
@@ -587,7 +601,6 @@ class NeuralNet(object):
 
         data['loss'] += [epoch_loss]
 
-        self._export_epoch_tensorboard(epoch_number, pass_name, self.task, data, tensorboard_writer)
         self._export_epoch_prediction_table(epoch_number, pass_name, self.task, data, tensorboard_writer.log_dir)
 
         return out, y, epoch_loss, data
