@@ -486,12 +486,14 @@ class NeuralNet(object):
         """
         self.model.eval()
 
-        loss_func, loss_val = self.loss, 0
+        loss_func = self.loss
         out = []
         y = []
         data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
 
         batch_count = len(loader)
+        sum_of_losses = 0
+        count_predictions = 0
 
         for batch_index, data_batch in enumerate(loader):
 
@@ -503,8 +505,10 @@ class NeuralNet(object):
             # Check if a target value was provided (i.e. benchmarck scenario)
             if data_batch.y is not None:
                 y += data_batch.y.tolist()
-                loss = loss_func(pred, data_batch.y).detach().item()
-                loss_val += loss
+                loss = loss_func(pred, data_batch.y)
+
+                count_predictions += pred.shape[0]
+                sum_of_losses += loss.detach().item() * pred.shape[0]
 
             # get the outputs for export
             if self.task == 'class':
@@ -519,7 +523,7 @@ class NeuralNet(object):
             data['mol'] += data_batch['mol']
 
             self._export_metrics_tensorboard(epoch_number, batch_index + 1, batch_count, pass_name,
-                                             self.task, loss, pred, data_batch.y, tensorboard_writer)
+                                             self.task, loss.detach().item(), pred, data_batch.y, tensorboard_writer)
 
         # Save targets
         if self.task == 'class':
@@ -530,11 +534,16 @@ class NeuralNet(object):
             data['targets'] += y
             data['outputs'] += out
 
-        data['loss'] += [loss_val]
+        if count_predictions > 0:
+            eval_loss = sum_of_losses / count_predictions
+        else:
+            eval_loss = 0.0
+
+        data['loss'] += [eval_loss]
 
         self._export_epoch_prediction_table(epoch_number, pass_name, self.task, data, tensorboard_writer.log_dir)
 
-        return out, y, loss_val, data
+        return out, y, eval_loss, data
 
     def _epoch(self, epoch_number, pass_name, tensorboard_writer):
         """
@@ -548,7 +557,10 @@ class NeuralNet(object):
         Returns:
             tuple: prediction, ground truth, running loss
         """
-        losses = []
+
+        sum_of_losses = 0
+        count_predictions = 0
+
         out = []
         y = []
         data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
@@ -563,9 +575,12 @@ class NeuralNet(object):
             pred, data_batch.y = self.format_output(pred, data_batch.y)
 
             loss = self.loss(pred, data_batch.y)
-            losses.append(loss.detach().item())
+
             loss.backward()
             self.optimizer.step()
+
+            count_predictions += pred.shape[0]
+            sum_of_losses += loss.detach().item() * pred.shape[0]  # convert mean back to sum
 
             try:
                 y += data_batch.y.tolist()
@@ -597,7 +612,10 @@ class NeuralNet(object):
             data['targets'] += y
             data['outputs'] += out
 
-        epoch_loss = sum(losses) / len(losses)
+        if count_predictions > 0:
+            epoch_loss = sum_of_losses / count_predictions
+        else:
+            epoch_loss = 0.0
 
         data['loss'] += [epoch_loss]
 

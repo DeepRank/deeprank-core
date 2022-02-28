@@ -62,7 +62,7 @@ class SingleResidueVariantResidueQuery(Query):
 
     def __init__(self, pdb_path, chain_id, residue_number, insertion_code, wildtype_amino_acid, variant_amino_acid,
                  pssm_paths=None, wildtype_conservation=None, variant_conservation=None,
-                 radius=10.0, external_distance_cutoff=8.5, targets=None):
+                 radius=10.0, external_distance_cutoff=4.5, targets=None):
 
         """
             Args:
@@ -321,7 +321,7 @@ class SingleResidueVariantAtomicQuery(Query):
 
     def __init__(self, pdb_path, chain_id, residue_number, insertion_code, wildtype_amino_acid, variant_amino_acid,
                  pssm_paths=None, wildtype_conservation=None, variant_conservation=None,
-                 radius=10.0, external_distance_cutoff=8.5, internal_distance_cutoff=3.0,
+                 radius=10.0, external_distance_cutoff=4.5, internal_distance_cutoff=3.0,
                  targets=None):
         """
             Args:
