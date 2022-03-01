@@ -346,22 +346,23 @@ class HDF5DataSet(Dataset):
         data.mol = mol
 
         # cluster
-        if 'clustering' in grp.keys():
-            if self.clustering_method in grp['clustering'].keys():
-                if ('depth_0' in grp['clustering/{}'.format(self.clustering_method)].keys() and
-                        'depth_1' in grp['clustering/{}'.format(
-                            self.clustering_method)].keys()
-                    ):
-                    data.cluster0 = torch.tensor(
-                        grp['clustering/' + self.clustering_method + '/depth_0'][()], dtype=torch.long)
-                    data.cluster1 = torch.tensor(
-                        grp['clustering/' + self.clustering_method + '/depth_1'][()], dtype=torch.long)
+        if self.clustering_method is not None:
+            if 'clustering' in grp.keys():
+                if self.clustering_method in grp['clustering'].keys():
+                    if ('depth_0' in grp['clustering/{}'.format(self.clustering_method)].keys() and
+                            'depth_1' in grp['clustering/{}'.format(
+                                self.clustering_method)].keys()
+                        ):
+                        data.cluster0 = torch.tensor(
+                            grp['clustering/' + self.clustering_method + '/depth_0'][()], dtype=torch.long)
+                        data.cluster1 = torch.tensor(
+                            grp['clustering/' + self.clustering_method + '/depth_1'][()], dtype=torch.long)
+                    else:
+                        print('WARNING: no cluster detected')
                 else:
                     print('WARNING: no cluster detected')
             else:
                 print('WARNING: no cluster detected')
-        else:
-            print('WARNING: no cluster detected')
 
         f5.close()
         return data
