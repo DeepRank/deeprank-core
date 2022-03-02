@@ -170,6 +170,7 @@ class SingleResidueVariantResidueQuery(Query):
             graph.nodes[node_name][FEATURENAME_POSITION] = numpy.mean([atom.position for atom in residue.atoms], axis=0)
             graph.nodes[node_name][FEATURENAME_CHARGE] = residue.amino_acid.charge
             graph.nodes[node_name][FEATURENAME_POLARITY] = residue.amino_acid.polarity.onehot
+            graph.nodes[node_name][FEATURENAME_SIZE] = residue.amino_acid.size
 
             if residue == variant_residue:
 
