@@ -25,7 +25,8 @@ class NeuralNet(object):
 
     def __init__(self, database, Net,
                  node_feature=['type', 'polarity', 'bsa'],
-                 edge_feature=['dist'], target='irmsd', lr=0.01,
+                 edge_feature=['dist'], target='irmsd',
+                 lr=0.01, weight_decay=0.0000,
                  batch_size=32, percent=[1.0, 0.0],
                  database_eval=None, index=None, class_weights=None, task=None,
                  classes=[0, 1], threshold=None,
@@ -43,6 +44,7 @@ class NeuralNet(object):
             target (str, optional): irmsd, lrmsd, fnat, capri_class, bin_class, dockQ.
                     Defaults to 'irmsd'.
             lr (float, optional): learning rate. Defaults to 0.01.
+            weight_decay (float, optional): weight decay, defaults to 0.0000
             batch_size (int, optional): defaults to 32.
             percent (list, optional): divides the input dataset into a training and an evaluation set.
                     Defaults to [1.0, 0.0].
@@ -119,7 +121,8 @@ class NeuralNet(object):
 
         # optimizer
         self.optimizer = torch.optim.Adam(
-            self.model.parameters(), lr=self.lr)
+            self.model.parameters(), lr=self.lr,
+            weight_decay=self.weight_decay)
 
         # load the model and the optimizer state if we have one
         self.optimizer.load_state_dict(self.opt_loaded_state_dict)
@@ -187,7 +190,8 @@ class NeuralNet(object):
 
         # optimizer
         self.optimizer = torch.optim.Adam(
-            self.model.parameters(), lr=self.lr)
+            self.model.parameters(), lr=self.lr,
+            weight_decay=self.weight_decay)
 
         self.set_loss()
 
@@ -869,6 +873,7 @@ class NeuralNet(object):
                  'batch_size': self.batch_size,
                  'percent': self.percent,
                  'lr': self.lr,
+                 'weight_decay': self.weight_decay,
                  'index': self.index,
                  'shuffle': self.shuffle,
                  'threshold': self.threshold,
@@ -898,6 +903,7 @@ class NeuralNet(object):
         self.batch_size = state['batch_size']
         self.percent = state['percent']
         self.lr = state['lr']
+        self.weight_decay = state['weight_decay']
         self.index = state['index']
         self.class_weights = state['class_weight']
         self.task = state['task']
