@@ -446,12 +446,16 @@ class NeuralNet(object):
                 elif prediction_value <= 0.0 and target_value > 0.0:
                     fn += 1
 
-            mcc_quotient = np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
-            if mcc_quotient == 0:
-                mcc = 0.0
+            mcc_numerator = tn * tp - fp * fn
+            if mcc_numerator == 0.0:
+                 tensorboard_writer.add_scalar(f"{pass_name} MCC", 0.0, iteration_number)
+
             else:
-                mcc = (tn * tp - fp * fn) / mcc_quotient
-            tensorboard_writer.add_scalar(f"{pass_name} MCC", mcc, iteration_number)
+                mcc_denominator = np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
+
+                if mcc_denominator != 0.0:
+                    mcc = mcc_numerator / mcc_denominator
+                    tensorboard_writer.add_scalar(f"{pass_name} MCC", mcc, iteration_number)
 
             accuracy = (tp + tn) / (tp + tn + fp + fn)
             tensorboard_writer.add_scalar(f"{pass_name} accuracy", accuracy, iteration_number)
