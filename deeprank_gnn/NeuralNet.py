@@ -296,9 +296,12 @@ class NeuralNet(object):
             # Number of epochs
             self.nepoch = nepoch
 
+            if validate:
+                self.eval(self.valid_loader, 0, "validation", tensorboard_writer)
+
             # Loop over epochs
             self.data = {}
-            for epoch in range(1, nepoch+1):
+            for epoch in range(1, nepoch + 1):
 
                 # Train the model
                 self.model.train()
@@ -317,8 +320,7 @@ class NeuralNet(object):
                     'train', epoch, _loss, _acc, t)
 
                 # Validate the model
-                if validate is True:
-
+                if validate:
                     t0 = time()
                     _out, _y, _val_loss, self.data['eval'] = self.eval(self.valid_loader, epoch, "validation", tensorboard_writer)
                     t = time() - t0
@@ -421,10 +423,10 @@ class NeuralNet(object):
             self.test_loss = _test_loss
 
     @staticmethod
-    def _export_metrics_tensorboard(epoch_number, batch_number, batches_per_epoch, pass_name,
+    def _export_metrics_tensorboard(epoch_number, batch_index, batches_per_epoch, pass_name,
                                     task, loss, prediction, target, tensorboard_writer):
 
-        iteration_number = np.ceil(100 * ((epoch_number - 1) + (batch_number / batches_per_epoch)))
+        iteration_number = np.ceil(100 * (epoch_number + (batch_index / batches_per_epoch)))
 
         tensorboard_writer.add_scalar(f"{pass_name} loss", loss, iteration_number)
 
@@ -526,7 +528,7 @@ class NeuralNet(object):
             # get the data
             data['mol'] += data_batch['mol']
 
-            self._export_metrics_tensorboard(epoch_number, batch_index + 1, batch_count, pass_name,
+            self._export_metrics_tensorboard(epoch_number, batch_index, batch_count, pass_name,
                                              self.task, loss.detach().item(), pred, data_batch.y, tensorboard_writer)
 
         # Save targets
@@ -604,7 +606,7 @@ class NeuralNet(object):
             # get the data
             data['mol'] += data_batch['mol']
 
-            self._export_metrics_tensorboard(epoch_number, batch_index + 1, batch_count, pass_name,
+            self._export_metrics_tensorboard(epoch_number, batch_index, batch_count, pass_name,
                                              self.task, loss.detach().item(), pred, data_batch.y, tensorboard_writer)
 
         # save targets and predictions
