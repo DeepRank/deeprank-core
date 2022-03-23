@@ -126,6 +126,8 @@ def graph_to_hdf5(graph, hdf5_file):
     for target_name, target_value in graph.targets.items():
         score_group.create_dataset(target_name, data=target_value)
 
+    return graph_group
+
 
 def _get_node_key(value):
     if type(value) == str:
