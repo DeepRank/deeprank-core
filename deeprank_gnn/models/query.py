@@ -61,7 +61,7 @@ class SingleResidueVariantResidueQuery(Query):
     "creates a residue graph from a single residue variant in a pdb file"
 
     def __init__(self, pdb_path, chain_id, residue_number, insertion_code, wildtype_amino_acid, variant_amino_acid,
-                 pssm_paths=None, wildtype_conservation=None, variant_conservation=None,
+                 pssm_paths=None,
                  radius=10.0, external_distance_cutoff=4.5, targets=None):
 
         """
@@ -73,8 +73,6 @@ class SingleResidueVariantResidueQuery(Query):
                 wildtype_amino_acid(deeprank amino acid object): the wildtype amino acid
                 variant_amino_acid(deeprank amino acid object): the variant amino acid
                 pssm_paths(dict(str,str), optional): the paths to the pssm files, per chain identifier
-                wildtype_conservation(float): conservation value for the wildtype
-                variant_conservation(float): conservation value for the variant
                 radius(float): in Ångström, determines how many residues will be included in the graph
                 external_distance_cutoff(float): max distance in Ångström between a pair of atoms to consider them as an external edge in the graph
                 targets(dict(str,float)): named target values associated with this query
@@ -82,8 +80,6 @@ class SingleResidueVariantResidueQuery(Query):
 
         self._pdb_path = pdb_path
         self._pssm_paths = pssm_paths
-        self._wildtype_conservation = wildtype_conservation
-        self._variant_conservation = variant_conservation
 
         model_id = os.path.splitext(os.path.basename(pdb_path))[0]
 
@@ -210,18 +206,6 @@ class SingleResidueVariantResidueQuery(Query):
             graph.nodes[node_name][FEATURENAME_INFORMATIONCONTENT] = pssm_row.information_content
             graph.nodes[node_name][FEATURENAME_PSSM] = pssm_value
 
-    @staticmethod
-    def _set_conservation(graph, node_name_residues, variant_residue, wildtype_conservation, variant_conservation):
-
-        for node_name, residue in node_name_residues.items():
-
-            if residue == variant_residue:
-                difference = variant_conservation - wildtype_conservation
-            else:
-                difference = 0.0
-
-            graph.nodes[node_name][FEATURENAME_CONSERVATIONDIFFERENCE] = difference
-
     def build_graph(self):
         # load pdb strucure
         pdb = pdb2sql.pdb2sql(self._pdb_path)
@@ -310,8 +294,6 @@ class SingleResidueVariantResidueQuery(Query):
 
         self._set_pssm(graph, node_name_residues, variant_residue,
                        self._wildtype_amino_acid, self._variant_amino_acid)
-        self._set_conservation(graph, node_name_residues, variant_residue,
-                               self._wildtype_conservation, self._variant_conservation)
 
         return graph
 
@@ -321,7 +303,7 @@ class SingleResidueVariantAtomicQuery(Query):
     "creates an atomic graph for a single residue variant in a pdb file"
 
     def __init__(self, pdb_path, chain_id, residue_number, insertion_code, wildtype_amino_acid, variant_amino_acid,
-                 pssm_paths=None, wildtype_conservation=None, variant_conservation=None,
+                 pssm_paths=None,
                  radius=10.0, external_distance_cutoff=4.5, internal_distance_cutoff=3.0,
                  targets=None):
         """
@@ -333,8 +315,6 @@ class SingleResidueVariantAtomicQuery(Query):
                 wildtype_amino_acid(deeprank amino acid object): the wildtype amino acid
                 variant_amino_acid(deeprank amino acid object): the variant amino acid
                 pssm_paths(dict(str,str), optional): the paths to the pssm files, per chain identifier
-                wildtype_conservation(float): conservation value for the wildtype
-                variant_conservation(float): conservation value for the variant
                 radius(float): in Ångström, determines how many residues will be included in the graph
                 external_distance_cutoff(float): max distance in Ångström between a pair of atoms to consider them as an external edge in the graph
                 internal_distance_cutoff(float): max distance in Ångström between a pair of atoms to consider them as an internal edge in the graph (must be shorter than external)
@@ -343,8 +323,6 @@ class SingleResidueVariantAtomicQuery(Query):
 
         self._pdb_path = pdb_path
         self._pssm_paths = pssm_paths
-        self._wildtype_conservation = wildtype_conservation
-        self._variant_conservation = variant_conservation
 
         model_id = os.path.splitext(os.path.basename(pdb_path))[0]
 
@@ -495,8 +473,6 @@ class SingleResidueVariantAtomicQuery(Query):
 
         SingleResidueVariantAtomicQuery._set_pssm(graph, node_name_atoms, variant_residue,
                                                   self._wildtype_amino_acid, self._variant_amino_acid)
-        SingleResidueVariantAtomicQuery._set_conservation(graph, node_name_atoms, variant_residue,
-                                                          self._wildtype_conservation, self._variant_conservation)
 
         SingleResidueVariantAtomicQuery._set_sasa(graph, node_name_atoms, self._pdb_path)
 
@@ -547,18 +523,6 @@ class SingleResidueVariantAtomicQuery(Query):
 
             graph.nodes[node_name][FEATURENAME_INFORMATIONCONTENT] = pssm_row.information_content
             graph.nodes[node_name][FEATURENAME_PSSM] = pssm_value
-
-    @staticmethod
-    def _set_conservation(graph, node_name_atoms, variant_residue, wildtype_conservation, variant_conservation):
-
-        for node_name, atom in node_name_atoms.items():
-
-            if atom.residue == variant_residue:
-                difference = variant_conservation - wildtype_conservation
-            else:
-                difference = 0.0
-
-            graph.nodes[node_name][FEATURENAME_CONSERVATIONDIFFERENCE] = difference
 
     @staticmethod
     def _set_sasa(graph, node_name_atoms, pdb_path):
