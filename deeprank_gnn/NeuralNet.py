@@ -448,7 +448,7 @@ class NeuralNet(object):
             eval_loss = 0.0
 
         self._metrics_exporters.process(pass_name, epoch_number, entry_names, outputs, targets)
-        self.log_epoch_data(pass_name, epoch_number, loss_, dt)
+        self.log_epoch_data(pass_name, epoch_number, eval_loss, dt)
 
         return eval_loss
 
