@@ -322,9 +322,6 @@ class NeuralNet(object):
 
                     valid_losses.append(loss_)
 
-                    # Print loss and accuracy (validation set)
-                    self.log_epoch_data('validation', epoch, loss_, t)
-
                     # save the best model (i.e. lowest loss value on validation data)
                     if save_model == 'best':
 
