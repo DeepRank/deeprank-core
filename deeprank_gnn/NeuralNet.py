@@ -203,13 +203,6 @@ class NeuralNet(object):
 
         self.set_loss()
 
-        # init lists
-        self.train_acc = []
-        self.train_loss = []
-
-        self.valid_acc = []
-        self.valid_loss = []
-
     def put_model_to_device(self, dataset, Net):
         """
         Puts the model on the available device
@@ -294,6 +287,9 @@ class NeuralNet(object):
             tensorboard_directory (directory path, optional): where to store the tensorflow files
         """
 
+        train_losses = []
+        valid_losses = []
+
         with self._metrics_exporters:
 
             # Output file name
@@ -302,9 +298,9 @@ class NeuralNet(object):
             # Number of epochs
             self.nepoch = nepoch
 
-            self.eval(self.train_loader, 0, "training", self._metrics_exporters)
+            self.eval(self.train_loader, 0, "training")
             if validate:
-                self.eval(self.valid_loader, 0, "validation", self._metrics_exporters)
+                self.eval(self.valid_loader, 0, "validation")
 
             # Loop over epochs
             self.data = {}
@@ -313,53 +309,37 @@ class NeuralNet(object):
                 # Train the model
                 self.model.train()
 
-                t0 = time()
-                _out, _y, _loss, self.data['train'] = self._epoch(epoch, "training", self._metrics_exporters)
-                t = time() - t0
-                self.train_loss.append(_loss)
-                self.train_out = _out
-                self.train_y = _y
-                _acc = self.get_metrics('train', self.threshold).accuracy
-                self.train_acc.append(_acc)
+                loss_ = self._epoch(epoch, "training")
 
-                # Print the loss and accuracy (training set)
-                self.log_epoch_data(
-                    'train', epoch, _loss, _acc, t)
+                train_losses.append(loss_)
+
 
                 # Validate the model
                 if validate:
                     t0 = time()
-                    _out, _y, _val_loss, self.data['eval'] = self.eval(self.valid_loader, epoch, "validation", self._metrics_exporters)
+                    loss_ = self.eval(self.valid_loader, epoch, "validation")
                     t = time() - t0
 
-                    self.valid_loss.append(_val_loss)
-                    self.valid_out = _out
-                    self.valid_y = _y
-                    _val_acc = self.get_metrics(
-                        'eval', self.threshold).accuracy
-                    self.valid_acc.append(_val_acc)
+                    valid_losses.append(loss_)
 
                     # Print loss and accuracy (validation set)
-                    self.log_epoch_data(
-                        'valid', epoch, _val_loss, _val_acc, t)
+                    self.log_epoch_data('validation', epoch, loss_, t)
 
                     # save the best model (i.e. lowest loss value on validation data)
                     if save_model == 'best':
 
-                        if min(self.valid_loss) == _val_loss:
+                        if min(valid_losses) == _val_loss:
                             self.save_model(filename='t{}_y{}_b{}_e{}_lr{}_{}.pth.tar'.format(
                                 self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr), str(epoch)))
 
                 else:
                     # if no validation set, saves the best performing model on the traing set
                     if save_model == 'best':
-                        if min(self.train_loss) == _loss:
-                            print(
-                                'WARNING: The training set is used both for learning and model selection.')
-                            print(
-                                'this may lead to training set data overfitting.')
-                            print(
-                                'We advice you to use an external validation set.')
+                        if min(train_losses) == _loss:
+                            _log.warning("""The training set is used both for learning and model selection.
+                                            This may lead to training set data overfitting.
+                                            We advice you to use an external validation set.""")
+
                             self.save_model(filename='t{}_y{}_b{}_e{}_lr{}_{}.pth.tar'.format(
                                 self.task, self.target, str(self.batch_size), str(nepoch), str(self.lr), str(epoch)))
 
@@ -388,15 +368,15 @@ class NeuralNet(object):
 
             # Loads the test dataset if provided
             if database_test is not None:
+
                 # Load the test set
                 test_dataset = HDF5DataSet(root='./', database=database_test,
                                            node_feature=self.node_feature, edge_feature=self.edge_feature,
                                            target=self.target, clustering_method=self.cluster_nodes)
-                print('Test set loaded')
+
                 PreCluster(test_dataset, method='mcl')
 
-                self.test_loader = DataLoader(
-                    test_dataset)
+                self.test_loader = DataLoader(test_dataset)
 
             else:
                 if self.load_pretrained_model == None:
@@ -410,47 +390,33 @@ class NeuralNet(object):
             self.data = {}
 
             # Run test
-            _out, _y, _test_loss, self.data['test'] = self.eval(self.test_loader, 0, "testing", self._metrics_exporters)
+            loss_ = self.eval(self.test_loader, 0, "testing")
 
-            self.test_out = _out
-
-            if len(_y) == 0:
-                self.test_y = None
-                self.test_acc = None
-            else:
-                self.test_y = _y
-                _test_acc = self.get_metrics('test', threshold).accuracy
-                self.test_acc = _test_acc
-
-                self.log_epoch_data(
-                    'test', 0, _test_loss, _test_acc, 0.0)
-
-            self.test_loss = _test_loss
-
-    def eval(self, loader, epoch_number, pass_name, metrics_exporter):
+    def eval(self, loader: DataLoader, epoch_number: int, pass_name: str) -> float:
         """
         Evaluates the model
 
         Args:
-            loader (DataLoader): [description]
-            epoch_number (int)
-            pass_name (str): 'training', 'validation' or 'testing'
+            loader: data to evaluate on
+            epoch_number: number for this epoch, used for storing the metrics
+            pass_name: 'training', 'validation' or 'testing'
 
         Returns:
-            (tuple):
+            running loss:
         """
         self.model.eval()
 
         loss_func = self.loss
-        out = []
-        y = []
-        z = []
-        data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
+
+        targets = []
+        outputs = []
+        entry_names = []
 
         batch_count = len(loader)
         sum_of_losses = 0
         count_predictions = 0
 
+        t0 = time()
         for batch_index, data_batch in enumerate(loader):
 
             data_batch = data_batch.to(self.device)
@@ -460,47 +426,36 @@ class NeuralNet(object):
 
             # Check if a target value was provided (i.e. benchmarck scenario)
             if data_batch.y is not None:
-                y += data_batch.y.tolist()
-                loss = loss_func(pred, data_batch.y)
+                targets += data_batch.y.tolist()
+                loss_ = loss_func(pred, data_batch.y)
 
                 count_predictions += pred.shape[0]
-                sum_of_losses += loss.detach().item() * pred.shape[0]
+                sum_of_losses += loss_.detach().item() * pred.shape[0]
 
             # get the outputs for export
             if self.task == 'class':
-                pred = F.softmax(pred, dim=1)
-                z += pred.detach().tolist()
-                pred = np.argmax(pred.detach(), axis=1)
+                pred = F.softmax(pred.detach(), dim=1)
             else:
                 pred = pred.detach().reshape(-1)
-                z += pred.tolist()
 
-            out += pred.tolist()
+            outputs += pred.tolist()
 
             # get the data
-            data['mol'] += data_batch['mol']
+            entry_names += data_batch['mol']
 
-        # Save targets
-        if self.task == 'class':
-
-            data['targets'] += [self.idx_to_classes[x] for x in y]
-            data['outputs'] += [self.idx_to_classes[x] for x in out]
-        else:
-            data['targets'] += y
-            data['outputs'] += out
+        dt = time() - t0
 
         if count_predictions > 0:
             eval_loss = sum_of_losses / count_predictions
         else:
             eval_loss = 0.0
 
-        data['loss'] += [eval_loss]
+        self._metrics_exporters.process(pass_name, epoch_number, entry_names, outputs, targets)
+        self.log_epoch_data(pass_name, epoch_number, loss_, dt)
 
-        metrics_exporter.process(pass_name, epoch_number, data['mol'], z, y)
+        return eval_loss
 
-        return out, y, eval_loss, data
-
-    def _epoch(self, epoch_number, pass_name, metrics_exporter):
+    def _epoch(self, epoch_number: int, pass_name: str) -> float:
         """
         Runs a single epoch
 
@@ -509,19 +464,19 @@ class NeuralNet(object):
             pass_name (str): 'training', 'validation' or 'testing'
 
         Returns:
-            tuple: prediction, ground truth, running loss
+            running loss
         """
 
         sum_of_losses = 0
         count_predictions = 0
 
-        out = []
-        y = []
-        z = []
-        data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
+        targets = []
+        outputs = []
+        entry_names = []
 
         batch_count = len(self.train_loader)
 
+        t0 = time()
         for batch_index, data_batch in enumerate(self.train_loader):
 
             data_batch = data_batch.to(self.device)
@@ -529,95 +484,37 @@ class NeuralNet(object):
             pred = self.model(data_batch)
             pred, data_batch.y = self.format_output(pred, data_batch.y)
 
-            loss = self.loss(pred, data_batch.y)
-
-            loss.backward()
+            loss_ = self.loss(pred, data_batch.y)
+            loss_.backward()
             self.optimizer.step()
 
             count_predictions += pred.shape[0]
-            sum_of_losses += loss.detach().item() * pred.shape[0]  # convert mean back to sum
+            sum_of_losses += loss_.detach().item() * pred.shape[0]  # convert mean back to sum
 
-            try:
-                y += data_batch.y.tolist()
-            except ValueError:
-                print(
-                    "You must provide target values (y) for the training set")
+            targets += data_batch.y.tolist()
 
             # get the outputs for export
             if self.task == 'class':
-                pred = F.softmax(pred, dim=1)
-                z += pred.detach().tolist()
-                pred = np.argmax(pred.detach(), axis=1)
+                pred = F.softmax(pred.detach(), dim=1)
             else:
                 pred = pred.detach().reshape(-1)
-                z += pred.tolist()
 
-            out += pred.tolist()
+            outputs += pred.tolist()
 
             # get the data
-            data['mol'] += data_batch['mol']
+            entry_names += data_batch['mol']
 
-        # save targets and predictions
-        if self.task == 'class':
-
-            data['targets'] += [self.idx_to_classes[x] for x in y]
-            data['outputs'] += [self.idx_to_classes[x] for x in out]
-        else:
-            data['targets'] += y
-            data['outputs'] += out
+        dt = time() - t0
 
         if count_predictions > 0:
             epoch_loss = sum_of_losses / count_predictions
         else:
             epoch_loss = 0.0
 
-        data['loss'] += [epoch_loss]
+        self._metrics_exporters.process(pass_name, epoch_number, entry_names, outputs, targets)
+        self.log_epoch_data(pass_name, epoch_number, epoch_loss, dt)
 
-        metrics_exporter.process(pass_name, epoch_number, data['mol'], z, y)
-
-        return out, y, epoch_loss, data
-
-    def get_metrics(self, data='eval', threshold=4.0, binary=True):
-        """
-        Computes the metrics needed
-
-        Args:
-            data (str, optional): 'eval', 'train' or 'test'. Defaults to 'eval'.
-            threshold (float, optional): threshold use to tranform data into binary values. Defaults to 4.0.
-            binary (bool, optional): Transform data into binary data. Defaults to True.
-        """
-        if self.task == 'class':
-            threshold = self.classes_to_idx[threshold]
-
-        if data == 'eval':
-            if len(self.valid_out) == 0:
-                print('No evaluation set has been provided')
-
-            else:
-                pred = self.valid_out
-                y = self.valid_y
-
-        elif data == 'train':
-            if len(self.train_out) == 0:
-                print('No training set has been provided')
-
-            else:
-                pred = self.train_out
-                y = self.train_y
-
-        elif data == 'test':
-            if len(self.test_out) == 0:
-                print('No test set has been provided')
-
-            if self.test_y == None:
-                print(
-                    'You must provide ground truth target values to compute the metrics')
-
-            else:
-                pred = self.test_out
-                y = self.test_y
-
-        return Metrics(pred, y, self.target, threshold, binary)
+        return epoch_loss
 
     def compute_class_weights(self):
 
@@ -635,7 +532,7 @@ class NeuralNet(object):
         return weights
 
     @staticmethod
-    def log_epoch_data(stage, epoch, loss, acc, time):
+    def log_epoch_data(stage, epoch, loss, time):
         """
         Prints the data of each epoch
 
@@ -643,15 +540,10 @@ class NeuralNet(object):
             stage (str): train or valid
             epoch (int): epoch number
             loss (float): loss during that epoch
-            acc (float or None): accuracy
             time (float): timing of the epoch
         """
-        if acc is None:
-            acc_str = 'None'
-        else:
-            acc_str = '%1.4e' % acc
 
-        _log.info('Epoch [%04d] : %s loss %e | accuracy %s | time %1.2e sec.' % (epoch, stage, loss, acc_str, time))
+        _log.info('Epoch [%04d] : %s loss %e | time %1.2e sec.' % (epoch, stage, loss, time))
 
     def format_output(self, pred, target=None):
         """Format the network output depending on the task (classification/regression)."""
@@ -694,116 +586,6 @@ class NeuralNet(object):
             fname = os.path.join(outdir, hdf5)
 
         return fname
-
-    def plot_loss(self, name=''):
-        """
-        Plots the loss of the model as a function of the epoch
-
-        Args:
-            name (str, optional): name of the output file. Defaults to ''.
-        """
-        nepoch = self.nepoch
-        train_loss = self.train_loss
-        valid_loss = self.valid_loss
-
-        import matplotlib.pyplot as plt
-
-        if len(valid_loss) > 1:
-            plt.plot(range(1, nepoch+1), valid_loss,
-                     c='red', label='valid')
-
-        if len(train_loss) > 1:
-            plt.plot(range(1, nepoch+1), train_loss,
-                     c='blue', label='train')
-            plt.title("Loss/ epoch")
-            plt.xlabel("Number of epoch")
-            plt.ylabel("Total loss")
-            plt.legend()
-            plt.savefig(os.path.join(self.outdir, 'loss_epoch{}.png'.format(name)))
-            plt.close()
-
-    def plot_acc(self, name=''):
-        """
-        Plots the accuracy of the model as a function of the epoch
-
-        Args:
-            name (str, optional): name of the output file. Defaults to ''.
-        """
-        nepoch = self.nepoch
-        train_acc = self.train_acc
-        valid_acc = self.valid_acc
-
-        import matplotlib.pyplot as plt
-
-        if len(valid_acc) > 1:
-            plt.plot(range(1, nepoch+1), valid_acc,
-                     c='red', label='valid')
-
-        if len(train_acc) > 1:
-            plt.plot(range(1, nepoch+1), train_acc,
-                     c='blue', label='train')
-            plt.title("Accuracy/ epoch")
-            plt.xlabel("Number of epoch")
-            plt.ylabel("Accuracy")
-            plt.legend()
-            plt.savefig(os.path.join(self.outdir, 'acc_epoch{}.png'.format(name)))
-            plt.close()
-
-    def plot_hit_rate(self, data='eval', threshold=4, mode='percentage', name=''):
-        """
-        Plots the hitrate as a function of the models' rank
-
-        Args:
-            data (str, optional): which stage to consider train/eval/test. Defaults to 'eval'.
-            threshold (int, optional): defines the value to split into a hit (1) or a non-hit (0). Defaults to 4.
-            mode (str, optional): displays the hitrate as a number of hits ('count') or as a percentage ('percantage') . Defaults to 'percentage'.
-        """
-        import matplotlib.pyplot as plt
-
-        try:
-
-            hitrate = self.get_metrics(data, threshold).hitrate()
-
-            nb_models = len(hitrate)
-            X = range(1, nb_models + 1)
-
-            if mode == 'percentage':
-                hitrate /= hitrate.sum()
-
-            plt.plot(X, hitrate, c='blue', label='train')
-            plt.title("Hit rate")
-            plt.xlabel("Number of models")
-            plt.ylabel("Hit Rate")
-            plt.legend()
-            plt.savefig(os.path.join(self.outdir, 'hitrate{}.png'.format(name)))
-            plt.close()
-
-        except:
-            print('No hit rate plot could be generated for you {} task'.format(
-                self.task))
-
-    def plot_scatter(self):
-        """Scatters plot of the results."""
-        import matplotlib.pyplot as plt
-
-        self.model.eval()
-
-        pred, truth = {'train': [], 'valid': []}, {
-            'train': [], 'valid': []}
-
-        for data in self.train_loader:
-            data = data.to(self.device)
-            truth['train'] += data.y.tolist()
-            pred['train'] += self.model(data).reshape(-1).tolist()
-
-        for data in self.valid_loader:
-            data = data.to(self.device)
-            truth['valid'] += data.y.tolist()
-            pred['valid'] += self.model(data).reshape(-1).tolist()
-
-        plt.scatter(truth['train'], pred['train'], c='blue')
-        plt.scatter(truth['valid'], pred['valid'], c='red')
-        plt.show()
 
     def save_model(self, filename='model.pth.tar'):
         """
