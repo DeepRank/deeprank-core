@@ -4,6 +4,7 @@ import h5py
 import os
 import logging
 import csv
+from typing import List
 
 # torch import
 import torch
@@ -11,9 +12,10 @@ import torch.nn as nn
 from torch.nn import MSELoss
 import torch.nn.functional as F
 from torch_geometric.data import DataLoader
-from torch.utils.tensorboard import SummaryWriter
+from sklearn.metrics import roc_auc_score
 
 # deeprank_gnn import
+from .models.metrics import MetricsExporterCollection
 from .DataSet import HDF5DataSet, DivideDataSet, PreCluster
 from .Metrics import Metrics
 
@@ -30,7 +32,8 @@ class NeuralNet(object):
                  batch_size=32, percent=[1.0, 0.0],
                  database_eval=None, index=None, class_weights=None, task=None,
                  classes=[0, 1], threshold=None,
-                 pretrained_model=None, shuffle=True, outdir='./', cluster_nodes='mcl', transform_sigmoid=False):
+                 pretrained_model=None, shuffle=True, outdir='./', cluster_nodes='mcl', transform_sigmoid=False,
+                 metrics_exporters: MetricsExporterCollection = None):
         """Class from which the network is trained, evaluated and tested
 
         Args:
@@ -97,6 +100,11 @@ class NeuralNet(object):
             self.load_params(pretrained_model)
             self.outdir = outdir
             self.load_pretrained_model(database, Net)
+
+        if metrics_exporters is not None:
+            self._metrics_exporters = metrics_exporters
+        else:
+            self._metrics_exporters = MetricsExporterCollection([])
 
     def load_pretrained_model(self, database, Net):
         """
@@ -286,9 +294,7 @@ class NeuralNet(object):
             tensorboard_directory (directory path, optional): where to store the tensorflow files
         """
 
-        with SummaryWriter(log_dir=tensorboard_directory,
-                           filename_suffix="_train",
-                           comment="train") as tensorboard_writer:
+        with self._metrics_exporters:
 
             # Output file name
             data_hdf5_path = self.update_name(hdf5, self.outdir)
@@ -296,8 +302,9 @@ class NeuralNet(object):
             # Number of epochs
             self.nepoch = nepoch
 
+            self.eval(self.train_loader, 0, "training", self._metrics_exporters)
             if validate:
-                self.eval(self.valid_loader, 0, "validation", tensorboard_writer)
+                self.eval(self.valid_loader, 0, "validation", self._metrics_exporters)
 
             # Loop over epochs
             self.data = {}
@@ -307,7 +314,7 @@ class NeuralNet(object):
                 self.model.train()
 
                 t0 = time()
-                _out, _y, _loss, self.data['train'] = self._epoch(epoch, "training", tensorboard_writer)
+                _out, _y, _loss, self.data['train'] = self._epoch(epoch, "training", self._metrics_exporters)
                 t = time() - t0
                 self.train_loss.append(_loss)
                 self.train_out = _out
@@ -322,7 +329,7 @@ class NeuralNet(object):
                 # Validate the model
                 if validate:
                     t0 = time()
-                    _out, _y, _val_loss, self.data['eval'] = self.eval(self.valid_loader, epoch, "validation", tensorboard_writer)
+                    _out, _y, _val_loss, self.data['eval'] = self.eval(self.valid_loader, epoch, "validation", self._metrics_exporters)
                     t = time() - t0
 
                     self.valid_loss.append(_val_loss)
@@ -374,9 +381,7 @@ class NeuralNet(object):
             tensorboard_directory (directory path, optional): where to store the tensorflow files
         """
 
-        with SummaryWriter(log_dir=tensorboard_directory,
-                           filename_suffix="_test",
-                           comment="test") as tensorboard_writer:
+        with self._metrics_exporters:
 
             # Output file name
             data_hdf5_path = self.update_name(hdf5, self.outdir)
@@ -405,7 +410,7 @@ class NeuralNet(object):
             self.data = {}
 
             # Run test
-            _out, _y, _test_loss, self.data['test'] = self.eval(self.test_loader, 0, "testing", tensorboard_writer)
+            _out, _y, _test_loss, self.data['test'] = self.eval(self.test_loader, 0, "testing", self._metrics_exporters)
 
             self.test_out = _out
 
@@ -422,66 +427,7 @@ class NeuralNet(object):
 
             self.test_loss = _test_loss
 
-    @staticmethod
-    def _export_metrics_tensorboard(epoch_number, batch_index, batches_per_epoch, pass_name,
-                                    task, loss, prediction, target, tensorboard_writer):
-
-        iteration_number = np.ceil(100 * (epoch_number + (batch_index / batches_per_epoch)))
-
-        tensorboard_writer.add_scalar(f"{pass_name} loss", loss, iteration_number)
-
-        fp, fn, tp, tn = 0, 0, 0, 0
-
-        if task == "class":
-            for mol_index, target_value in enumerate(target):
-                prediction_value = prediction[mol_index]
-
-                if prediction_value > 0.0 and target_value > 0.0:
-                    tp += 1
-
-                elif prediction_value <= 0.0 and target_value <= 0.0:
-                    tn += 1
-
-                elif prediction_value > 0.0 and target_value <= 0.0:
-                    fp += 1
-
-                elif prediction_value <= 0.0 and target_value > 0.0:
-                    fn += 1
-
-            mcc_numerator = tn * tp - fp * fn
-            if mcc_numerator == 0.0:
-                 tensorboard_writer.add_scalar(f"{pass_name} MCC", 0.0, iteration_number)
-
-            else:
-                mcc_denominator = np.sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
-
-                if mcc_denominator != 0.0:
-                    mcc = mcc_numerator / mcc_denominator
-                    tensorboard_writer.add_scalar(f"{pass_name} MCC", mcc, iteration_number)
-
-            accuracy = (tp + tn) / (tp + tn + fp + fn)
-            tensorboard_writer.add_scalar(f"{pass_name} accuracy", accuracy, iteration_number)
-
-    @staticmethod
-    def _export_epoch_prediction_table(epoch_number, pass_name, task, epoch_data, directory_path):
-
-        table_path = os.path.join(directory_path, f"predictions_{pass_name}_epoch{epoch_number}.csv")
-
-        with open(table_path, 'w') as f:
-            w = csv.writer(f)
-
-            header = ["entry id", "output", "target"]
-            w.writerow(header)
-
-            for mol_index, mol_name in enumerate(epoch_data['mol']):
-
-                output = epoch_data['outputs'][mol_index]
-                target = epoch_data['targets'][mol_index]
-
-                row = [mol_name, output, target]
-                w.writerow(row)
-
-    def eval(self, loader, epoch_number, pass_name, tensorboard_writer):
+    def eval(self, loader, epoch_number, pass_name, metrics_exporter):
         """
         Evaluates the model
 
@@ -489,7 +435,6 @@ class NeuralNet(object):
             loader (DataLoader): [description]
             epoch_number (int)
             pass_name (str): 'training', 'validation' or 'testing'
-            tensorboard_writer (SummaryWriter)
 
         Returns:
             (tuple):
@@ -499,6 +444,7 @@ class NeuralNet(object):
         loss_func = self.loss
         out = []
         y = []
+        z = []
         data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
 
         batch_count = len(loader)
@@ -523,17 +469,16 @@ class NeuralNet(object):
             # get the outputs for export
             if self.task == 'class':
                 pred = F.softmax(pred, dim=1)
+                z += pred.detach().tolist()
                 pred = np.argmax(pred.detach(), axis=1)
             else:
                 pred = pred.detach().reshape(-1)
+                z += pred.tolist()
 
             out += pred.tolist()
 
             # get the data
             data['mol'] += data_batch['mol']
-
-            self._export_metrics_tensorboard(epoch_number, batch_index, batch_count, pass_name,
-                                             self.task, loss.detach().item(), pred, data_batch.y, tensorboard_writer)
 
         # Save targets
         if self.task == 'class':
@@ -551,18 +496,17 @@ class NeuralNet(object):
 
         data['loss'] += [eval_loss]
 
-        self._export_epoch_prediction_table(epoch_number, pass_name, self.task, data, tensorboard_writer.log_dir)
+        metrics_exporter.process(pass_name, epoch_number, data['mol'], z, y)
 
         return out, y, eval_loss, data
 
-    def _epoch(self, epoch_number, pass_name, tensorboard_writer):
+    def _epoch(self, epoch_number, pass_name, metrics_exporter):
         """
         Runs a single epoch
 
         Args:
             epoch_number (int)
             pass_name (str): 'training', 'validation' or 'testing'
-            tensorboard_writer (SummaryWriter)
 
         Returns:
             tuple: prediction, ground truth, running loss
@@ -573,6 +517,7 @@ class NeuralNet(object):
 
         out = []
         y = []
+        z = []
         data = {'outputs': [], 'targets': [], 'mol': [], 'loss': []}
 
         batch_count = len(self.train_loader)
@@ -601,17 +546,16 @@ class NeuralNet(object):
             # get the outputs for export
             if self.task == 'class':
                 pred = F.softmax(pred, dim=1)
+                z += pred.detach().tolist()
                 pred = np.argmax(pred.detach(), axis=1)
             else:
                 pred = pred.detach().reshape(-1)
+                z += pred.tolist()
 
             out += pred.tolist()
 
             # get the data
             data['mol'] += data_batch['mol']
-
-            self._export_metrics_tensorboard(epoch_number, batch_index, batch_count, pass_name,
-                                             self.task, loss.detach().item(), pred, data_batch.y, tensorboard_writer)
 
         # save targets and predictions
         if self.task == 'class':
@@ -629,7 +573,7 @@ class NeuralNet(object):
 
         data['loss'] += [epoch_loss]
 
-        self._export_epoch_prediction_table(epoch_number, pass_name, self.task, data, tensorboard_writer.log_dir)
+        metrics_exporter.process(pass_name, epoch_number, data['mol'], z, y)
 
         return out, y, epoch_loss, data
 
