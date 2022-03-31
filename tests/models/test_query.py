@@ -175,7 +175,8 @@ def test_variant_graph_9API():
 def test_variant_residue_graph_101M():
     query = SingleResidueVariantResidueQuery("tests/data/pdb/101M/101M.pdb", "A", 25, None, glycine, alanine,
                                              {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
-                                             targets={"bin_class": 0})
+                                             targets={"bin_class": 0},
+                                             variant_only_features={"conservation": 1.0})
 
     g = query.build_graph()
 
@@ -186,7 +187,8 @@ def test_variant_residue_graph_101M():
                               FEATURENAME_AMINOACID,
                               FEATURENAME_VARIANTAMINOACID,
                               FEATURENAME_CHARGE,
-                              FEATURENAME_POLARITY],
+                              FEATURENAME_POLARITY,
+                              "conservation"],
                              [FEATURENAME_EDGEDISTANCE,
                               FEATURENAME_EDGECOULOMB,
                               FEATURENAME_EDGEVANDERWAALS])

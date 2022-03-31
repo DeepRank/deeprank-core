@@ -62,7 +62,7 @@ class SingleResidueVariantResidueQuery(Query):
 
     def __init__(self, pdb_path, chain_id, residue_number, insertion_code, wildtype_amino_acid, variant_amino_acid,
                  pssm_paths=None,
-                 radius=10.0, external_distance_cutoff=4.5, targets=None):
+                 radius=10.0, external_distance_cutoff=4.5, targets=None, variant_only_features=None):
 
         """
             Args:
@@ -93,6 +93,11 @@ class SingleResidueVariantResidueQuery(Query):
 
         self._radius = radius
         self._external_distance_cutoff = external_distance_cutoff
+
+        if variant_only_features is not None:
+            self._variant_only_features = variant_only_features
+        else:
+            self._variant_only_features = {}
 
     @property
     def residue_id(self):
@@ -310,6 +315,15 @@ class SingleResidueVariantResidueQuery(Query):
 
         self._set_vanderwaals(graph, node_name_residues, atom_vanderwaals_parameters)
         self._set_coulomb(graph, node_name_residues, atom_charges, self._external_distance_cutoff)
+
+        # set the variant-only features
+        for feature_name, feature_value in self._variant_only_features:
+            for node_name, node in graph.nodes.items():
+                residue = node_name_residues[node_name]
+                if residue == variant_residue:
+                    node[feature_name] = feature_value
+                else:
+                    node[feature_name] = 0.0
 
         return graph
 
