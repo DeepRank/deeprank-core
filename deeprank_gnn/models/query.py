@@ -356,7 +356,7 @@ class SingleResidueVariantResidueQuery(Query):
 
         epsilons = numpy.array(epsilons)
         sigmas = numpy.array(sigmas)
-        distances = numpy.array(sigmas)
+        distances = numpy.array(distances)
 
         # calculate potentials
         vanderwaals_constant_factor = (SQUARED_VANDERWAALS_DISTANCE_OFF - SQUARED_VANDERWAALS_DISTANCE_ON) ** 3

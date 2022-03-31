@@ -34,7 +34,7 @@ def _check_graph_makes_sense(g, node_feature_names, edge_feature_names):
             for feature_name in node_feature_names:
                 assert entry_group["node_data/{}".format(feature_name)][()].size > 0, "no {} feature".format(feature_name)
 
-                assert len(numpy.nonzero(entry_group["node_data/{}".format(feature_name)][()])) > 0, "{}: all zero".format(feature_name)
+                assert numpy.any(numpy.nonzero(entry_group["node_data/{}".format(feature_name)][()])), "{}: all zero".format(feature_name)
 
             assert entry_group["internal_edge_index"][()].shape[1] == 2, "wrong internal edge index shape"
 
@@ -43,6 +43,8 @@ def _check_graph_makes_sense(g, node_feature_names, edge_feature_names):
             for feature_name in edge_feature_names:
                 assert entry_group["internal_edge_data/{}".format(feature_name)][()].shape[0] == entry_group["internal_edge_index"].shape[0], \
                     "not enough internal edge {} feature values".format(feature_name)
+
+                assert numpy.any(numpy.nonzero(entry_group["edge_data/{}".format(feature_name)][()])), "{}: all zero".format(feature_name)
 
             count_edges_hdf5 = entry_group["internal_edge_index"].shape[0]
 
@@ -186,4 +188,5 @@ def test_variant_residue_graph_101M():
                               FEATURENAME_CHARGE,
                               FEATURENAME_POLARITY],
                              [FEATURENAME_EDGEDISTANCE,
-                              FEATURENAME_EDGESAMECHAIN])
+                              FEATURENAME_EDGECOULOMB,
+                              FEATURENAME_EDGEVANDERWAALS])
