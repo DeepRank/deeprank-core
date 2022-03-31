@@ -317,7 +317,7 @@ class SingleResidueVariantResidueQuery(Query):
         self._set_coulomb(graph, node_name_residues, atom_charges, self._external_distance_cutoff)
 
         # set the variant-only features
-        for feature_name, feature_value in self._variant_only_features:
+        for feature_name, feature_value in self._variant_only_features.items():
             for node_name, node in graph.nodes.items():
                 residue = node_name_residues[node_name]
                 if residue == variant_residue:
