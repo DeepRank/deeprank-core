@@ -79,7 +79,6 @@ def test_interface_graph():
 def test_variant_graph_101M():
     query = SingleResidueVariantAtomicQuery("tests/data/pdb/101M/101M.pdb", "A", 27, None, asparagine, phenylalanine,
                                             {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
-                                            1.0, 0.0,
                                             targets={"bin_class": 0}, radius=20.0, external_distance_cutoff=20.0)
 
     g = query.build_graph()
@@ -136,7 +135,6 @@ def test_variant_graph_1A0Z():
     query = SingleResidueVariantAtomicQuery("tests/data/pdb/1A0Z/1A0Z.pdb", "A", 125, None, leucine, arginine,
                                             {"A": "tests/data/pssm/1A0Z/1A0Z.A.pdb.pssm", "B": "tests/data/pssm/1A0Z/1A0Z.B.pdb.pssm",
                                              "C": "tests/data/pssm/1A0Z/1A0Z.A.pdb.pssm", "D": "tests/data/pssm/1A0Z/1A0Z.B.pdb.pssm"},
-                                            1.0, 0.0,
                                             targets={"bin_class": 1})
 
     g = query.build_graph()
@@ -156,7 +154,6 @@ def test_variant_graph_1A0Z():
 def test_variant_graph_9API():
     query = SingleResidueVariantAtomicQuery("tests/data/pdb/9api/9api.pdb", "A", 310, None, lysine, glutamate,
                                             {"A": "tests/data/pssm/9api/9api.A.pdb.pssm", "B": "tests/data/pssm/9api/9api.B.pdb.pssm"},
-                                            0.5, 0.5,
                                             targets={"bin_class": 0}, external_distance_cutoff=5.0, internal_distance_cutoff=5.0)
 
     g = query.build_graph()
@@ -175,7 +172,7 @@ def test_variant_graph_9API():
 
 def test_variant_residue_graph_101M():
     query = SingleResidueVariantResidueQuery("tests/data/pdb/101M/101M.pdb", "A", 25, None, glycine, alanine,
-                                             {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"}, 0.5, 0.5,
+                                             {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
                                              targets={"bin_class": 0})
 
     g = query.build_graph()
