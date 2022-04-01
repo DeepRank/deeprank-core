@@ -330,13 +330,13 @@ class SingleResidueVariantResidueQuery(Query):
 
     @staticmethod
     def _get_zero_value(value):
-        if type(value) == float:
+        if type(value) == float or type(value) == numpy.float32 or type(value) == numpy.float64:
             return 0.0
 
         elif type(value) == int:
             return 0
 
-        elif type(value) == numpy.array:
+        elif isinstance(value, numpy.ndarray):
             return numpy.zeros(value.shape, dtype=float)
 
         else:
