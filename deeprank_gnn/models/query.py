@@ -318,14 +318,29 @@ class SingleResidueVariantResidueQuery(Query):
 
         # set the variant-only features
         for feature_name, feature_value in self._variant_only_features.items():
+            zero_value = self._get_zero_value(feature_value)
             for node_name, node in graph.nodes.items():
                 residue = node_name_residues[node_name]
                 if residue == variant_residue:
                     node[feature_name] = feature_value
                 else:
-                    node[feature_name] = 0.0
+                    node[feature_name] = zero_value
 
         return graph
+
+    @staticmethod
+    def _get_zero_value(value):
+        if type(value) == float:
+            return 0.0
+
+        elif type(value) == int:
+            return 0
+
+        elif type(value) == numpy.array:
+            return numpy.zeros(value.shape)
+
+        else:
+            raise TypeError(type(value))
 
     @staticmethod
     def _set_vanderwaals(graph, node_name_residues, atom_vanderwaals_parameters):

@@ -156,7 +156,7 @@ def test_variant_graph_1A0Z():
 def test_variant_graph_9API():
     query = SingleResidueVariantAtomicQuery("tests/data/pdb/9api/9api.pdb", "A", 310, None, lysine, glutamate,
                                             {"A": "tests/data/pssm/9api/9api.A.pdb.pssm", "B": "tests/data/pssm/9api/9api.B.pdb.pssm"},
-                                            targets={"bin_class": 0}, external_distance_cutoff=5.0, internal_distance_cutoff=5.0)
+                                            targets={"bin_class": 0}, external_distance_cutoff=5.0, internal_distance_cutoff=3.0)
 
     g = query.build_graph()
 
