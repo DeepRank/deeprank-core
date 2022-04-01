@@ -337,7 +337,7 @@ class SingleResidueVariantResidueQuery(Query):
             return 0
 
         elif type(value) == numpy.array:
-            return numpy.zeros(value.shape)
+            return numpy.zeros(value.shape, dtype=float)
 
         else:
             raise TypeError(type(value))
