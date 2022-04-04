@@ -1,6 +1,7 @@
 import os
 from enum import Enum
 import logging
+from tempfile import mkstemp
 
 import freesasa
 import pdb2sql
@@ -10,7 +11,7 @@ from scipy.spatial import distance_matrix
 from deeprank_gnn.models.error import UnknownAtomError
 from deeprank_gnn.tools.pssm import parse_pssm
 from deeprank_gnn.tools import BioWrappers, BSA
-from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_residue_distance, get_surrounding_residues, get_structure
+from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_residue_distance, get_surrounding_residues, get_structure, add_hydrogens
 from deeprank_gnn.models.graph import Graph
 from deeprank_gnn.domain.graph import EDGETYPE_INTERNAL, EDGETYPE_INTERFACE
 from deeprank_gnn.domain.feature import *
@@ -212,8 +213,16 @@ class SingleResidueVariantResidueQuery(Query):
             graph.nodes[node_name][FEATURENAME_PSSM] = pssm_value
 
     def build_graph(self):
-        # load pdb strucure
-        pdb = pdb2sql.pdb2sql(self._pdb_path)
+        hydrogens_pdb_handle, hydrogens_pdb_path = mkstemp(suffix=".pdb")
+        os.close(hydrogens_pdb_handle)
+
+        try:
+            add_hydrogens(self._pdb_path, hydrogens_pdb_path)
+
+            # load pdb structure
+            pdb = pdb2sql.pdb2sql(hydrogens_pdb_path)
+        finally:
+            os.remove(hydrogens_pdb_path)
 
         try:
             structure = get_structure(pdb, self.model_id)
@@ -357,7 +366,13 @@ class SingleResidueVariantResidueQuery(Query):
             residue2 = node_name_residues[node2_name]
 
             for atom1 in residue1.atoms:
+                if atom1 not in atom_vanderwaals_parameters:
+                    continue  # ignore those atoms
+
                 for atom2 in residue2.atoms:
+
+                    if atom2 not in atom_vanderwaals_parameters:
+                        continue  # ignore those atoms
 
                     vanderwaals_parameters1 = atom_vanderwaals_parameters[atom1]
                     vanderwaals_parameters2 = atom_vanderwaals_parameters[atom2]
@@ -415,6 +430,7 @@ class SingleResidueVariantResidueQuery(Query):
         charges2 = []
         distances = []
         edge_keys = []
+        atom_pairs = []
         for edge_key, edge in graph.edges.items():
             node1_name, node2_name = edge_key
 
@@ -422,13 +438,23 @@ class SingleResidueVariantResidueQuery(Query):
             residue2 = node_name_residues[node2_name]
 
             for atom1 in residue1.atoms:
+                if atom1 not in charges_per_atom:
+                    continue  # ignore those atoms
+
                 for atom2 in residue2.atoms:
+                    if atom2 not in charges_per_atom:
+                        continue  # ignore those atoms
+
                     charges1.append(charges_per_atom[atom1])
                     charges2.append(charges_per_atom[atom2])
+
                     distances.append(edge[FEATURENAME_EDGEDISTANCE])
                     edge_keys.append(edge_key)
 
+                    atom_pairs.append((atom1, atom2))
+
             edge[FEATURENAME_EDGECOULOMB] = 0.0
+
 
         distances = numpy.array(distances)
         charges1 = numpy.array(charges1)
@@ -443,6 +469,7 @@ class SingleResidueVariantResidueQuery(Query):
 
         # sum the values to the edges
         for index, value in enumerate(coulomb_potentials):
+
             graph.edges[edge_keys[index]][FEATURENAME_EDGECOULOMB] += value
 
 
@@ -518,9 +545,16 @@ class SingleResidueVariantAtomicQuery(Query):
         return str(atom)
 
     def build_graph(self):
+        hydrogens_pdb_handle, hydrogens_pdb_path = mkstemp(suffix=".pdb")
+        os.close(hydrogens_pdb_handle)
 
-        # load pdb strucure
-        pdb = pdb2sql.pdb2sql(self._pdb_path)
+        try:
+            add_hydrogens(self._pdb_path, hydrogens_pdb_path)
+
+            # load pdb structure
+            pdb = pdb2sql.pdb2sql(hydrogens_pdb_path)
+        finally:
+            os.remove(hydrogens_pdb_path)
 
         try:
             structure = get_structure(pdb, self.model_id)

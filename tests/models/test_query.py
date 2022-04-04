@@ -192,3 +192,17 @@ def test_variant_residue_graph_101M():
                              [FEATURENAME_EDGEDISTANCE,
                               FEATURENAME_EDGECOULOMB,
                               FEATURENAME_EDGEVANDERWAALS])
+
+
+def test_negative_coulomb():
+    query = SingleResidueVariantResidueQuery("tests/data/pdb/101M/101M.pdb", "A", 46, None, valine, alanine,
+                                             {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
+                                             targets={"bin_class": 0})
+
+    g = query.build_graph()
+
+    arg_node_name = "101M A 45"
+    asp_node_name = "101M A 60"
+
+    coulomb = g.edges[arg_node_name, asp_node_name][FEATURENAME_EDGECOULOMB]
+    assert coulomb < 0.0, f"coulomb potential between asp and arg is {coulomb}"

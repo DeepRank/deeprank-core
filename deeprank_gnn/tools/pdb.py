@@ -1,5 +1,6 @@
 from time import time
 import logging
+import subprocess
 
 from scipy.spatial import distance_matrix
 import numpy
@@ -24,7 +25,6 @@ def is_xray(pdb_file):
     return False
 
 
-
 def _add_atom_to_residue(atom, residue):
 
     for other_atom in residue.atoms:
@@ -36,6 +36,15 @@ def _add_atom_to_residue(atom, residue):
 
     # not there yet, add it
     residue.add_atom(atom)
+
+
+def add_hydrogens(input_pdb_path, output_pdb_path):
+    "this requires reduce: https://github.com/rlabduke/reduce"
+
+    with open(output_pdb_path, 'wt') as f:
+        p = subprocess.run(["reduce", input_pdb_path], stdout=subprocess.PIPE)
+        for line in p.stdout.decode().split('\n'):
+            f.write(line.replace("   new", "") + "\n")
 
 
 def get_structure(pdb, id_):
