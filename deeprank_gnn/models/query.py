@@ -319,8 +319,9 @@ class SingleResidueVariantResidueQuery(Query):
         self._set_amino_acid_properties(graph, node_name_residues, variant_residue, self._wildtype_amino_acid, self._variant_amino_acid)
         self._set_sasa(graph, node_name_residues, self._pdb_path)
 
-        self._set_pssm(graph, node_name_residues, variant_residue,
-                       self._wildtype_amino_acid, self._variant_amino_acid)
+        if self._pssm_paths is not None:
+            self._set_pssm(graph, node_name_residues, variant_residue,
+                           self._wildtype_amino_acid, self._variant_amino_acid)
 
         self._set_vanderwaals(graph, node_name_residues, atom_vanderwaals_parameters)
         self._set_coulomb(graph, node_name_residues, atom_charges, self._external_distance_cutoff)
@@ -339,13 +340,13 @@ class SingleResidueVariantResidueQuery(Query):
 
     @staticmethod
     def _get_zero_value(value):
-        if type(value) == float:
+        if type(value) == float or type(value) == numpy.float32 or type(value) == numpy.float64:
             return 0.0
 
         elif type(value) == int:
             return 0
 
-        elif type(value) == numpy.array:
+        elif isinstance(value, numpy.ndarray):
             return numpy.zeros(value.shape, dtype=float)
 
         else:
