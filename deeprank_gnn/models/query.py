@@ -173,6 +173,8 @@ class SingleResidueVariantResidueQuery(Query):
             graph.nodes[node_name][FEATURENAME_CHARGE] = residue.amino_acid.charge
             graph.nodes[node_name][FEATURENAME_POLARITY] = residue.amino_acid.polarity.onehot
             graph.nodes[node_name][FEATURENAME_SIZE] = residue.amino_acid.size
+            graph.nodes[node_name][FEATURENAME_HBDONORS] = residue.amino_acid.count_hydrogen_bond_donors
+            graph.nodes[node_name][FEATURENAME_HBACCEPTORS] = residue.amino_acid.count_hydrogen_bond_acceptors
 
             if residue == variant_residue:
 
@@ -180,11 +182,15 @@ class SingleResidueVariantResidueQuery(Query):
                 graph.nodes[node_name][FEATURENAME_VARIANTAMINOACID] = variant_amino_acid.onehot
                 graph.nodes[node_name][FEATURENAME_SIZEDIFFERENCE] = variant_amino_acid.size - wildtype_amino_acid.size
                 graph.nodes[node_name][FEATURENAME_POLARITYDIFFERENCE] = variant_amino_acid.polarity.onehot - wildtype_amino_acid.polarity.onehot
+                graph.nodes[node_name][FEATURENAME_HBDONORSDIFFERENCE] = variant_amino_acid.count_hydrogen_bond_donors - wildtype_amino_acid.count_hydrogen_bond_donors
+                graph.nodes[node_name][FEATURENAME_HBACCEPTORSDIFFERENCE] = variant_amino_acid.count_hydrogen_bond_acceptors - wildtype_amino_acid.count_hydrogen_bond_acceptors
             else:
                 graph.nodes[node_name][FEATURENAME_AMINOACID] = residue.amino_acid.onehot
                 graph.nodes[node_name][FEATURENAME_VARIANTAMINOACID] = numpy.zeros(len(residue.amino_acid.onehot))
                 graph.nodes[node_name][FEATURENAME_SIZEDIFFERENCE] = 0
                 graph.nodes[node_name][FEATURENAME_POLARITYDIFFERENCE] = numpy.zeros(len(residue.amino_acid.polarity.onehot))
+                graph.nodes[node_name][FEATURENAME_HBDONORSDIFFERENCE] = 0
+                graph.nodes[node_name][FEATURENAME_HBACCEPTORSDIFFERENCE] = 0
 
     amino_acid_order = [alanine, arginine, asparagine, aspartate, cysteine, glutamine, glutamate, glycine, histidine, isoleucine,
                         leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine]

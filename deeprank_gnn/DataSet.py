@@ -249,6 +249,7 @@ class HDF5DataSet(Dataset):
             with h5py.File(fname, 'r') as f5:
                 grp = f5[mol]
 
+                # node features
                 node_data = ()
                 for feat in self.node_feature:
                     vals = grp['node_data/'+feat][()]
@@ -309,13 +310,21 @@ class HDF5DataSet(Dataset):
                     else:
                         y = None
 
-                # pos
+                # positions
                 pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
+
+                # node of interest
+                if "node_of_interest" in grp:
+                    index = grp["node_of_interest"][()]
+                    node_of_interest = torch.tensor(index, dtype=torch.long).contiguous()
+                else:
+                    node_of_interest = None
 
             # load
             data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
             data.internal_edge_index = internal_edge_index
             data.internal_edge_attr = internal_edge_attr
+            data.node_of_interest_index = node_of_interest
 
             # mol name
             data.mol = mol

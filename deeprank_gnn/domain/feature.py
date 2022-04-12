@@ -20,6 +20,10 @@ FEATURENAME_PSSMVARIANT = "pssm_variant"
 FEATURENAME_SASA = "sasa"
 FEATURENAME_SIZEDIFFERENCE = "size_difference"
 FEATURENAME_POLARITYDIFFERENCE = "polarity_difference"
+FEATURENAME_HBACCEPTORS = "hydrogen_bond_acceptors"
+FEATURENAME_HBDONORS = "hydrogen_bond_donors"
+FEATURENAME_HBACCEPTORSDIFFERENCE = "hydrogen_bond_acceptors_difference"
+FEATURENAME_HBDONORSDIFFERENCE = "hydrogen_bond_donors_difference"
 
 
 # edge features
