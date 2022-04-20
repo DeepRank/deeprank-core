@@ -1,4 +1,5 @@
 from time import time
+from typing import Optional, List
 import logging
 import subprocess
 
@@ -25,19 +26,6 @@ def is_xray(pdb_file):
     return False
 
 
-def _add_atom_to_residue(atom, residue):
-
-    for other_atom in residue.atoms:
-        if other_atom.name == atom.name:
-            # Don't allow two atoms with the same name, pick the highest occupancy
-            if other_atom.occupancy < atom.occupancy:
-                other_atom.change_altloc(atom)
-                return
-
-    # not there yet, add it
-    residue.add_atom(atom)
-
-
 def add_hydrogens(input_pdb_path, output_pdb_path):
     "this requires reduce: https://github.com/rlabduke/reduce"
 
@@ -47,31 +35,39 @@ def add_hydrogens(input_pdb_path, output_pdb_path):
             f.write(line.replace("   new", "") + "\n")
 
 
-def get_structure(pdb, id_):
-    """ Builds a structure from rows in a pdb file
+def _add_atom_to_residue(atom, residue):
+
+    for other_atom in residue.atoms:
+        if other_atom.name == atom.name:
+            # Don't allow two atoms with the same name, pick the highest occupancy
+            if other_atom.occupancy < atom.occupancy:
+                other_atom.change_altloc(atom)
+                return other_atom
+
+    # not there yet, add it
+    residue.add_atom(atom)
+    return atom
+
+
+def _to_atoms(atom_rows: numpy.ndarray, structure_id: str) -> List[Atom]:
+    """
         Args:
-            pdb (pdb2sql object): the pdb structure that we're investigating
-            id (str): unique id for the pdb structure
-        Returns (Structure): the structure object, giving access to chains, residues, atoms
+            atom_rows: output from pdb2sql
+            id: unique id for the pdb structure
     """
 
     amino_acids_by_code = {amino_acid.three_letter_code: amino_acid for amino_acid in amino_acids}
-    elements_by_name = {element.name: element for element in AtomicElement}
+    elements_by_symbol = {element.name: element for element in AtomicElement}
 
     # We need these intermediary dicts to keep track of which residues and chains have already been created.
     chains = {}
     residues = {}
+    atoms = set([])
 
-    structure = Structure(id_)
+    structure = Structure(structure_id)
 
     # Iterate over the atom output from pdb2sql
-    for row in pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode", model=0):
-
-        x, y, z, atom_number, atom_name, altloc, occupancy, element, chain_id, residue_number, residue_name, insertion_code = row
-
-        # Make sure not to take the same atom twice.
-        if altloc is not None and altloc != "" and altloc != "A":
-            continue
+    for x, y, z, atom_number, atom_name, alt_loc, occupancy, element_symbol, chain_id, residue_number, residue_name, insertion_code in atom_rows:
 
         # We use None to indicate that the residue has no insertion code.
         if insertion_code == "":
@@ -106,10 +102,11 @@ def get_structure(pdb, id_):
             residue = residues[residue_id]
 
         # Init atom.
-        atom = Atom(residue, atom_name, elements_by_name[element], atom_position, occupancy)
-        _add_atom_to_residue(atom, residue)
+        atom = Atom(residue, atom_name, elements_by_symbol[element_symbol], atom_position, occupancy)
+        atom = _add_atom_to_residue(atom, residue)
+        atoms.add(atom)
 
-    return structure
+    return atoms
 
 
 def get_residue_distance(residue1, residue2):
@@ -191,61 +188,51 @@ def get_residue_contact_pairs(pdb_path, model_id, chain_id1, chain_id2, distance
     return residue_pairs
 
 
-def get_surrounding_residues(structure, residue, radius):
+def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
+                             residue_number: int, insertion_code: Optional[str],
+                             radius: float) -> List[Residue]:
+
     """ Get the residues that lie within a radius around a residue.
 
         Args:
-            structure(deeprank structure object): the structure to take residues from
-            residue(deeprank residue object): the residue in the structure
-            radius(float): max distance in Ångström between atoms of the residue and the other residues
+            pdb_path: points to PDB file
+            structure_id: name for the structure
+            chain_id: identifies the residue in the pdb
+            residue_number: identifies the residue in the pdb
+            insertion_code: identifies the residue in the pdb
+            radius: max distance in Ångström between atoms of the residue and the other residues
 
         Returns: (a set of deeprank residues): the surrounding residues
     """
 
-    structure_atoms = structure.get_atoms()
-    residue_atoms = residue.atoms
+    pdb = pdb2sql(pdb_path)
 
-    structure_atom_positions = [atom.position for atom in structure_atoms]
-    residue_atom_positions = [atom.position for atom in residue_atoms]
+    structure_atom_rows = pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode", model=0)
+    structure_atom_positions = [row[:3] for row in structure_atom_rows]
+
+    # convert insertion code to pdb2sql's format
+    if insertion_code is None:
+        insertion_code = ""
+
+    residue_atom_positions = pdb.get("x,y,z",
+                                     chainID=chain_id,
+                                     resSeq=residue_number, iCode=insertion_code,
+                                     model=0)
+
+    if len(residue_atom_positions) == 0:
+        raise ValueError("residue not found: {} {}{}".format(chain_id, residue_number, insertion_code))
 
     distances = distance_matrix(structure_atom_positions, residue_atom_positions, p=2)
+    neighbours = distances < radius
 
-    close_residues = set([])
-    for structure_atom_index in range(len(structure_atoms)):
+    neighbour_indices = numpy.nonzero(neighbours)[0]
 
-        shortest_distance = numpy.min(distances[structure_atom_index,:])
+    neighbour_atom_rows = [structure_atom_rows[i] for i in neighbour_indices]
 
-        if shortest_distance < radius:
+    atoms = _to_atoms(neighbour_atom_rows, structure_id)
 
-            structure_atom = structure_atoms[structure_atom_index]
+    residues = set([atom.residue for atom in atoms])
 
-            close_residues.add(structure_atom.residue)
-
-    return close_residues
+    return residues
 
 
-def find_neighbour_atoms(atoms, max_distance):
-    """ For a given list of atoms, find the pairs of atoms that lie next to each other.
-
-        Args:
-            atoms(list of deeprank atom objects): the atoms to look at
-            max_distance(float): max distance between two atoms in Ångström
-
-        Returns: (a set of deeprank atom object pairs): the paired atoms
-    """
-
-    atom_count = len(atoms)
-
-    atom_positions = [atom.position for atom in atoms]
-
-    distances = distance_matrix(atom_positions, atom_positions, p=2)
-
-    neighbours = distances < max_distance
-
-    pairs = set([])
-
-    for atom1_index, atom2_index in numpy.transpose(numpy.nonzero(neighbours)):
-        if atom1_index != atom2_index:
-            pairs.add(Pair(atoms[atom1_index], atoms[atom2_index]))
-
-    return pairs

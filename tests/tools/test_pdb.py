@@ -1,51 +1,10 @@
 import numpy
 
 from pdb2sql import pdb2sql
-from deeprank_gnn.tools.pdb import get_structure, get_residue_contact_pairs, get_surrounding_residues, find_neighbour_atoms
+from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_surrounding_residues
 from deeprank_gnn.domain.amino_acid import valine
 from deeprank_gnn.models.structure import AtomicElement
-
-
-def test_get_structure_complete():
-    pdb_path = "tests/data/pdb/101M/101M.pdb"
-
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "101M")
-    finally:
-        pdb._close()
-
-    assert structure is not None
-
-    assert len(structure.chains) == 1
-    chain = structure.chains[0]
-    assert chain.id == "A"
-
-    assert len(chain.residues) == 154
-    residue = chain.residues[1]
-    assert residue.number == 1
-    assert residue.chain == chain
-    assert residue.amino_acid == valine
-
-    assert len(residue.atoms) == 7
-    atom = residue.atoms[1]
-    assert atom.name == "CA"
-    assert atom.position[0] == 27.263  # x coord from PDB file
-    assert atom.element == AtomicElement.C
-    assert atom.residue == residue
-
-
-def test_get_structure_from_nmr_with_dna():
-    pdb_path = "tests/data/pdb/1A6B/1A6B.pdb"
-
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "101M")
-    finally:
-        pdb._close()
-
-    assert structure is not None
-    assert structure.chains[0].residues[0].amino_acid is None  # DNA
+from tests.help import memory_limit
 
 
 def test_residue_contact_pairs():
@@ -59,40 +18,30 @@ def test_surrounding_residues():
 
     pdb_path = "tests/data/pdb/101M/101M.pdb"
 
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "101M")
-    finally:
-        pdb._close()
-
-    all_residues = structure.get_chain("A").residues
-
     # A nicely centered residue
-    residue = [r for r in all_residues if r.number == 138][0]
+    chain_id = "A"
+    residue_number = 138
 
-    close_residues = get_surrounding_residues(structure, residue, 10.0)
+    close_residues = get_surrounding_residues(pdb_path, "test", chain_id, residue_number, None, 10.0)
 
     assert len(close_residues) > 0, "no close residues found"
-    assert len(close_residues) < len(all_residues), "all residues were picked"
-    assert residue in close_residues, "the centering residue wasn't included"
+    assert len(close_residues) < 1000, "all residues were picked"
+    assert any([residue.number == residue_number and residue.chain.id == chain_id
+                for residue in close_residues]), "the centering residue wasn't included"
 
 
-def test_neighbour_atoms():
+@memory_limit(1024 * 1024 * 1024)
+def test_surrounding_residues_large_structure():
 
-    pdb_path = "tests/data/pdb/101M/101M.pdb"
+    pdb_path = "tests/data/pdb/2Y69/2Y69.pdb"
+    chain_id = "E"
+    residue_number = 74
 
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "101M")
-    finally:
-        pdb._close()
+    close_residues = get_surrounding_residues(pdb_path, "test", chain_id, residue_number, None, 10.0)
 
-    atoms = structure.get_atoms()
+    assert len(close_residues) > 0, "no close residues found"
+    assert len(close_residues) < 1000, "too many residues were picked"
+    assert any([residue.number == residue_number and residue.chain.id == chain_id
+                for residue in close_residues]), "the centering residue wasn't included"
 
-    atom_pairs = find_neighbour_atoms(atoms, 4.5)
 
-    assert len(atom_pairs) > 0, "no atom pairs found"
-    assert len(atom_pairs) < numpy.square(len(atoms)), "every two atoms were paired"
-
-    for atom1, atom2 in atom_pairs:
-        assert atom1 != atom2, "atom {} was paired with itself".format(atom1)
