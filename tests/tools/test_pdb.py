@@ -1,7 +1,10 @@
+import tempfile
+import os
+
 import numpy
 
 from pdb2sql import pdb2sql
-from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_surrounding_residues
+from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_surrounding_residues, add_hydrogens
 from deeprank_gnn.domain.amino_acid import valine
 from deeprank_gnn.models.structure import AtomicElement
 from tests.help import memory_limit
@@ -45,3 +48,12 @@ def test_surrounding_residues_large_structure():
                 for residue in close_residues]), "the centering residue wasn't included"
 
 
+@memory_limit(1024 * 1024 * 1024)
+def test_hydrogens():
+    test_file, test_path = tempfile.mkstemp()
+    os.close(test_file)
+
+    try:
+        add_hydrogens("tests/data/pdb/2Y69/2Y69.pdb", test_path)
+    finally:
+        os.remove(test_path)

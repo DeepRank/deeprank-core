@@ -1,3 +1,5 @@
+import tempfile
+import os
 from time import time
 from typing import Optional, List
 import logging
@@ -29,10 +31,19 @@ def is_xray(pdb_file):
 def add_hydrogens(input_pdb_path, output_pdb_path):
     "this requires reduce: https://github.com/rlabduke/reduce"
 
-    with open(output_pdb_path, 'wt') as f:
-        p = subprocess.run(["reduce", input_pdb_path], stdout=subprocess.PIPE)
-        for line in p.stdout.decode().split('\n'):
-            f.write(line.replace("   new", "") + "\n")
+    tmp_file, tmp_path = tempfile.mkstemp()
+    os.close(tmp_file)
+
+    with open(tmp_path, 'wb') as f:
+        subprocess.run(["reduce", "-Quiet", input_pdb_path], stdout=f, stderr=None, check=True)
+
+    try:
+        with open(tmp_path, 'rt') as f:
+            with open(output_pdb_path, 'wt') as g:
+                for line in f:
+                    g.write(line.replace("   new", ""))
+    finally:
+        os.remove(tmp_path)
 
 
 def _add_atom_to_residue(atom, residue):
