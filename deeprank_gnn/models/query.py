@@ -11,7 +11,7 @@ from scipy.spatial import distance_matrix
 from deeprank_gnn.models.error import UnknownAtomError
 from deeprank_gnn.tools.pssm import parse_pssm
 from deeprank_gnn.tools import BioWrappers, BSA
-from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_residue_distance, get_surrounding_residues, get_structure, add_hydrogens
+from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_residue_distance, get_surrounding_residues, add_hydrogens
 from deeprank_gnn.models.graph import Graph
 from deeprank_gnn.domain.graph import EDGETYPE_INTERNAL, EDGETYPE_INTERFACE
 from deeprank_gnn.domain.feature import *
@@ -20,7 +20,6 @@ from deeprank_gnn.domain.forcefield import (atomic_forcefield,
                                             VANDERWAALS_DISTANCE_ON, VANDERWAALS_DISTANCE_OFF,
                                             SQUARED_VANDERWAALS_DISTANCE_ON, SQUARED_VANDERWAALS_DISTANCE_OFF,
                                             EPSILON0, COULOMB_CONSTANT)
-
 
 _log = logging.getLogger(__name__)
 
@@ -222,18 +221,16 @@ class SingleResidueVariantResidueQuery(Query):
         hydrogens_pdb_handle, hydrogens_pdb_path = mkstemp(suffix=".pdb")
         os.close(hydrogens_pdb_handle)
 
+        # get the residues and atoms involved
         try:
             add_hydrogens(self._pdb_path, hydrogens_pdb_path)
-
-            # load pdb structure
-            pdb = pdb2sql.pdb2sql(hydrogens_pdb_path)
+            residues = get_surrounding_residues(hydrogens_pdb_path, self.model_id, self._chain_id,
+                                                self._residue_number, self._insertion_code,
+                                                self._radius)
         finally:
             os.remove(hydrogens_pdb_path)
 
-        try:
-            structure = get_structure(pdb, self.model_id)
-        finally:
-            pdb._close()
+        structure = list(residues)[0].chain.model
 
         # read the pssm
         if self._pssm_paths is not None:
@@ -245,19 +242,20 @@ class SingleResidueVariantResidueQuery(Query):
                         chain.pssm = parse_pssm(f, chain)
 
         # find the variant residue
-        variant_residues = [r for r in structure.get_chain(self._chain_id).residues
-                            if r.number == self._residue_number and r.insertion_code == self._insertion_code]
-        if len(variant_residues) == 0:
+        variant_residue = None
+        for residue in residues:
+            if residue.chain.id == self._chain_id and residue.number == self._residue_number and residue.insertion_code == self._insertion_code:
+                variant_residue = residue
+                break
+        else:
             raise ValueError("Residue {}:{} not found in {}".format(self._chain_id, self.residue_id, self._pdb_path))
-        variant_residue = variant_residues[0]
 
-        # get the residues and atoms involved
-        residues = get_surrounding_residues(structure, variant_residue, self._radius)
-        residues.add(variant_residue)
-        atoms = []
+        atoms = set([])
         for residue in residues:
             if residue.amino_acid is not None:
-                atoms.extend(residue.atoms)
+                for atom in residue.atoms:
+                    atoms.add(atom)
+        atoms = list(atoms)
 
         # build a graph and keep track of how we named the nodes
         node_name_residues = {}
@@ -266,8 +264,7 @@ class SingleResidueVariantResidueQuery(Query):
         # find neighbouring atoms
         atom_positions = [atom.position for atom in atoms]
         distances = distance_matrix(atom_positions, atom_positions, p=2)
-        neighbours = numpy.logical_and(distances < self._external_distance_cutoff,
-                                       distances > 0.0)
+        neighbours = distances < self._external_distance_cutoff
 
         atom_vanderwaals_parameters = {}
         atom_charges = {}
@@ -558,15 +555,14 @@ class SingleResidueVariantAtomicQuery(Query):
         try:
             add_hydrogens(self._pdb_path, hydrogens_pdb_path)
 
-            # load pdb structure
-            pdb = pdb2sql.pdb2sql(hydrogens_pdb_path)
+            # get the residues and atoms involved
+            residues = get_surrounding_residues(hydrogens_pdb_path, self.model_id, self._chain_id,
+                                                self._residue_number, self._insertion_code,
+                                                self._radius)
         finally:
             os.remove(hydrogens_pdb_path)
 
-        try:
-            structure = get_structure(pdb, self.model_id)
-        finally:
-            pdb._close()
+        structure = list(residues)[0].chain.model
 
         # read the pssm
         if self._pssm_paths is not None:
@@ -578,19 +574,20 @@ class SingleResidueVariantAtomicQuery(Query):
                         chain.pssm = parse_pssm(f, chain)
 
         # find the variant residue
-        variant_residues = [r for r in structure.get_chain(self._chain_id).residues
-                            if r.number == self._residue_number and r.insertion_code == self._insertion_code]
-        if len(variant_residues) == 0:
+        variant_residue = None
+        for residue in residues:
+            if residue.chain.id == self._chain_id and residue.number == self._residue_number and residue.insertion_code == self._insertion_code:
+                variant_residue = residue
+                break
+        else:
             raise ValueError("Residue {}:{} not found in {}".format(self._chain_id, self.residue_id, self._pdb_path))
-        variant_residue = variant_residues[0]
 
-        # get the residues and atoms involved
-        residues = get_surrounding_residues(structure, variant_residue, self._radius)
-        residues.add(variant_residue)
-        atoms = []
+        atoms = set([])
         for residue in residues:
             if residue.amino_acid is not None:
-                atoms.extend(residue.atoms)
+                for atom in residue.atoms:
+                    atoms.add(atom)
+        atoms = list(atoms)
 
         # build a graph and keep track of how we named the nodes
         node_name_atoms = {}
