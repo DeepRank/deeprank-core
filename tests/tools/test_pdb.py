@@ -1,9 +1,10 @@
 import numpy
 
 from pdb2sql import pdb2sql
-from deeprank_gnn.tools.pdb import get_structure, get_residue_contact_pairs, get_surrounding_residues, find_neighbour_atoms
+from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_surrounding_residues, find_neighbour_atoms
 from deeprank_gnn.domain.amino_acid import valine
 from deeprank_gnn.models.structure import AtomicElement
+from tests.help import memory_limit
 
 
 def test_get_structure_complete():
@@ -75,6 +76,18 @@ def test_surrounding_residues():
     assert len(close_residues) > 0, "no close residues found"
     assert len(close_residues) < len(all_residues), "all residues were picked"
     assert residue in close_residues, "the centering residue wasn't included"
+
+
+@memory_limit(1024 * 1024 * 1024)
+def test_surrounding_residues_large_structure():
+
+    pdb_path = "tests/data/pdb/2Y69/2Y69.pdb"
+
+    close_residues = get_surrounding_residues(pdb_path, 'E', 74, None, 10.0)
+
+    assert len(close_residues) > 0, "no close residues found"
+    assert len(close_residues) < 200, "too many residues found"
+    assert any([residue.number == 74 and residue.chain.id == 'E' for residue in close_residues]), "the centering residue wasn't included"
 
 
 def test_neighbour_atoms():
