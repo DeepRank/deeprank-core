@@ -54,10 +54,10 @@ def _to_atoms_in_structure(atom_rows: List, structure_id: str) -> List[Atom]:
     residues = {}
 
     atoms = set([])
-    structure = Structure(id_)
+    structure = Structure(structure_id)
 
     # Iterate over the atom output from pdb2sql
-    for row in pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode", model=0):
+    for row in atom_rows:
 
         x, y, z, atom_number, atom_name, altloc, occupancy, element, chain_id, residue_number, residue_name, insertion_code = row
 
@@ -94,9 +94,10 @@ def _to_atoms_in_structure(atom_rows: List, structure_id: str) -> List[Atom]:
             residue = residues[residue_id]
 
         # Init atom.
-        atom = Atom(residue, atom_name, elements_by_name[element], atom_position, occupancy)
-        atom = _add_atom_to_residue(atom, residue)
-        atoms.add(atom)
+        if element in elements_by_name:
+            atom = Atom(residue, atom_name, elements_by_name[element], atom_position, occupancy)
+            atom = _add_atom_to_residue(atom, residue)
+            atoms.add(atom)
 
     return list(atoms)
 

@@ -60,22 +60,12 @@ def test_surrounding_residues():
 
     pdb_path = "tests/data/pdb/101M/101M.pdb"
 
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "101M")
-    finally:
-        pdb._close()
-
-    all_residues = structure.get_chain("A").residues
-
     # A nicely centered residue
-    residue = [r for r in all_residues if r.number == 138][0]
-
-    close_residues = get_surrounding_residues(structure, residue, 10.0)
+    close_residues = get_surrounding_residues(pdb_path, 'A', 138, None, 10.0)
 
     assert len(close_residues) > 0, "no close residues found"
-    assert len(close_residues) < len(all_residues), "all residues were picked"
-    assert residue in close_residues, "the centering residue wasn't included"
+    assert len(close_residues) < 200, "too many residues were picked"
+    assert any([residue.number == 138 for residue in close_residues]), "the centering residue wasn't included"
 
 
 @memory_limit(1024 * 1024 * 1024)
