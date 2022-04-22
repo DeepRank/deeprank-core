@@ -236,16 +236,9 @@ class NeuralNet(object):
             self.idx_to_classes = {idx: i for idx,
                                    i in enumerate(self.classes)}
             self.output_shape = len(self.classes)
-            try:
-                self.model = Net(dataset.get(
-                    0).num_features, self.output_shape, self.num_edge_features).to(self.device)
-            except:
-                raise ValueError(
-                    f"The loaded model does not accept output_shape = {self.output_shape} argument \n\t"
-                    f"Check your input or adapt the model\n\t"
-                    f"Example :\n\t"
-                    f"def __init__(self, input_shape): --> def __init__(self, input_shape, output_shape) \n\t"
-                    f"self.fc2 = torch.nn.Linear(64, 1) --> self.fc2 = torch.nn.Linear(64, output_shape) \n\t")
+
+            self.model = Net(dataset.get(
+                0).num_features, self.output_shape, self.num_edge_features).to(self.device)
 
     def set_loss(self):
         """Sets the loss function (MSE loss for regression/ CrossEntropy loss for classification)."""

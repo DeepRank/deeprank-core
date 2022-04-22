@@ -245,113 +245,109 @@ class HDF5DataSet(Dataset):
             Data object or None: torch_geometric Data object containing the node features, the internal and external edge features, the target and the xyz coordinates. Return None if features cannot be loaded.
         """
 
-        try:
-            with h5py.File(fname, 'r') as f5:
-                grp = f5[mol]
+        with h5py.File(fname, 'r') as f5:
+            grp = f5[mol]
 
-                # node features
-                node_data = ()
-                for feat in self.node_feature:
-                    vals = grp['node_data/'+feat][()]
+            # node features
+            node_data = ()
+            for feat in self.node_feature:
+                vals = grp['node_data/'+feat][()]
+                if vals.ndim == 1:
+                    vals = vals.reshape(-1, 1)
+                node_data += (vals,)
+
+            x = torch.tensor(np.hstack(node_data), dtype=torch.float)
+
+            # index, we have to have all the edges i.e : (i,j) and (j,i)
+            ind = grp['edge_index'][()]
+            if ind.ndim == 2:
+                ind = np.vstack((ind, np.flip(ind, 1))).T
+            edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
+
+            # edge feature (same issue as above)
+            edge_data = ()
+            if self.edge_feature is not None and len(self.edge_feature) > 0:
+                for feat in self.edge_feature:
+                    vals = grp['edge_data/'+feat][()]
                     if vals.ndim == 1:
                         vals = vals.reshape(-1, 1)
-                    node_data += (vals,)
+                    edge_data += (vals,)
+                edge_data = np.hstack(edge_data)
+                edge_data = np.vstack((edge_data, edge_data))
+                edge_data = self.edge_feature_transform(edge_data)
+                edge_attr = torch.tensor(edge_data, dtype=torch.float).contiguous()
+            else:
+                edge_attr = torch.empty((edge_index.shape[1], 0), dtype=torch.float).contiguous()
 
-                x = torch.tensor(np.hstack(node_data), dtype=torch.float)
+            # internal edges
+            ind = grp['internal_edge_index'][()]
+            if ind.ndim == 2:
+                ind = np.vstack((ind, np.flip(ind, 1))).T
+            internal_edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
 
-                # index, we have to have all the edges i.e : (i,j) and (j,i)
-                ind = grp['edge_index'][()]
-                if ind.ndim == 2:
-                    ind = np.vstack((ind, np.flip(ind, 1))).T
-                edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
+            # internal edge feature
+            internal_edge_data = ()
+            if self.edge_feature is not None and len(self.edge_feature) > 0:
+                for feat in self.edge_feature:
+                    vals = grp['internal_edge_data/'+feat][()]
+                    if vals.ndim == 1:
+                        vals = vals.reshape(-1, 1)
+                    internal_edge_data += (vals,)
+                internal_edge_data = np.hstack(internal_edge_data)
+                internal_edge_data = np.vstack((internal_edge_data, internal_edge_data))
+                internal_edge_data = self.edge_feature_transform(internal_edge_data)
+                internal_edge_attr = torch.tensor(internal_edge_data, dtype=torch.float).contiguous()
+            else:
+                internal_edge_attr = torch.empty((internal_edge_index.shape[1], 0), dtype=torch.float).contiguous()
 
-                # edge feature (same issue as above)
-                edge_data = ()
-                if self.edge_feature is not None:
-                    for feat in self.edge_feature:
-                        vals = grp['edge_data/'+feat][()]
-                        if vals.ndim == 1:
-                            vals = vals.reshape(-1, 1)
-                        edge_data += (vals,)
-                    edge_data = np.hstack(edge_data)
-                    edge_data = np.vstack((edge_data, edge_data))
-                    edge_data = self.edge_feature_transform(edge_data)
-                    edge_attr = torch.tensor(edge_data, dtype=torch.float).contiguous()
+            # target
+            if self.target is None:
+                y = None
+            else:
+                if "score" in grp and self.target in grp["score"]:
+                    y = torch.tensor([grp['score/'+self.target][()]], dtype=torch.float).contiguous()
                 else:
-                    edge_attr = None
-
-                # internal edges
-                ind = grp['internal_edge_index'][()]
-                if ind.ndim == 2:
-                    ind = np.vstack((ind, np.flip(ind, 1))).T
-                internal_edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
-
-                # internal edge feature
-                internal_edge_data = ()
-                if self.edge_feature is not None:
-                    for feat in self.edge_feature:
-                        vals = grp['internal_edge_data/'+feat][()]
-                        if vals.ndim == 1:
-                            vals = vals.reshape(-1, 1)
-                        internal_edge_data += (vals,)
-                    internal_edge_data = np.hstack(internal_edge_data)
-                    internal_edge_data = np.vstack((internal_edge_data, internal_edge_data))
-                    internal_edge_data = self.edge_feature_transform(internal_edge_data)
-                    internal_edge_attr = torch.tensor(internal_edge_data, dtype=torch.float).contiguous()
-                else:
-                    internal_edge_attr = None
-
-                # target
-                if self.target is None:
                     y = None
-                else:
-                    if "score" in grp and self.target in grp["score"]:
-                        y = torch.tensor([grp['score/'+self.target][()]], dtype=torch.float).contiguous()
-                    else:
-                        y = None
 
-                # positions
-                pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
+            # positions
+            pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
 
-                # node of interest
-                if "node_of_interest" in grp:
-                    index = grp["node_of_interest"][()]
-                    node_of_interest = torch.tensor(index, dtype=torch.long).contiguous()
-                else:
-                    node_of_interest = None
+            # node of interest
+            if "node_of_interest" in grp:
+                index = grp["node_of_interest"][()]
+                node_of_interest = torch.tensor(index, dtype=torch.long).contiguous()
+            else:
+                node_of_interest = None
 
-            # load
-            data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
-            data.internal_edge_index = internal_edge_index
-            data.internal_edge_attr = internal_edge_attr
-            data.node_of_interest_index = node_of_interest
+        # load
+        data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
+        data.internal_edge_index = internal_edge_index
+        data.internal_edge_attr = internal_edge_attr
+        data.node_of_interest_index = node_of_interest
 
-            # mol name
-            data.mol = mol
+        # mol name
+        data.mol = mol
 
-            # cluster
-            if self.clustering_method is not None:
-                if 'clustering' in grp.keys():
-                    if self.clustering_method in grp['clustering'].keys():
-                        if ('depth_0' in grp['clustering/{}'.format(self.clustering_method)].keys() and
-                                'depth_1' in grp['clustering/{}'.format(
-                                    self.clustering_method)].keys()
-                            ):
-                            data.cluster0 = torch.tensor(
-                                grp['clustering/' + self.clustering_method + '/depth_0'][()], dtype=torch.long)
-                            data.cluster1 = torch.tensor(
-                                grp['clustering/' + self.clustering_method + '/depth_1'][()], dtype=torch.long)
-                        else:
-                            _log.warning("no cluster detected")
+        # cluster
+        if self.clustering_method is not None:
+            if 'clustering' in grp.keys():
+                if self.clustering_method in grp['clustering'].keys():
+                    if ('depth_0' in grp['clustering/{}'.format(self.clustering_method)].keys() and
+                            'depth_1' in grp['clustering/{}'.format(
+                                self.clustering_method)].keys()
+                        ):
+                        data.cluster0 = torch.tensor(
+                            grp['clustering/' + self.clustering_method + '/depth_0'][()], dtype=torch.long)
+                        data.cluster1 = torch.tensor(
+                            grp['clustering/' + self.clustering_method + '/depth_1'][()], dtype=torch.long)
                     else:
                         _log.warning("no cluster detected")
                 else:
                     _log.warning("no cluster detected")
+            else:
+                    _log.warning("no cluster detected")
 
-            return data
-        except:
-            _log.exception(f"An error ocurred while loading {mol} in {fname}")
-            return None
+        return data
 
     def create_index_molecules(self):
         '''Creates the indexing of each molecule in the dataset.
