@@ -5,8 +5,8 @@ import os
 
 from scipy.spatial import distance_matrix
 import numpy
-import torch
-from pdb2sql import pdb2sql, interface as get_interface
+from pdb2sql import pdb2sql
+from pdb2sql import interface as get_interface
 
 from deeprank_gnn.models.structure import Atom, Residue, Chain, Structure, AtomicElement
 from deeprank_gnn.domain.amino_acid import amino_acids
