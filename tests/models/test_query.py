@@ -177,7 +177,6 @@ def test_variant_residue_graph_101M():
                                              {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
                                              targets={"bin_class": 0},
                                              variant_only_features={"conservation": 1.0})
-
     g = query.build_graph()
 
     _check_graph_makes_sense(g,
@@ -192,6 +191,13 @@ def test_variant_residue_graph_101M():
                              [FEATURENAME_EDGEDISTANCE,
                               FEATURENAME_EDGECOULOMB,
                               FEATURENAME_EDGEVANDERWAALS])
+
+
+def test_variant_residue_graph_2y69():
+    query = SingleResidueVariantResidueQuery("tests/data/pdb/2y69/2y69.pdb", "P", 94, None, phenylalanine, tyrosine,
+                                             {"P": "tests/data/pssm/2Y69/101M.P.pdb.pssm"},
+                                             targets={"bin_class": 0})
+    g = query.build_graph()
 
 
 def test_negative_coulomb():
