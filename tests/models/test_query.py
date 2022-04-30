@@ -93,7 +93,6 @@ def test_variant_graph_101M():
                               FEATURENAME_PSSMDIFFERENCE],
                              [FEATURENAME_EDGEDISTANCE,
                               FEATURENAME_EDGEVANDERWAALS,
-                              FEATURENAME_EDGESAMECHAIN,
                               FEATURENAME_EDGECOULOMB])
 
     # Two negative nodes should result in positive coulomb potential
@@ -149,8 +148,7 @@ def test_variant_graph_1A0Z():
                               FEATURENAME_PSSMDIFFERENCE],
                              [FEATURENAME_EDGEDISTANCE,
                               FEATURENAME_EDGEVANDERWAALS,
-                              FEATURENAME_EDGECOULOMB,
-                              FEATURENAME_EDGESAMECHAIN])
+                              FEATURENAME_EDGECOULOMB])
 
 
 def test_variant_graph_9API():
@@ -168,8 +166,7 @@ def test_variant_graph_9API():
                               FEATURENAME_PSSMDIFFERENCE],
                              [FEATURENAME_EDGEDISTANCE,
                               FEATURENAME_EDGEVANDERWAALS,
-                              FEATURENAME_EDGECOULOMB,
-                              FEATURENAME_EDGESAMECHAIN])
+                              FEATURENAME_EDGECOULOMB])
 
 
 def test_variant_residue_graph_101M():
@@ -196,6 +193,7 @@ def test_variant_residue_graph_101M():
 def test_variant_residue_graph_2y69():
     query = SingleResidueVariantResidueQuery("tests/data/pdb/2y69/2y69.pdb", "P", 94, None, phenylalanine, tyrosine,
                                              {"P": "tests/data/pssm/2Y69/2y69.P.pdb.pssm",
+                                              "G": "tests/data/pssm/2Y69/2y69.G.pdb.pssm",
                                               "N": "tests/data/pssm/2Y69/2y69.N.pdb.pssm"},
                                              targets={"bin_class": 0})
     g = query.build_graph()
