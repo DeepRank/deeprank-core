@@ -262,14 +262,14 @@ class SingleResidueVariantResidueQuery(Query):
 
         # find neighbouring atoms
         atom_positions = [atom.position for atom in atoms]
-        distances = distance_matrix(atom_positions, atom_positions, p=2)
-        neighbours = distances < self._external_distance_cutoff
+        interatomic_distances = distance_matrix(atom_positions, atom_positions, p=2)
+        neighbours = interatomic_distances < self._external_distance_cutoff
 
         # iterate over every pair of neighbouring atoms
         for atom1_index, atom2_index in numpy.transpose(numpy.nonzero(neighbours)):
             if atom1_index != atom2_index:  # do not pair an atom with itself
 
-                atom_distance = distances[atom1_index, atom2_index]
+                atom_distance = interatomic_distances[atom1_index, atom2_index]
 
                 atom1 = atoms[atom1_index]
                 atom2 = atoms[atom2_index]
@@ -309,7 +309,7 @@ class SingleResidueVariantResidueQuery(Query):
             self._set_pssm(graph, node_name_residues, variant_residue,
                            self._wildtype_amino_acid, self._variant_amino_acid)
 
-        self._set_contacts(graph, node_name_residues)
+        self._set_contacts(graph, node_name_residues, atoms, interatomic_distances)
 
         # set the variant-only features
         for feature_name, feature_value in self._variant_only_features.items():
@@ -338,19 +338,7 @@ class SingleResidueVariantResidueQuery(Query):
             raise TypeError(type(value))
 
     @staticmethod
-    def _set_contacts(graph, node_name_residues):
-
-        # get all atoms
-        atoms = set([])
-        for edge_key in graph.edges.keys():
-            node1_name, node2_name = edge_key
-
-            residue1 = node_name_residues[node1_name]
-            residue2 = node_name_residues[node2_name]
-
-            for atom in (residue1.atoms + residue2.atoms):
-                atoms.add(atom)
-        atoms = list(atoms)
+    def _set_contacts(graph, node_name_residues, atoms, interatomic_distances):
 
         # get all atomic parameters
         atom_indices = {}
@@ -375,9 +363,6 @@ class SingleResidueVariantResidueQuery(Query):
             positions.append(atom.position)
             atom_indices[atom] = atom_index
 
-        # calculate distances
-        interatomic_distances = distance_matrix(positions, positions, p=2)
-
         # calculate potentials
         interatomic_electrostatic_potentials = get_coulomb_potentials(interatomic_distances, atom_charges)
         interatomic_vanderwaals_potentials = get_lennard_jones_potentials(interatomic_distances, atoms, atom_vanderwaals_parameters)
@@ -394,9 +379,6 @@ class SingleResidueVariantResidueQuery(Query):
 
                     atom1_index = atom_indices[atom1]
                     atom2_index = atom_indices[atom2]
-
-                    edge_features[FEATURENAME_EDGEDISTANCE] = min(edge_features.get(FEATURENAME_EDGEDISTANCE, 1e99),
-                                                                  interatomic_distances[atom1_index, atom2_index])
 
                     edge_features[FEATURENAME_EDGEVANDERWAALS] = (edge_features.get(FEATURENAME_EDGEVANDERWAALS, 0.0) +
                                                                   interatomic_vanderwaals_potentials[atom1_index, atom2_index])
@@ -523,8 +505,8 @@ class SingleResidueVariantAtomicQuery(Query):
 
         # find neighbouring atoms
         atom_positions = [atom.position for atom in atoms]
-        distances = distance_matrix(atom_positions, atom_positions, p=2)
-        neighbours = distances < self._external_distance_cutoff
+        interatomic_distances = distance_matrix(atom_positions, atom_positions, p=2)
+        neighbours = interatomic_distances < self._external_distance_cutoff
 
         # initialize these recording dictionaries
         atom_vanderwaals_parameters = {}
@@ -539,7 +521,7 @@ class SingleResidueVariantAtomicQuery(Query):
         for atom1_index, atom2_index in numpy.transpose(numpy.nonzero(neighbours)):
             if atom1_index != atom2_index:  # do not pair an atom with itself
 
-                distance = distances[atom1_index, atom2_index]
+                distance = interatomic_distances[atom1_index, atom2_index]
 
                 atom1 = atoms[atom1_index]
                 atom2 = atoms[atom2_index]
@@ -567,7 +549,7 @@ class SingleResidueVariantAtomicQuery(Query):
                 node_name_atoms[atom2_key] = atom2
 
         # set additional features
-        SingleResidueVariantAtomicQuery._set_contacts(graph, node_name_atoms)
+        SingleResidueVariantAtomicQuery._set_contacts(graph, node_name_atoms, atoms, interatomic_distances)
 
         SingleResidueVariantAtomicQuery._set_pssm(graph, node_name_atoms, variant_residue,
                                                   self._wildtype_amino_acid, self._variant_amino_acid)
@@ -642,19 +624,7 @@ class SingleResidueVariantAtomicQuery(Query):
             graph.nodes[node_name][FEATURENAME_SASA] = area
 
     @staticmethod
-    def _set_contacts(graph, node_name_atoms):
-
-        # get all atoms
-        atoms = set([])
-        for edge_key in graph.edges.keys():
-            node1_name, node2_name = edge_key
-
-            atom1 = node_name_atoms[node1_name]
-            atom2 = node_name_atoms[node2_name]
-
-            atoms.add(atom1)
-            atoms.add(atom2)
-        atoms = list(atoms)
+    def _set_contacts(graph, node_name_atoms, atoms, interatomic_distances):
 
         # get all atomic parameters
         atom_indices = {}
@@ -678,9 +648,6 @@ class SingleResidueVariantAtomicQuery(Query):
             atom_vanderwaals_parameters.append(vanderwaals)
             positions.append(atom.position)
             atom_indices[atom] = atom_index
-
-        # calculate distances
-        interatomic_distances = distance_matrix(positions, positions, p=2)
 
         # calculate potentials
         interatomic_electrostatic_potentials = get_coulomb_potentials(interatomic_distances, atom_charges)
