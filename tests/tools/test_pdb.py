@@ -48,12 +48,15 @@ def test_surrounding_residues_large_structure():
                 for residue in close_residues]), "the centering residue wasn't included"
 
 
-@memory_limit(1024 * 1024 * 1024)
 def test_hydrogens():
     test_file, test_path = tempfile.mkstemp()
     os.close(test_file)
 
     try:
         add_hydrogens("tests/data/pdb/2Y69/2Y69.pdb", test_path)
+
+        assert os.path.isfile(test_path)
+        with open(test_path, 'rt') as f:
+            assert any(["PHE P  94" in line for line in f])
     finally:
         os.remove(test_path)
