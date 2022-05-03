@@ -44,7 +44,7 @@ def add_hydrogens(input_pdb_path, output_pdb_path):
         with open(tmp_path, 'rt') as f:
             with open(output_pdb_path, 'wt') as g:
                 for line in f:
-                    g.write(line.replace("   new", ""))
+                    g.write(line.replace("   new", "").replace("   std",""))
     finally:
         os.remove(tmp_path)
 
