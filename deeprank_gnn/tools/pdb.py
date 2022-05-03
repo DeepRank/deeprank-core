@@ -31,11 +31,14 @@ def is_xray(pdb_file):
 def add_hydrogens(input_pdb_path, output_pdb_path):
     "this requires reduce: https://github.com/rlabduke/reduce"
 
+    if not os.path.isfile(input_pdb_path):
+        raise FileNotFoundError(input_pdb_path)
+
     tmp_file, tmp_path = tempfile.mkstemp()
     os.close(tmp_file)
 
     with open(tmp_path, 'wb') as f:
-        subprocess.run(["reduce", "-Quiet", input_pdb_path], stdout=f, stderr=None, check=True)
+        subprocess.run(["reduce", "-Quiet", input_pdb_path], stdout=f, check=True)
 
     try:
         with open(tmp_path, 'rt') as f:
@@ -231,7 +234,7 @@ def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
                                      model=0)
 
     if len(residue_atom_positions) == 0:
-        raise ValueError("residue not found: {} {}{}".format(chain_id, residue_number, insertion_code))
+        raise ValueError("residue not found in {}: {} {}{}".format(pdb_path, chain_id, residue_number, insertion_code))
 
     distances = distance_matrix(structure_atom_positions, residue_atom_positions, p=2)
     neighbours = distances < radius

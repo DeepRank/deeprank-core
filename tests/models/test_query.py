@@ -191,7 +191,7 @@ def test_variant_residue_graph_101M():
 
 
 def test_variant_residue_graph_2y69():
-    query = SingleResidueVariantResidueQuery("tests/data/pdb/2y69/2y69.pdb", "P", 94, None, phenylalanine, tyrosine,
+    query = SingleResidueVariantResidueQuery("tests/data/pdb/2Y69/2Y69.pdb", "P", 94, None, phenylalanine, tyrosine,
                                              {"P": "tests/data/pssm/2Y69/2y69.P.pdb.pssm",
                                               "G": "tests/data/pssm/2Y69/2y69.G.pdb.pssm",
                                               "N": "tests/data/pssm/2Y69/2y69.N.pdb.pssm"},
