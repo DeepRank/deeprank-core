@@ -323,32 +323,35 @@ class HDF5DataSet(Dataset):
             # positions
             pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
 
+            # cluster
+            if self.clustering_method is not None:
+                if 'clustering' in grp.keys():
+                    if self.clustering_method in grp['clustering'].keys():
+                        if ('depth_0' in grp['clustering/{}'.format(self.clustering_method)].keys() and
+                            'depth_1' in grp['clustering/{}'.format(self.clustering_method)].keys()):
+
+                            cluster0 = torch.tensor(
+                                grp['clustering/' + self.clustering_method + '/depth_0'][()], dtype=torch.long)
+                            cluster1 = torch.tensor(
+                                grp['clustering/' + self.clustering_method + '/depth_1'][()], dtype=torch.long)
+                        else:
+                            _log.warning("no clusters detected")
+                    else:
+                        _log.warning(f"no clustering/{self.clustering_method} detected")
+                else:
+                    _log.warning("no clustering group found")
+            else:
+                _log.warning("no cluster method set")
+
         # load
         data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
         data.internal_edge_index = internal_edge_index
         data.internal_edge_attr = internal_edge_attr
+        data.cluster0 = cluster0
+        data.cluster1 = cluster1
 
         # mol name
         data.mol = mol
-
-        # cluster
-        if self.clustering_method is not None:
-            if 'clustering' in grp.keys():
-                if self.clustering_method in grp['clustering'].keys():
-                    if ('depth_0' in grp['clustering/{}'.format(self.clustering_method)].keys() and
-                            'depth_1' in grp['clustering/{}'.format(
-                                self.clustering_method)].keys()
-                        ):
-                        data.cluster0 = torch.tensor(
-                            grp['clustering/' + self.clustering_method + '/depth_0'][()], dtype=torch.long)
-                        data.cluster1 = torch.tensor(
-                            grp['clustering/' + self.clustering_method + '/depth_1'][()], dtype=torch.long)
-                    else:
-                        _log.warning("no cluster detected")
-                else:
-                    _log.warning("no cluster detected")
-            else:
-                    _log.warning("no cluster detected")
 
         return data
 
