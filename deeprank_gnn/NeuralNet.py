@@ -217,9 +217,9 @@ class NeuralNet(object):
         self.device = torch.device(
             'cuda' if torch.cuda.is_available() else 'cpu')
 
-        print ('device set to :', self.device)
+        _log.info(f"device set to : {self.device}")
         if self.device.type == 'cuda':
-            print(torch.cuda.get_device_name(0))
+            _log.info(f"cuda device name is {torch.cuda.get_device_name(0)}")
 
         self.num_edge_features = len(self.edge_feature)
 
@@ -541,7 +541,7 @@ class NeuralNet(object):
 
             if target is not None:
                 target = torch.tensor(
-                    [self.classes_to_idx[int(x)] for x in target])
+                    [self.classes_to_idx[int(x)] for x in target]).to(self.device)
 
         elif self.transform_sigmoid is True :
             pred = torch.sigmoid(pred.reshape(-1))
