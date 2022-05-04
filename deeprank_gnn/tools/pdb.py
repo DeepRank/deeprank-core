@@ -1,18 +1,21 @@
 import tempfile
+import logging
 import os
 from time import time
 from typing import Optional, List
-import logging
 import subprocess
 
 from scipy.spatial import distance_matrix
 import numpy
-import torch
-from pdb2sql import pdb2sql, interface as get_interface
+from pdb2sql import interface as get_interface
+from pdb2sql import pdb2sql
 
 from deeprank_gnn.models.structure import Atom, Residue, Chain, Structure, AtomicElement
 from deeprank_gnn.domain.amino_acid import amino_acids
 from deeprank_gnn.models.pair import Pair
+from deeprank_gnn.domain.forcefield import atomic_forcefield
+from deeprank_gnn.models.contact import ResidueContact, AtomicContact
+from deeprank_gnn.feature.atomic_contact import get_coulomb_potentials, get_lennard_jones_potentials
 
 
 _log = logging.getLogger(__name__)
@@ -53,7 +56,8 @@ def _add_atom_to_residue(atom, residue):
 
     for other_atom in residue.atoms:
         if other_atom.name == atom.name:
-            # Don't allow two atoms with the same name, pick the highest occupancy
+            # Don't allow two atoms with the same name, pick the highest
+            # occupancy
             if other_atom.occupancy < atom.occupancy:
                 other_atom.change_altloc(atom)
                 return other_atom
@@ -70,10 +74,13 @@ def _to_atoms(atom_rows: numpy.ndarray, structure_id: str) -> List[Atom]:
             id: unique id for the pdb structure
     """
 
-    amino_acids_by_code = {amino_acid.three_letter_code: amino_acid for amino_acid in amino_acids}
     elements_by_symbol = {element.name: element for element in AtomicElement}
+    amino_acids_by_code = {
+        amino_acid.three_letter_code: amino_acid for amino_acid in amino_acids
+    }
 
-    # We need these intermediary dicts to keep track of which residues and chains have already been created.
+    # We need these intermediary dicts to keep track of which residues and
+    # chains have already been created.
     chains = {}
     residues = {}
     atoms = set([])
@@ -81,7 +88,22 @@ def _to_atoms(atom_rows: numpy.ndarray, structure_id: str) -> List[Atom]:
     structure = Structure(structure_id)
 
     # Iterate over the atom output from pdb2sql
-    for x, y, z, atom_number, atom_name, alt_loc, occupancy, element_symbol, chain_id, residue_number, residue_name, insertion_code in atom_rows:
+    for row in atom_rows:
+
+        (
+            x,
+            y,
+            z,
+            _,
+            atom_name,
+            altloc,
+            occupancy,
+            element,
+            chain_id,
+            residue_number,
+            residue_name,
+            insertion_code,
+        ) = row
 
         # We use None to indicate that the residue has no insertion code.
         if insertion_code == "":
@@ -116,86 +138,82 @@ def _to_atoms(atom_rows: numpy.ndarray, structure_id: str) -> List[Atom]:
             residue = residues[residue_id]
 
         # Init atom.
-        atom = Atom(residue, atom_name, elements_by_symbol[element_symbol], atom_position, occupancy)
-        atom = _add_atom_to_residue(atom, residue)
+        atom = Atom(
+            residue, atom_name, elements_by_symbol[element], atom_position, occupancy
+        )
+        _add_atom_to_residue(atom, residue)
         atoms.add(atom)
 
-    return atoms
+    return list(atoms)
 
 
-def get_residue_distance(residue1, residue2):
-    """ Get the shortest distance between two atoms from two different given residues.
+def get_residue_contact_pairs( # pylint: disable=too-many-locals
+    pdb_path: str,
+    chain_id1: str,
+    chain_id2: str,
+    distance_cutoff: float,
+) -> List[Pair]:
 
-        Args:
-            residue1(deeprank residue object): the first residue
-            residue2(deeprank residue object): the second residue
+    """Get the residues that contact each other at a protein-protein interface.
 
-        Returns(float): the shortest distance
+    Args:
+        pdb_path: the path of the pdb file, that the structure was built from
+        chain_id1: first protein chain identifier
+        chain_id2: second protein chain identifier
+        distance_cutoff: max distance between two interacting residues
+
+    Returns: the pairs of contacting residues
     """
 
-    residue1_atom_positions = numpy.array([atom.position for atom in residue1.atoms])
-    residue2_atom_positions = numpy.array([atom.position for atom in residue2.atoms])
-
-    distances = distance_matrix(residue1_atom_positions, residue2_atom_positions, p=2)
-
-    return numpy.min(distances)
-
-
-def get_residue_contact_pairs(pdb_path, model_id, chain_id1, chain_id2, distance_cutoff):
-    """ Get the residues that contact each other at a protein-protein interface.
-
-        Args:
-            pdb_path(str): path to the pdb file
-            model_id(str): unique identifier for the structure
-            chain_id1(str): first protein chain identifier
-            chain_id2(str): second protein chain identifier
-            distance_cutoff(float): max distance between two interacting residues
-
-        Returns: (list of deeprank residue pairs): the contacting residues
-    """
-
-    # load the structure
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, model_id)
-    finally:
-        pdb._close()
+    pdb_name = os.path.splitext(os.path.basename(pdb_path))
+    structure_id = f"interface-{pdb_name}-{chain_id1}:{chain_id2}"
 
     # Find out which residues are pairs
     interface = get_interface(pdb_path)
+    pdb = pdb2sql(pdb_path)
     try:
-        contact_residues = interface.get_contact_residues(cutoff=distance_cutoff,
-                                                          chain1=chain_id1, chain2=chain_id2,
-                                                          return_contact_pairs=True)
+        contact_residues = interface.get_contact_residues(
+            cutoff=distance_cutoff,
+            chain1=chain_id1,
+            chain2=chain_id2,
+            return_contact_pairs=True,
+        )
     finally:
-        interface._close()
+        interface._close() # pylint: disable=protected-access
 
     # Map to residue objects
     residue_pairs = set([])
-    for residue_key1 in contact_residues:
-        residue_chain_id1, residue_number1, residue_name1 = residue_key1
+    for (residue_chain_id1, residue_number1, residue_name1), residue_keys2 in contact_residues.items():
 
-        chain1 = structure.get_chain(residue_chain_id1)
+        residue1_atom_rows = pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode",
+                                     model=0,
+                                     chainID=residue_chain_id1,
+                                     resSeq=residue_number1,
+                                     resName=residue_name1)
 
-        residue1 = None
-        for residue in chain1.residues:
-            if residue.number == residue_number1 and residue.amino_acid is not None and residue.amino_acid.three_letter_code == residue_name1:
-                residue1 = residue
-                break
-        else:
-            raise ValueError("Not found: {} {} {} {}".format(pdb_ac, residue_chain_id1, residue_number1, residue_name1))
+        if len(residue1_atom_rows) == 0:
+            raise ValueError(
+                f"Not found: {pdb_path} {residue_chain_id1} {residue_number1} {residue_name1}"
+            )
 
-        for residue_chain_id2, residue_number2, residue_name2 in contact_residues[residue_key1]:
+        residue1_atoms = _to_atoms(residue1_atom_rows, structure_id)
+        residue1 = residue1_atoms[0].residue
 
-            chain2 = structure.get_chain(residue_chain_id2)
+        for residue_chain_id2, residue_number2, residue_name2 in residue_keys2:
 
-            residue2 = None
-            for residue in chain2.residues:
-                if residue.number == residue_number2 and residue.amino_acid is not None and residue.amino_acid.three_letter_code == residue_name2:
-                    residue2 = residue
-                    break
-            else:
-                raise ValueError("Not found: {} {} {} {}".format(pdb_ac, residue_chain_id2, residue_number2, residue_name2))
+            residue2_atom_rows = pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode",
+                                         model=0,
+                                         chainID=residue_chain_id2,
+                                         resSeq=residue_number2,
+                                         resName=residue_name2)
+
+            if len(residue1_atom_rows) == 0:
+                raise ValueError(
+                    f"Not found: {pdb_path} {residue_chain_id2} {residue_number2} {residue_name2}"
+                )
+
+            residue2_atoms = _to_atoms(residue2_atom_rows, structure_id)
+            residue2 = residue2_atoms[0].residue
 
             residue_pairs.add(Pair(residue1, residue2))
 
@@ -215,8 +233,6 @@ def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
             residue_number: identifies the residue in the pdb
             insertion_code: identifies the residue in the pdb
             radius: max distance in Ångström between atoms of the residue and the other residues
-
-        Returns: (a set of deeprank residues): the surrounding residues
     """
 
     pdb = pdb2sql(pdb_path)

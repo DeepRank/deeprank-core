@@ -1,11 +1,10 @@
 import glob
 import h5py
 import os
-import sys
 import numpy as np
 
 
-def add_target(graph_path, target_name, target_list, sep=' '):
+def add_target(graph_path, target_name, target_list, sep=" "): # pylint: disable=too-many-locals
     """Add a target to all the graphs contains in hdf5 files
 
     Args:
@@ -26,15 +25,14 @@ def add_target(graph_path, target_name, target_list, sep=' '):
 
     target_dict = {}
 
-    labels = np.loadtxt(target_list, delimiter=sep,
-                        usecols=[0], dtype=str)
+    labels = np.loadtxt(target_list, delimiter=sep, usecols=[0], dtype=str)
     values = np.loadtxt(target_list, delimiter=sep, usecols=[1])
     for label, value in zip(labels, values):
         target_dict[label] = value
 
     # if a directory is provided
     if os.path.isdir(graph_path):
-        graphs = glob.glob('{}/*.hdf5'.format(graph_path))
+        graphs = glob.glob(f"{graph_path}/*.hdf5")
 
     # if a single file is provided
     elif os.path.isfile(graph_path):
@@ -48,28 +46,33 @@ def add_target(graph_path, target_name, target_list, sep=' '):
     for hdf5 in graphs:
         print(hdf5)
         try:
-            f5 = h5py.File(hdf5, 'a')
+            f5 = h5py.File(hdf5, "a")
 
-            for model in f5.keys():
+            for model, _ in target_dict.items():
+                if model not in f5:
+                    raise ValueError(
+                        f"{hdf5} does not contain an entry named {model}"
+                    )
+
                 try:
-                    model_gp = f5['{}'.format(model)]
+                    model_gp = f5[model]
 
-                    if 'score' not in model_gp:
-                        model_gp.create_group('score')
+                    if "score" not in model_gp:
+                        model_gp.create_group("score")
 
-                    group = f5['{}/score/'.format(model)]
+                    group = f5[f"{model}/score/"]
 
                     if target_name in group.keys():
                         # Delete the target if it already existed
                         del group[target_name]
 
                     # Create the target
-                    group[target_name] = target_dict[model]
+                    group.create_dataset(target_name, data=target_dict[model])
 
-                except:
-                    print('no graph for {}'.format(model))
+                except BaseException:
+                    print(f"no graph for {model}")
 
             f5.close()
 
-        except:
-            print('no graph for {}'.format(hdf5))
+        except BaseException:
+            print(f"no graph for {hdf5}")

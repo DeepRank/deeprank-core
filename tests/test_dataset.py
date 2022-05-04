@@ -5,7 +5,7 @@ from deeprank_gnn.DataSet import HDF5DataSet, DivideDataSet, PreCluster
 class TestDataSet(unittest.TestCase):
 
     def setUp(self):
-        self.database = 'tests/hdf5/1ATN_residue.hdf5'
+        self.database = 'tests/hdf5/1ATN_ppi.hdf5'
 
     def test_dataset(self):
         dataset = HDF5DataSet(database=self.database,

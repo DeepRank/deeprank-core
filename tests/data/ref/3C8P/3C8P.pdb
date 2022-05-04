@@ -1,0 +1,1928 @@
+HEADER    TOXIN                                   13-FEB-08   3C8P              
+TITLE     X-RAY STRUCTURE OF VISCOTOXIN A1 FROM VISCUM ALBUM L.                 
+COMPND    MOL_ID: 1;                                                            
+COMPND   2 MOLECULE: VISCOTOXIN A1;                                             
+COMPND   3 CHAIN: A, B                                                          
+SOURCE    MOL_ID: 1;                                                            
+SOURCE   2 ORGANISM_SCIENTIFIC: VISCUM ALBUM;                                   
+SOURCE   3 ORGANISM_COMMON: EUROPEAN MISTLETOE;                                 
+SOURCE   4 ORGANISM_TAXID: 3972                                                 
+KEYWDS    HELIX TURN HELIX, TOXIN                                               
+EXPDTA    X-RAY DIFFRACTION                                                     
+AUTHOR    A.PAL,J.E.DEBRECZENI,M.SEVVANA,T.GRUENE,B.KAHLE,A.ZEECK,              
+AUTHOR   2 G.M.SHELDRICK                                                        
+REVDAT   3   19-MAY-09 3C8P    1       JRNL                                     
+REVDAT   2   24-FEB-09 3C8P    1       VERSN                                    
+REVDAT   1   17-JUN-08 3C8P    0                                                
+JRNL        AUTH   A.PAL,J.E.DEBRECZENI,M.SEVVANA,T.GRUENE,B.KAHLE,             
+JRNL        AUTH 2 A.ZEECK,G.M.SHELDRICK                                        
+JRNL        TITL   STRUCTURES OF VISCOTOXINS A1 AND B2 FROM EUROPEAN            
+JRNL        TITL 2 MISTLETOE SOLVED USING NATIVE DATA ALONE                     
+JRNL        REF    ACTA CRYSTALLOGR.,SECT.D      V.  64   985 2008              
+JRNL        REFN                   ISSN 0907-4449                               
+JRNL        PMID   18703848                                                     
+JRNL        DOI    10.1107/S0907444908022646                                    
+REMARK   1                                                                      
+REMARK   2                                                                      
+REMARK   2 RESOLUTION.    1.25 ANGSTROMS.                                       
+REMARK   3                                                                      
+REMARK   3 REFINEMENT.                                                          
+REMARK   3   PROGRAM     : SHELXL-97                                            
+REMARK   3   AUTHORS     : G.M.SHELDRICK                                        
+REMARK   3                                                                      
+REMARK   3  DATA USED IN REFINEMENT.                                            
+REMARK   3   RESOLUTION RANGE HIGH (ANGSTROMS) : 1.25                           
+REMARK   3   RESOLUTION RANGE LOW  (ANGSTROMS) : 47.16                          
+REMARK   3   DATA CUTOFF            (SIGMA(F)) : 0.000                          
+REMARK   3   COMPLETENESS FOR RANGE        (%) : 100.0                          
+REMARK   3   CROSS-VALIDATION METHOD           : FREE R                         
+REMARK   3   FREE R VALUE TEST SET SELECTION   : RANDOM                         
+REMARK   3                                                                      
+REMARK   3  FIT TO DATA USED IN REFINEMENT (NO CUTOFF).                         
+REMARK   3   R VALUE   (WORKING + TEST SET, NO CUTOFF) : 0.150                  
+REMARK   3   R VALUE          (WORKING SET, NO CUTOFF) : 0.151                  
+REMARK   3   FREE R VALUE                  (NO CUTOFF) : 0.191                  
+REMARK   3   FREE R VALUE TEST SET SIZE (%, NO CUTOFF) : 4.950                  
+REMARK   3   FREE R VALUE TEST SET COUNT   (NO CUTOFF) : 1445                   
+REMARK   3   TOTAL NUMBER OF REFLECTIONS   (NO CUTOFF) : 29166                  
+REMARK   3                                                                      
+REMARK   3  FIT/AGREEMENT OF MODEL FOR DATA WITH F>4SIG(F).                     
+REMARK   3   R VALUE   (WORKING + TEST SET, F>4SIG(F)) : 0.124                  
+REMARK   3   R VALUE          (WORKING SET, F>4SIG(F)) : 0.125                  
+REMARK   3   FREE R VALUE                  (F>4SIG(F)) : 0.167                  
+REMARK   3   FREE R VALUE TEST SET SIZE (%, F>4SIG(F)) : 5.040                  
+REMARK   3   FREE R VALUE TEST SET COUNT   (F>4SIG(F)) : 1098                   
+REMARK   3   TOTAL NUMBER OF REFLECTIONS   (F>4SIG(F)) : 21766                  
+REMARK   3                                                                      
+REMARK   3  NUMBER OF NON-HYDROGEN ATOMS USED IN REFINEMENT.                    
+REMARK   3   PROTEIN ATOMS      : 674                                           
+REMARK   3   NUCLEIC ACID ATOMS : 0                                             
+REMARK   3   HETEROGEN ATOMS    : 0                                             
+REMARK   3   SOLVENT ATOMS      : 135                                           
+REMARK   3                                                                      
+REMARK   3  MODEL REFINEMENT.                                                   
+REMARK   3   OCCUPANCY SUM OF NON-HYDROGEN ATOMS      : 801.79                  
+REMARK   3   OCCUPANCY SUM OF HYDROGEN ATOMS          : NULL                    
+REMARK   3   NUMBER OF DISCRETELY DISORDERED RESIDUES : 1                       
+REMARK   3   NUMBER OF LEAST-SQUARES PARAMETERS       : 7269                    
+REMARK   3   NUMBER OF RESTRAINTS                     : 8599                    
+REMARK   3                                                                      
+REMARK   3  RMS DEVIATIONS FROM RESTRAINT TARGET VALUES.                        
+REMARK   3   BOND LENGTHS                         (A) : 0.013                   
+REMARK   3   ANGLE DISTANCES                      (A) : 0.028                   
+REMARK   3   SIMILAR DISTANCES (NO TARGET VALUES) (A) : NULL                    
+REMARK   3   DISTANCES FROM RESTRAINT PLANES      (A) : 0.360                   
+REMARK   3   ZERO CHIRAL VOLUMES               (A**3) : 0.072                   
+REMARK   3   NON-ZERO CHIRAL VOLUMES           (A**3) : 0.065                   
+REMARK   3   ANTI-BUMPING DISTANCE RESTRAINTS     (A) : 0.013                   
+REMARK   3   RIGID-BOND ADP COMPONENTS         (A**2) : 0.004                   
+REMARK   3   SIMILAR ADP COMPONENTS            (A**2) : 0.038                   
+REMARK   3   APPROXIMATELY ISOTROPIC ADPS      (A**2) : 0.108                   
+REMARK   3                                                                      
+REMARK   3  BULK SOLVENT MODELING.                                              
+REMARK   3   METHOD USED: MEWS AND KRETSINGER                                   
+REMARK   3                                                                      
+REMARK   3  STEREOCHEMISTRY TARGET VALUES : ENGH AND HUBER                      
+REMARK   3   SPECIAL CASE: NULL                                                 
+REMARK   3                                                                      
+REMARK   3  OTHER REFINEMENT REMARKS: NULL                                      
+REMARK   4                                                                      
+REMARK   4 3C8P COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK 100                                                                      
+REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 14-FEB-08.                  
+REMARK 100 THE RCSB ID CODE IS RCSB046481.                                      
+REMARK 200                                                                      
+REMARK 200 EXPERIMENTAL DETAILS                                                 
+REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
+REMARK 200  DATE OF DATA COLLECTION        : 10-OCT-04; 08-FEB-05               
+REMARK 200  TEMPERATURE           (KELVIN) : 100; 100                           
+REMARK 200  PH                             : 7.50                               
+REMARK 200  NUMBER OF CRYSTALS USED        : 1                                  
+REMARK 200                                                                      
+REMARK 200  SYNCHROTRON              (Y/N) : N; Y                               
+REMARK 200  RADIATION SOURCE               : ROTATING ANODE; EMBL/DESY,         
+REMARK 200                                   HAMBURG                            
+REMARK 200  BEAMLINE                       : NULL; BW7B                         
+REMARK 200  X-RAY GENERATOR MODEL          : BRUKER AXS MICROSTAR; NULL         
+REMARK 200  MONOCHROMATIC OR LAUE    (M/L) : M; M                               
+REMARK 200  WAVELENGTH OR RANGE        (A) : 1.54; 1.00                         
+REMARK 200  MONOCHROMATOR                  : CU K A CRYSTAL MONOCHROMATOR;      
+REMARK 200                                   SILICON DOUBLE CRYSTAL             
+REMARK 200                                   MONOCHROMATOR                      
+REMARK 200  OPTICS                         : OSMIC FOCUSSING MIRRORS; NULL      
+REMARK 200                                                                      
+REMARK 200  DETECTOR TYPE                  : CCD; IMAGE PLATE                   
+REMARK 200  DETECTOR MANUFACTURER          : BRUKER SMART 6000; MAR             
+REMARK 200                                   SCANNER 345 MM PLATE               
+REMARK 200  INTENSITY-INTEGRATION SOFTWARE : SAINT                              
+REMARK 200  DATA SCALING SOFTWARE          : SADABS                             
+REMARK 200                                                                      
+REMARK 200  NUMBER OF UNIQUE REFLECTIONS   : 29217                              
+REMARK 200  RESOLUTION RANGE HIGH      (A) : 1.250                              
+REMARK 200  RESOLUTION RANGE LOW       (A) : 47.160                             
+REMARK 200  REJECTION CRITERIA  (SIGMA(I)) : 0.000                              
+REMARK 200                                                                      
+REMARK 200 OVERALL.                                                             
+REMARK 200  COMPLETENESS FOR RANGE     (%) : 100.0                              
+REMARK 200  DATA REDUNDANCY                : 1.800                              
+REMARK 200  R MERGE                    (I) : 0.08910                            
+REMARK 200  R SYM                      (I) : 0.03100                            
+REMARK 200  <I/SIGMA(I)> FOR THE DATA SET  : 25.5000                            
+REMARK 200                                                                      
+REMARK 200 IN THE HIGHEST RESOLUTION SHELL.                                     
+REMARK 200  HIGHEST RESOLUTION SHELL, RANGE HIGH (A) : 1.25                     
+REMARK 200  HIGHEST RESOLUTION SHELL, RANGE LOW  (A) : 1.35                     
+REMARK 200  COMPLETENESS FOR SHELL     (%) : 100.0                              
+REMARK 200  DATA REDUNDANCY IN SHELL       : 1.75                               
+REMARK 200  R MERGE FOR SHELL          (I) : 0.30380                            
+REMARK 200  R SYM FOR SHELL            (I) : 0.30380                            
+REMARK 200  <I/SIGMA(I)> FOR SHELL         : 2.610                              
+REMARK 200                                                                      
+REMARK 200 DIFFRACTION PROTOCOL: SINGLE WAVELENGTH; SINGLE WAVELENGTH           
+REMARK 200 METHOD USED TO DETERMINE THE STRUCTURE: SAD                          
+REMARK 200 SOFTWARE USED: XPREP, SHELXD, SHELXE                                 
+REMARK 200 STARTING MODEL: NULL                                                 
+REMARK 200                                                                      
+REMARK 200 REMARK: NULL                                                         
+REMARK 280                                                                      
+REMARK 280 CRYSTAL                                                              
+REMARK 280 SOLVENT CONTENT, VS   (%): 52.70                                     
+REMARK 280 MATTHEWS COEFFICIENT, VM (ANGSTROMS**3/DA): 2.60                     
+REMARK 280                                                                      
+REMARK 280 CRYSTALLIZATION CONDITIONS: 1.4M SODIUM CITRATE, 0.1 M HEPES PH      
+REMARK 280  7.5, VAPOR DIFFUSION, TEMPERATURE 298K, PH 7.50                     
+REMARK 290                                                                      
+REMARK 290 CRYSTALLOGRAPHIC SYMMETRY                                            
+REMARK 290 SYMMETRY OPERATORS FOR SPACE GROUP: P 43 21 2                        
+REMARK 290                                                                      
+REMARK 290      SYMOP   SYMMETRY                                                
+REMARK 290     NNNMMM   OPERATOR                                                
+REMARK 290       1555   X,Y,Z                                                   
+REMARK 290       2555   -X,-Y,Z+1/2                                             
+REMARK 290       3555   -Y+1/2,X+1/2,Z+3/4                                      
+REMARK 290       4555   Y+1/2,-X+1/2,Z+1/4                                      
+REMARK 290       5555   -X+1/2,Y+1/2,-Z+3/4                                     
+REMARK 290       6555   X+1/2,-Y+1/2,-Z+1/4                                     
+REMARK 290       7555   Y,X,-Z                                                  
+REMARK 290       8555   -Y,-X,-Z+1/2                                            
+REMARK 290                                                                      
+REMARK 290     WHERE NNN -> OPERATOR NUMBER                                     
+REMARK 290           MMM -> TRANSLATION VECTOR                                  
+REMARK 290                                                                      
+REMARK 290 CRYSTALLOGRAPHIC SYMMETRY TRANSFORMATIONS                            
+REMARK 290 THE FOLLOWING TRANSFORMATIONS OPERATE ON THE ATOM/HETATM             
+REMARK 290 RECORDS IN THIS ENTRY TO PRODUCE CRYSTALLOGRAPHICALLY                
+REMARK 290 RELATED MOLECULES.                                                   
+REMARK 290   SMTRY1   1  1.000000  0.000000  0.000000        0.00000            
+REMARK 290   SMTRY2   1  0.000000  1.000000  0.000000        0.00000            
+REMARK 290   SMTRY3   1  0.000000  0.000000  1.000000        0.00000            
+REMARK 290   SMTRY1   2 -1.000000  0.000000  0.000000        0.00000            
+REMARK 290   SMTRY2   2  0.000000 -1.000000  0.000000        0.00000            
+REMARK 290   SMTRY3   2  0.000000  0.000000  1.000000       23.58000            
+REMARK 290   SMTRY1   3  0.000000 -1.000000  0.000000       32.86500            
+REMARK 290   SMTRY2   3  1.000000  0.000000  0.000000       32.86500            
+REMARK 290   SMTRY3   3  0.000000  0.000000  1.000000       35.37000            
+REMARK 290   SMTRY1   4  0.000000  1.000000  0.000000       32.86500            
+REMARK 290   SMTRY2   4 -1.000000  0.000000  0.000000       32.86500            
+REMARK 290   SMTRY3   4  0.000000  0.000000  1.000000       11.79000            
+REMARK 290   SMTRY1   5 -1.000000  0.000000  0.000000       32.86500            
+REMARK 290   SMTRY2   5  0.000000  1.000000  0.000000       32.86500            
+REMARK 290   SMTRY3   5  0.000000  0.000000 -1.000000       35.37000            
+REMARK 290   SMTRY1   6  1.000000  0.000000  0.000000       32.86500            
+REMARK 290   SMTRY2   6  0.000000 -1.000000  0.000000       32.86500            
+REMARK 290   SMTRY3   6  0.000000  0.000000 -1.000000       11.79000            
+REMARK 290   SMTRY1   7  0.000000  1.000000  0.000000        0.00000            
+REMARK 290   SMTRY2   7  1.000000  0.000000  0.000000        0.00000            
+REMARK 290   SMTRY3   7  0.000000  0.000000 -1.000000        0.00000            
+REMARK 290   SMTRY1   8  0.000000 -1.000000  0.000000        0.00000            
+REMARK 290   SMTRY2   8 -1.000000  0.000000  0.000000        0.00000            
+REMARK 290   SMTRY3   8  0.000000  0.000000 -1.000000       23.58000            
+REMARK 290                                                                      
+REMARK 290 REMARK: NULL                                                         
+REMARK 300                                                                      
+REMARK 300 BIOMOLECULE: 1                                                       
+REMARK 300 SEE REMARK 350 FOR THE AUTHOR PROVIDED AND/OR PROGRAM                
+REMARK 300 GENERATED ASSEMBLY INFORMATION FOR THE STRUCTURE IN                  
+REMARK 300 THIS ENTRY. THE REMARK MAY ALSO PROVIDE INFORMATION ON               
+REMARK 300 BURIED SURFACE AREA.                                                 
+REMARK 350                                                                      
+REMARK 350 COORDINATES FOR A COMPLETE MULTIMER REPRESENTING THE KNOWN           
+REMARK 350 BIOLOGICALLY SIGNIFICANT OLIGOMERIZATION STATE OF THE                
+REMARK 350 MOLECULE CAN BE GENERATED BY APPLYING BIOMT TRANSFORMATIONS          
+REMARK 350 GIVEN BELOW.  BOTH NON-CRYSTALLOGRAPHIC AND                          
+REMARK 350 CRYSTALLOGRAPHIC OPERATIONS ARE GIVEN.                               
+REMARK 350                                                                      
+REMARK 350 BIOMOLECULE: 1                                                       
+REMARK 350 AUTHOR DETERMINED BIOLOGICAL UNIT: DIMERIC                           
+REMARK 350 APPLY THE FOLLOWING TO CHAINS: A, B                                  
+REMARK 350   BIOMT1   1  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT2   1  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT3   1  0.000000  0.000000  1.000000        0.00000            
+REMARK 375                                                                      
+REMARK 375 SPECIAL POSITION                                                     
+REMARK 375 THE FOLLOWING ATOMS ARE FOUND TO BE WITHIN 0.15 ANGSTROMS            
+REMARK 375 OF A SYMMETRY RELATED ATOM AND ARE ASSUMED TO BE ON SPECIAL          
+REMARK 375 POSITIONS.                                                           
+REMARK 375                                                                      
+REMARK 375 ATOM RES CSSEQI                                                      
+REMARK 375      HOH A3127  LIES ON A SPECIAL POSITION.                          
+REMARK 375      HOH A3135  LIES ON A SPECIAL POSITION.                          
+REMARK 500                                                                      
+REMARK 500 GEOMETRY AND STEREOCHEMISTRY                                         
+REMARK 500 SUBTOPIC: COVALENT BOND ANGLES                                       
+REMARK 500                                                                      
+REMARK 500 THE STEREOCHEMICAL PARAMETERS OF THE FOLLOWING RESIDUES              
+REMARK 500 HAVE VALUES WHICH DEVIATE FROM EXPECTED VALUES BY MORE               
+REMARK 500 THAN 6*RMSD (M=MODEL NUMBER; RES=RESIDUE NAME; C=CHAIN               
+REMARK 500 IDENTIFIER; SSEQ=SEQUENCE NUMBER; I=INSERTION CODE).                 
+REMARK 500                                                                      
+REMARK 500 STANDARD TABLE:                                                      
+REMARK 500 FORMAT: (10X,I3,1X,A3,1X,A1,I4,A1,3(1X,A4,2X),12X,F5.1)              
+REMARK 500                                                                      
+REMARK 500 EXPECTED VALUES PROTEIN: ENGH AND HUBER, 1999                        
+REMARK 500 EXPECTED VALUES NUCLEIC ACID: CLOWNEY ET AL 1996                     
+REMARK 500                                                                      
+REMARK 500  M RES CSSEQI ATM1   ATM2   ATM3                                     
+REMARK 500    ARG A  10   NE  -  CZ  -  NH2 ANGL. DEV. =  -3.0 DEGREES          
+REMARK 500    ARG A  23   CD  -  NE  -  CZ  ANGL. DEV. =  10.2 DEGREES          
+REMARK 500    ARG B  23   NE  -  CZ  -  NH1 ANGL. DEV. =   3.8 DEGREES          
+REMARK 500                                                                      
+REMARK 500 REMARK: NULL                                                         
+REMARK 525                                                                      
+REMARK 525 SOLVENT                                                              
+REMARK 525                                                                      
+REMARK 525 THE SOLVENT MOLECULES HAVE CHAIN IDENTIFIERS THAT                    
+REMARK 525 INDICATE THE POLYMER CHAIN WITH WHICH THEY ARE MOST                  
+REMARK 525 CLOSELY ASSOCIATED. THE REMARK LISTS ALL THE SOLVENT                 
+REMARK 525 MOLECULES WHICH ARE MORE THAN 5A AWAY FROM THE                       
+REMARK 525 NEAREST POLYMER CHAIN (M = MODEL NUMBER;                             
+REMARK 525 RES=RESIDUE NAME; C=CHAIN IDENTIFIER; SSEQ=SEQUENCE                  
+REMARK 525 NUMBER; I=INSERTION CODE):                                           
+REMARK 525                                                                      
+REMARK 525  M RES CSSEQI                                                        
+REMARK 525    HOH B3109        DISTANCE =  6.18 ANGSTROMS                       
+REMARK 525    HOH B3132        DISTANCE =  5.73 ANGSTROMS                       
+DBREF  3C8P A    1    46  PDB    3C8P     3C8P             1     46             
+DBREF  3C8P B    1    46  PDB    3C8P     3C8P             1     46             
+SEQRES   1 A   46  LYS SER CYS CYS PRO SER THR THR GLY ARG ASN ILE TYR          
+SEQRES   2 A   46  ASN THR CYS ARG LEU THR GLY SER SER ARG GLU THR CYS          
+SEQRES   3 A   46  ALA LYS LEU SER GLY CYS LYS ILE ILE SER ALA SER THR          
+SEQRES   4 A   46  CYS PRO SER ASN TYR PRO LYS                                  
+SEQRES   1 B   46  LYS SER CYS CYS PRO SER THR THR GLY ARG ASN ILE TYR          
+SEQRES   2 B   46  ASN THR CYS ARG LEU THR GLY SER SER ARG GLU THR CYS          
+SEQRES   3 B   46  ALA LYS LEU SER GLY CYS LYS ILE ILE SER ALA SER THR          
+SEQRES   4 B   46  CYS PRO SER ASN TYR PRO LYS                                  
+FORMUL   3  HOH   *135(H2 O)                                                    
+HELIX    1   1 SER A    6  LEU A   18  1                                  13    
+HELIX    2   2 SER A   22  GLY A   31  1                                  10    
+HELIX    3   3 SER B    6  THR B   19  1                                  14    
+HELIX    4   4 SER B   22  GLY B   31  1                                  10    
+SHEET    1   A 2 SER A   2  CYS A   3  0                                        
+SHEET    2   A 2 LYS A  33  ILE A  34 -1  O  LYS A  33   N  CYS A   3           
+SHEET    1   B 2 SER B   2  CYS B   3  0                                        
+SHEET    2   B 2 LYS B  33  ILE B  34 -1  O  LYS B  33   N  CYS B   3           
+SSBOND   1 CYS A    3    CYS A   40                          1555   1555  2.06  
+SSBOND   2 CYS A    4    CYS A   32                          1555   1555  2.03  
+SSBOND   3 CYS A   16    CYS A   26                          1555   1555  2.08  
+SSBOND   4 CYS B    3    CYS B   40                          1555   1555  2.07  
+SSBOND   5 CYS B    4    CYS B   32                          1555   1555  2.05  
+SSBOND   6 CYS B   16    CYS B   26                          1555   1555  2.06  
+CRYST1   65.730   65.730   47.160  90.00  90.00  90.00 P 43 21 2    16          
+ORIGX1      1.000000  0.000000  0.000000        0.00000                         
+ORIGX2      0.000000  1.000000  0.000000        0.00000                         
+ORIGX3      0.000000  0.000000  1.000000        0.00000                         
+SCALE1      0.015214  0.000000  0.000000        0.00000                         
+SCALE2      0.000000  0.015214  0.000000        0.00000                         
+SCALE3      0.000000  0.000000  0.021204        0.00000                         
+ATOM      1  N   LYS A   1      30.878  18.880  20.164  1.00 23.18           N  
+ANISOU    1  N   LYS A   1     3399   3324   2084    529    185  -1535       N  
+ATOM      2  CA  LYS A   1      30.166  17.611  20.202  1.00 19.48           C  
+ANISOU    2  CA  LYS A   1     2602   3172   1626    916    -70  -1194       C  
+ATOM      3  C   LYS A   1      30.047  17.111  18.767  1.00 15.10           C  
+ANISOU    3  C   LYS A   1     1973   2446   1319    790    125   -658       C  
+ATOM      4  O   LYS A   1      29.712  17.858  17.855  1.00 17.10           O  
+ANISOU    4  O   LYS A   1     2806   2120   1572    568    376   -451       O  
+ATOM      5  CB  LYS A   1      28.769  17.677  20.811  1.00 22.38           C  
+ANISOU    5  CB  LYS A   1     2819   4228   1458    788    171  -1644       C  
+ATOM      6  CG  LYS A   1      28.057  16.336  20.971  1.00 25.07           C  
+ANISOU    6  CG  LYS A   1     2911   4673   1941    468    328  -1274       C  
+ATOM      7  CD  LYS A   1      26.866  16.306  21.952  1.00 26.33           C  
+ANISOU    7  CD  LYS A   1     3422   4999   1586    912    486   -680       C  
+ATOM      8  CE  LYS A   1      26.623  14.928  22.552  1.00 32.03           C  
+ANISOU    8  CE  LYS A   1     4322   5445   2404    540    369    -58       C  
+ATOM      9  NZ  LYS A   1      25.509  14.800  23.557  1.00 42.05           N  
+ANISOU    9  NZ  LYS A   1     5988   6746   3243   1714   1504   1726       N  
+ATOM     10  N   SER A   2      30.314  15.859  18.520  1.00 13.53           N  
+ANISOU   10  N   SER A   2     1602   2361   1179    656   -148   -540       N  
+ATOM     11  CA  SER A   2      30.071  15.231  17.234  1.00 12.09           C  
+ANISOU   11  CA  SER A   2     1577   2039    979    638    -29   -307       C  
+ATOM     12  C   SER A   2      28.666  14.623  17.175  1.00 10.54           C  
+ANISOU   12  C   SER A   2     1501   1690    813    747    138   -323       C  
+ATOM     13  O   SER A   2      28.225  13.954  18.119  1.00 12.53           O  
+ANISOU   13  O   SER A   2     1690   2236    836    754     90    -80       O  
+ATOM     14  CB  SER A   2      31.144  14.194  16.930  1.00 12.77           C  
+ANISOU   14  CB  SER A   2     1487   2419    945    807     82   -197       C  
+ATOM     15  OG  SER A   2      31.160  13.153  17.879  1.00 15.14           O  
+ANISOU   15  OG  SER A   2     1986   2202   1566    786     55    -56       O  
+ATOM     16  N   CYS A   3      28.006  14.833  16.046  1.00 10.42           N  
+ANISOU   16  N   CYS A   3     1503   1694    764    523    136   -286       N  
+ATOM     17  CA  CYS A   3      26.660  14.353  15.820  1.00 10.40           C  
+ANISOU   17  CA  CYS A   3     1635   1524    793    536     51   -268       C  
+ATOM     18  C   CYS A   3      26.596  13.646  14.469  1.00  9.64           C  
+ANISOU   18  C   CYS A   3     1432   1491    740    586     89   -198       C  
+ATOM     19  O   CYS A   3      26.968  14.302  13.462  1.00 10.40           O  
+ANISOU   19  O   CYS A   3     1785   1384    784    588    146   -177       O  
+ATOM     20  CB  CYS A   3      25.658  15.501  15.909  1.00 11.90           C  
+ANISOU   20  CB  CYS A   3     1601   1870   1050    703    -38   -555       C  
+ATOM     21  SG  CYS A   3      25.627  16.298  17.548  1.00 13.41           S  
+ANISOU   21  SG  CYS A   3     1737   2173   1187    839    -16   -721       S  
+ATOM     22  N   CYS A   4      26.159  12.379  14.459  1.00  9.32           N  
+ANISOU   22  N   CYS A   4     1325   1426    788    650    129   -202       N  
+ATOM     23  CA  CYS A   4      26.312  11.589  13.250  1.00 10.77           C  
+ANISOU   23  CA  CYS A   4     1500   1579   1011    719     74   -404       C  
+ATOM     24  C   CYS A   4      24.989  11.106  12.661  1.00 10.27           C  
+ANISOU   24  C   CYS A   4     1546   1543    811    608     35   -155       C  
+ATOM     25  O   CYS A   4      23.994  10.956  13.387  1.00 10.64           O  
+ANISOU   25  O   CYS A   4     1554   1617    872    547     17   -136       O  
+ATOM     26  CB  CYS A   4      27.209  10.368  13.609  1.00 10.47           C  
+ANISOU   26  CB  CYS A   4     1387   1612    979    737    216   -239       C  
+ATOM     27  SG  CYS A   4      28.903  10.858  14.010  1.00 11.15           S  
+ANISOU   27  SG  CYS A   4     1495   1633   1109    554    156    -58       S  
+ATOM     28  N   PRO A   5      24.947  10.914  11.352  1.00 10.80           N  
+ANISOU   28  N   PRO A   5     1516   1634    954    423     85   -369       N  
+ATOM     29  CA  PRO A   5      23.677  10.548  10.711  1.00 11.89           C  
+ANISOU   29  CA  PRO A   5     1598   1814   1107    430   -140   -257       C  
+ATOM     30  C   PRO A   5      23.231   9.107  10.935  1.00 12.07           C  
+ANISOU   30  C   PRO A   5     1293   1905   1389    373    -75   -253       C  
+ATOM     31  O   PRO A   5      22.034   8.761  10.814  1.00 16.29           O  
+ANISOU   31  O   PRO A   5     1260   2274   2654    329    -68   -870       O  
+ATOM     32  CB  PRO A   5      23.985  10.812   9.233  1.00 13.51           C  
+ANISOU   32  CB  PRO A   5     2106   1924   1103    207   -301   -259       C  
+ATOM     33  CG  PRO A   5      25.462  10.552   9.123  1.00 13.40           C  
+ANISOU   33  CG  PRO A   5     2230   2068    793    363    122   -183       C  
+ATOM     34  CD  PRO A   5      26.025  11.182  10.355  1.00 11.90           C  
+ANISOU   34  CD  PRO A   5     1549   2173    801    648    100   -274       C  
+ATOM     35  N   SER A   6      24.162   8.219  11.227  1.00 12.17           N  
+ANISOU   35  N   SER A   6     1489   1847   1287    335   -198    -68       N  
+ATOM     36  CA  SER A   6      23.949   6.777  11.282  1.00 10.88           C  
+ANISOU   36  CA  SER A   6     1216   1918    998    200      0     61       C  
+ATOM     37  C   SER A   6      25.001   6.111  12.163  1.00  9.75           C  
+ANISOU   37  C   SER A   6     1088   1736    881    163     48    -26       C  
+ATOM     38  O   SER A   6      26.037   6.729  12.448  1.00  9.72           O  
+ANISOU   38  O   SER A   6     1095   1679    920    211     43   -125       O  
+ATOM     39  CB  SER A   6      24.045   6.161   9.884  1.00 11.02           C  
+ANISOU   39  CB  SER A   6     1303   1920    964     62   -171     40       C  
+ATOM     40  OG  SER A   6      25.394   6.290   9.420  1.00 10.18           O  
+ANISOU   40  OG  SER A   6     1287   1745    835     47    -75    -17       O  
+ATOM     41  N   THR A   7      24.779   4.889  12.527  1.00 10.80           N  
+ANISOU   41  N   THR A   7     1154   1861   1089     29     37    171       N  
+ATOM     42  CA  THR A   7      25.784   4.094  13.264  1.00 11.25           C  
+ANISOU   42  CA  THR A   7     1253   1904   1119     55     57    285       C  
+ATOM     43  C   THR A   7      27.057   3.959  12.450  1.00  9.13           C  
+ANISOU   43  C   THR A   7     1219   1268    982     -8    -66     68       C  
+ATOM     44  O   THR A   7      28.131   4.051  13.017  1.00  9.11           O  
+ANISOU   44  O   THR A   7     1243   1339    881    134    -92    164       O  
+ATOM     45  CB  THR A   7      25.171   2.739  13.647  1.00 14.82           C  
+ANISOU   45  CB  THR A   7     1570   2414   1649   -128    120    977       C  
+ATOM     46  OG1 THR A   7      24.069   3.038  14.530  1.00 21.61           O  
+ANISOU   46  OG1 THR A   7     1932   3676   2603      5    836   1401       O  
+ATOM     47  CG2 THR A   7      26.190   1.861  14.345  1.00 17.24           C  
+ANISOU   47  CG2 THR A   7     1818   2193   2540   -338   -402   1029       C  
+ATOM     48  N   THR A   8      26.945   3.763  11.121  1.00  9.01           N  
+ANISOU   48  N   THR A   8     1038   1314   1071    -31    -61   -212       N  
+ATOM     49  CA  THR A   8      28.140   3.699  10.308  1.00  9.27           C  
+ANISOU   49  CA  THR A   8      908   1470   1143    189    -48   -261       C  
+ATOM     50  C   THR A   8      28.935   4.968  10.402  1.00  8.43           C  
+ANISOU   50  C   THR A   8      959   1472    774    154    247   -458       C  
+ATOM     51  O   THR A   8      30.156   4.980  10.531  1.00  8.55           O  
+ANISOU   51  O   THR A   8     1089   1265    894    115   -156   -294       O  
+ATOM     52  CB  THR A   8      27.744   3.407   8.845  1.00 11.65           C  
+ANISOU   52  CB  THR A   8     1444   1752   1229   -209     21   -562       C  
+ATOM     53  OG1 THR A   8      27.113   2.095   8.813  1.00 13.61           O  
+ANISOU   53  OG1 THR A   8     1961   1579   1632   -210     -1   -496       O  
+ATOM     54  CG2 THR A   8      28.944   3.444   7.938  1.00 16.04           C  
+ANISOU   54  CG2 THR A   8     1829   2797   1470   -659    374  -1136       C  
+ATOM     55  N   GLY A   9      28.247   6.110  10.325  1.00  7.92           N  
+ANISOU   55  N   GLY A   9      744   1496    770    -56     83   -240       N  
+ATOM     56  CA  GLY A   9      28.874   7.426  10.448  1.00  7.89           C  
+ANISOU   56  CA  GLY A   9      820   1457    721    -35   -130   -114       C  
+ATOM     57  C   GLY A   9      29.624   7.548  11.783  1.00  7.77           C  
+ANISOU   57  C   GLY A   9     1072   1347    533   -111    -70    -56       C  
+ATOM     58  O   GLY A   9      30.779   7.975  11.842  1.00  7.49           O  
+ANISOU   58  O   GLY A   9      927   1210    708     23   -148   -102       O  
+ATOM     59  N   ARG A  10      28.949   7.141  12.866  1.00  7.31           N  
+ANISOU   59  N   ARG A  10      923   1165    690    117    -10    -44       N  
+ATOM     60  CA  ARG A  10      29.575   7.151  14.193  1.00  8.14           C  
+ANISOU   60  CA  ARG A  10     1126   1346    621    305     34    200       C  
+ATOM     61  C   ARG A  10      30.847   6.296  14.201  1.00  8.21           C  
+ANISOU   61  C   ARG A  10     1052   1416    651    268    -52    -29       C  
+ATOM     62  O   ARG A  10      31.872   6.703  14.748  1.00  8.13           O  
+ANISOU   62  O   ARG A  10     1065   1170    854    255    -49    -86       O  
+ATOM     63  CB  ARG A  10      28.588   6.720  15.277  1.00 10.51           C  
+ANISOU   63  CB  ARG A  10     1195   2036    760    274    173    218       C  
+ATOM     64  CG  ARG A  10      29.162   6.517  16.639  1.00 10.80           C  
+ANISOU   64  CG  ARG A  10     1502   1977    624    346    237    110       C  
+ATOM     65  CD  ARG A  10      29.856   7.718  17.215  1.00 11.40           C  
+ANISOU   65  CD  ARG A  10     1328   2047    955    526     96    -84       C  
+ATOM     66  NE  ARG A  10      28.959   8.860  17.278  1.00 12.14           N  
+ANISOU   66  NE  ARG A  10     1869   2013    731    770    -83      3       N  
+ATOM     67  CZ  ARG A  10      29.386  10.108  17.458  1.00 13.73           C  
+ANISOU   67  CZ  ARG A  10     2156   2063    997    690   -248     44       C  
+ATOM     68  NH1 ARG A  10      30.683  10.364  17.607  1.00 15.85           N  
+ANISOU   68  NH1 ARG A  10     2320   2327   1375    426   -396    -27       N  
+ATOM     69  NH2 ARG A  10      28.476  11.059  17.487  1.00 15.50           N  
+ANISOU   69  NH2 ARG A  10     2670   2071   1146    986     13    -60       N  
+ATOM     70  N   ASN A  11      30.788   5.117  13.604  1.00  8.41           N  
+ANISOU   70  N   ASN A  11      963   1561    671    238    -66   -172       N  
+ATOM     71  CA  ASN A  11      31.948   4.254  13.620  1.00  8.38           C  
+ANISOU   71  CA  ASN A  11     1070   1258    857    161    -40     41       C  
+ATOM     72  C   ASN A  11      33.111   4.809  12.781  1.00  7.65           C  
+ANISOU   72  C   ASN A  11     1017   1084    807    278    -45     16       C  
+ATOM     73  O   ASN A  11      34.262   4.705  13.202  1.00  8.01           O  
+ANISOU   73  O   ASN A  11     1006   1311    727     80   -142     28       O  
+ATOM     74  CB  ASN A  11      31.522   2.860  13.147  1.00  9.99           C  
+ANISOU   74  CB  ASN A  11     1203   1350   1243     36    -73   -101       C  
+ATOM     75  CG  ASN A  11      30.675   2.114  14.150  1.00 11.50           C  
+ANISOU   75  CG  ASN A  11     1066   1547   1757    -11   -119    285       C  
+ATOM     76  OD1 ASN A  11      30.666   2.376  15.374  1.00 14.51           O  
+ANISOU   76  OD1 ASN A  11     1999   1808   1708   -186    498    277       O  
+ATOM     77  ND2 ASN A  11      29.962   1.185  13.570  1.00 14.32           N  
+ANISOU   77  ND2 ASN A  11     1431   1604   2406   -193   -160    201       N  
+ATOM     78  N   ILE A  12      32.803   5.406  11.617  1.00  7.79           N  
+ANISOU   78  N   ILE A  12     1031   1230    700    199    -97    -29       N  
+ATOM     79  CA  ILE A  12      33.847   6.034  10.812  1.00  7.12           C  
+ANISOU   79  CA  ILE A  12      873   1112    721    172    -95   -103       C  
+ATOM     80  C   ILE A  12      34.507   7.152  11.598  1.00  7.12           C  
+ANISOU   80  C   ILE A  12     1011   1065    629    258    -74    -48       C  
+ATOM     81  O   ILE A  12      35.721   7.275  11.653  1.00  8.03           O  
+ANISOU   81  O   ILE A  12      958   1146    946    164   -118   -312       O  
+ATOM     82  CB  ILE A  12      33.274   6.564   9.485  1.00  7.69           C  
+ANISOU   82  CB  ILE A  12      994   1239    688    147     -1   -106       C  
+ATOM     83  CG1 ILE A  12      32.815   5.404   8.585  1.00  8.65           C  
+ANISOU   83  CG1 ILE A  12      918   1604    765    109    -72   -345       C  
+ATOM     84  CG2 ILE A  12      34.256   7.479   8.756  1.00  8.50           C  
+ANISOU   84  CG2 ILE A  12      823   1558    848    116    -58     76       C  
+ATOM     85  CD1 ILE A  12      31.968   5.827   7.390  1.00  9.54           C  
+ANISOU   85  CD1 ILE A  12     1169   1626    830     25   -125   -151       C  
+ATOM     86  N   TYR A  13      33.680   8.009  12.230  1.00  7.03           N  
+ANISOU   86  N   TYR A  13      982   1130    561    244   -170    -70       N  
+ATOM     87  CA  TYR A  13      34.200   9.134  13.001  1.00  7.89           C  
+ANISOU   87  CA  TYR A  13     1209   1197    593    231   -195   -197       C  
+ATOM     88  C   TYR A  13      35.105   8.640  14.099  1.00  7.33           C  
+ANISOU   88  C   TYR A  13     1177    997    611     61   -173   -180       C  
+ATOM     89  O   TYR A  13      36.229   9.140  14.260  1.00  8.35           O  
+ANISOU   89  O   TYR A  13     1173   1069    932    -20   -271    -39       O  
+ATOM     90  CB  TYR A  13      33.028   9.970  13.581  1.00  8.42           C  
+ANISOU   90  CB  TYR A  13     1283   1286    629    247   -151   -261       C  
+ATOM     91  CG  TYR A  13      33.539  11.185  14.346  1.00  8.61           C  
+ANISOU   91  CG  TYR A  13     1315   1270    687    158    -96   -264       C  
+ATOM     92  CD1 TYR A  13      33.850  12.331  13.675  1.00  9.29           C  
+ANISOU   92  CD1 TYR A  13     1460   1260    811    170   -217   -185       C  
+ATOM     93  CD2 TYR A  13      33.708  11.130  15.707  1.00  8.39           C  
+ANISOU   93  CD2 TYR A  13     1380   1143    666    228    -73   -279       C  
+ATOM     94  CE1 TYR A  13      34.315  13.417  14.395  1.00 10.80           C  
+ANISOU   94  CE1 TYR A  13     1753   1214   1138    179   -130   -284       C  
+ATOM     95  CE2 TYR A  13      34.192  12.203  16.443  1.00  8.81           C  
+ANISOU   95  CE2 TYR A  13     1147   1381    819    447    -65   -491       C  
+ATOM     96  CZ  TYR A  13      34.497  13.357  15.754  1.00  9.70           C  
+ANISOU   96  CZ  TYR A  13     1462   1103   1121    342   -201   -531       C  
+ATOM     97  OH  TYR A  13      34.982  14.445  16.425  1.00 13.82           O  
+ANISOU   97  OH  TYR A  13     1850   1576   1826    156   -384   -904       O  
+ATOM     98  N   ASN A  14      34.620   7.665  14.873  1.00  8.18           N  
+ANISOU   98  N   ASN A  14     1000   1467    640    -17    -49    -29       N  
+ATOM     99  CA  ASN A  14      35.421   7.194  15.996  1.00  8.60           C  
+ANISOU   99  CA  ASN A  14     1280   1263    723     51   -246     -9       C  
+ATOM    100  C   ASN A  14      36.710   6.539  15.537  1.00  8.48           C  
+ANISOU  100  C   ASN A  14     1318   1254    651     71   -314     39       C  
+ATOM    101  O   ASN A  14      37.756   6.759  16.174  1.00 10.32           O  
+ANISOU  101  O   ASN A  14     1322   1361   1240     86   -522   -259       O  
+ATOM    102  CB  ASN A  14      34.612   6.239  16.859  1.00  9.98           C  
+ANISOU  102  CB  ASN A  14     1328   1380   1084    147   -209    237       C  
+ATOM    103  CG  ASN A  14      33.499   6.872  17.663  1.00 11.18           C  
+ANISOU  103  CG  ASN A  14     1672   1865    712    191    -30    358       C  
+ATOM    104  OD1 ASN A  14      33.405   8.092  17.828  1.00 14.98           O  
+ANISOU  104  OD1 ASN A  14     2455   2088   1151    284    248   -401       O  
+ATOM    105  ND2 ASN A  14      32.641   6.008  18.170  1.00 15.60           N  
+ANISOU  105  ND2 ASN A  14     1358   2890   1678   -129   -163    890       N  
+ATOM    106  N   THR A  15      36.691   5.719  14.485  1.00  8.74           N  
+ANISOU  106  N   THR A  15     1207   1336    776    -12   -241    -80       N  
+ATOM    107  CA  THR A  15      37.891   5.100  13.980  1.00  9.18           C  
+ANISOU  107  CA  THR A  15     1192   1341    955    153   -384   -197       C  
+ATOM    108  C   THR A  15      38.870   6.191  13.529  1.00  8.89           C  
+ANISOU  108  C   THR A  15     1052   1367    957    226   -223   -361       C  
+ATOM    109  O   THR A  15      40.076   6.188  13.825  1.00 10.01           O  
+ANISOU  109  O   THR A  15     1084   1694   1025    200   -174   -249       O  
+ATOM    110  CB  THR A  15      37.508   4.140  12.813  1.00 10.85           C  
+ANISOU  110  CB  THR A  15     1454   1046   1625    371   -450   -411       C  
+ATOM    111  OG1 THR A  15      36.801   3.027  13.329  1.00 13.57           O  
+ANISOU  111  OG1 THR A  15     2091   1236   1831     80   -488   -309       O  
+ATOM    112  CG2 THR A  15      38.765   3.702  12.105  1.00 14.01           C  
+ANISOU  112  CG2 THR A  15     1707   1429   2185    589   -267   -864       C  
+ATOM    113  N   CYS A  16      38.373   7.170  12.761  1.00  8.24           N  
+ANISOU  113  N   CYS A  16      973   1077   1078    178    -82   -473       N  
+ATOM    114  CA  CYS A  16      39.200   8.254  12.268  1.00  8.69           C  
+ANISOU  114  CA  CYS A  16      980   1379    944    133    -18   -371       C  
+ATOM    115  C   CYS A  16      39.881   8.986  13.420  1.00  9.28           C  
+ANISOU  115  C   CYS A  16     1114   1447    966   -147    -50   -305       C  
+ATOM    116  O   CYS A  16      41.031   9.412  13.389  1.00 10.08           O  
+ANISOU  116  O   CYS A  16     1142   1716    972   -216    -28   -161       O  
+ATOM    117  CB  CYS A  16      38.368   9.196  11.405  1.00 10.04           C  
+ANISOU  117  CB  CYS A  16     1407   1520    886    219   -178   -330       C  
+ATOM    118  SG  CYS A  16      39.186  10.698  10.840  1.00 13.08           S  
+ANISOU  118  SG  CYS A  16     1918   1761   1292    145     79    -15       S  
+ATOM    119  N   ARG A  17      39.160   9.199  14.534  1.00  8.74           N  
+ANISOU  119  N   ARG A  17     1152   1051   1118     34     22   -459       N  
+ATOM    120  CA  ARG A  17      39.750   9.896  15.688  1.00  9.40           C  
+ANISOU  120  CA  ARG A  17     1402   1078   1093   -196    -85   -336       C  
+ATOM    121  C   ARG A  17      40.866   9.132  16.373  1.00 11.19           C  
+ANISOU  121  C   ARG A  17     1726   1446   1080     44   -297   -399       C  
+ATOM    122  O   ARG A  17      41.676   9.764  17.061  1.00 16.68           O  
+ANISOU  122  O   ARG A  17     2339   1671   2326     72  -1151   -813       O  
+ATOM    123  CB  ARG A  17      38.624  10.333  16.631  1.00  9.92           C  
+ANISOU  123  CB  ARG A  17     1521   1535    711    -97   -140   -274       C  
+ATOM    124  CG  ARG A  17      37.795  11.474  16.065  1.00 10.52           C  
+ANISOU  124  CG  ARG A  17     1521   1462   1013      3   -181   -384       C  
+ATOM    125  CD  ARG A  17      38.494  12.809  16.046  1.00 11.31           C  
+ANISOU  125  CD  ARG A  17     1738   1491   1068    -66   -362   -373       C  
+ATOM    126  NE  ARG A  17      38.586  13.424  17.347  1.00 12.99           N  
+ANISOU  126  NE  ARG A  17     2122   1602   1212   -280     69   -600       N  
+ATOM    127  CZ  ARG A  17      39.443  14.357  17.731  1.00 14.61           C  
+ANISOU  127  CZ  ARG A  17     2553   1674   1325   -418     75   -814       C  
+ATOM    128  NH1 ARG A  17      40.335  14.813  16.884  1.00 16.93           N  
+ANISOU  128  NH1 ARG A  17     2877   1966   1591   -910     57   -702       N  
+ATOM    129  NH2 ARG A  17      39.372  14.813  18.983  1.00 19.93           N  
+ANISOU  129  NH2 ARG A  17     3394   2862   1318   -708   -150  -1006       N  
+ATOM    130  N   LEU A  18      40.984   7.821  16.146  1.00  9.32           N  
+ANISOU  130  N   LEU A  18     1302   1366    875    -97   -240   -245       N  
+ATOM    131  CA  LEU A  18      42.139   7.075  16.664  1.00 10.73           C  
+ANISOU  131  CA  LEU A  18     1532   1610    935    168   -186    -94       C  
+ATOM    132  C   LEU A  18      43.426   7.318  15.875  1.00 11.37           C  
+ANISOU  132  C   LEU A  18     1446   1418   1457    120   -121   -140       C  
+ATOM    133  O   LEU A  18      44.499   6.915  16.362  1.00 14.93           O  
+ANISOU  133  O   LEU A  18     1445   1842   2384    -75   -314    330       O  
+ATOM    134  CB  LEU A  18      41.848   5.591  16.666  1.00  9.76           C  
+ANISOU  134  CB  LEU A  18     1355   1653    701     90   -307   -123       C  
+ATOM    135  CG  LEU A  18      40.584   5.120  17.367  1.00 10.59           C  
+ANISOU  135  CG  LEU A  18     1651   1772    602    109    -71    -60       C  
+ATOM    136  CD1 LEU A  18      40.371   3.651  17.153  1.00 11.52           C  
+ANISOU  136  CD1 LEU A  18     1632   1624   1120    188   -150    379       C  
+ATOM    137  CD2 LEU A  18      40.652   5.477  18.863  1.00 14.73           C  
+ANISOU  137  CD2 LEU A  18     2001   3046    548     86   -287    -51       C  
+ATOM    138  N   THR A  19      43.341   7.913  14.697  1.00 12.37           N  
+ANISOU  138  N   THR A  19     1378   1720   1600   -108     82     71       N  
+ATOM    139  CA  THR A  19      44.495   8.156  13.858  1.00 13.47           C  
+ANISOU  139  CA  THR A  19     1405   1746   1966    -97    313   -130       C  
+ATOM    140  C   THR A  19      45.241   9.458  14.203  1.00 17.45           C  
+ANISOU  140  C   THR A  19     1748   1898   2985   -452    -84    138       C  
+ATOM    141  O   THR A  19      46.288   9.720  13.610  1.00 26.59           O  
+ANISOU  141  O   THR A  19     2044   2861   5197   -814    600    673       O  
+ATOM    142  CB  THR A  19      44.159   8.303  12.367  1.00 14.51           C  
+ANISOU  142  CB  THR A  19     1343   2259   1910    126    511     76       C  
+ATOM    143  OG1 THR A  19      43.323   9.455  12.133  1.00 14.17           O  
+ANISOU  143  OG1 THR A  19     1652   2012   1719     95    528    -22       O  
+ATOM    144  CG2 THR A  19      43.425   7.088  11.833  1.00 15.44           C  
+ANISOU  144  CG2 THR A  19     2605   1963   1300     85    152    253       C  
+ATOM    145  N   GLY A  20      44.659  10.261  15.103  1.00 16.84           N  
+ANISOU  145  N   GLY A  20     2281   1509   2610      3  -1110    -41       N  
+ATOM    146  CA  GLY A  20      45.254  11.573  15.392  1.00 20.81           C  
+ANISOU  146  CA  GLY A  20     2695   1871   3342   -496  -1519     37       C  
+ATOM    147  C   GLY A  20      44.750  12.645  14.459  1.00 19.46           C  
+ANISOU  147  C   GLY A  20     2552   1470   3373   -604  -1473   -146       C  
+ATOM    148  O   GLY A  20      45.167  13.807  14.496  1.00 28.07           O  
+ANISOU  148  O   GLY A  20     4118   1801   4746  -1266  -2552    262       O  
+ATOM    149  N   SER A  21      43.828  12.325  13.577  1.00 15.43           N  
+ANISOU  149  N   SER A  21     1837   1656   2371   -541   -654   -129       N  
+ATOM    150  CA  SER A  21      43.208  13.324  12.731  1.00 12.74           C  
+ANISOU  150  CA  SER A  21     1578   1480   1785   -491   -151   -244       C  
+ATOM    151  C   SER A  21      42.238  14.216  13.478  1.00 14.16           C  
+ANISOU  151  C   SER A  21     2455   1480   1445   -342    -27   -378       C  
+ATOM    152  O   SER A  21      41.647  13.875  14.512  1.00 14.91           O  
+ANISOU  152  O   SER A  21     2075   1983   1609   -284    -69   -144       O  
+ATOM    153  CB  SER A  21      42.479  12.598  11.594  1.00 12.82           C  
+ANISOU  153  CB  SER A  21     1919   1487   1464   -230     34   -406       C  
+ATOM    154  OG  SER A  21      43.398  11.905  10.760  1.00 14.14           O  
+ANISOU  154  OG  SER A  21     1814   1862   1698   -143    339   -258       O  
+ATOM    155  N   SER A  22      42.036  15.427  12.931  1.00 15.02           N  
+ANISOU  155  N   SER A  22     2296   1463   1949   -339     60   -272       N  
+ATOM    156  CA  SER A  22      41.201  16.429  13.579  1.00 15.32           C  
+ANISOU  156  CA  SER A  22     2258   1615   1949   -275   -144   -511       C  
+ATOM    157  C   SER A  22      39.716  16.118  13.467  1.00 13.87           C  
+ANISOU  157  C   SER A  22     2251   1347   1672    -64   -411   -611       C  
+ATOM    158  O   SER A  22      39.275  15.314  12.658  1.00 13.26           O  
+ANISOU  158  O   SER A  22     2305   1296   1439    125   -467   -570       O  
+ATOM    159  CB  SER A  22      41.409  17.814  12.962  1.00 16.66           C  
+ANISOU  159  CB  SER A  22     2472   1569   2289   -208   -170   -501       C  
+ATOM    160  OG  SER A  22      40.730  17.839  11.695  1.00 19.68           O  
+ANISOU  160  OG  SER A  22     3397   1911   2170   -578   -294   -201       O  
+ATOM    161  N   ARG A  23      38.953  16.788  14.340  1.00 14.12           N  
+ANISOU  161  N   ARG A  23     2196   1597   1573   -120   -476   -800       N  
+ATOM    162  CA  ARG A  23      37.512  16.565  14.348  1.00 14.91           C  
+ANISOU  162  CA  ARG A  23     2117   1557   1990     18   -551   -837       C  
+ATOM    163  C   ARG A  23      36.931  16.947  12.994  1.00 14.41           C  
+ANISOU  163  C   ARG A  23     2132   1267   2074     96   -522   -742       C  
+ATOM    164  O   ARG A  23      36.046  16.243  12.491  1.00 12.44           O  
+ANISOU  164  O   ARG A  23     1789   1527   1410   -129   -128   -365       O  
+ATOM    165  CB  ARG A  23      36.864  17.364  15.466  1.00 15.75           C  
+ANISOU  165  CB  ARG A  23     1945   1935   2104    316   -825  -1061       C  
+ATOM    166  CG  ARG A  23      37.170  16.897  16.859  1.00 18.06           C  
+ANISOU  166  CG  ARG A  23     2540   2287   2037    411   -885  -1214       C  
+ATOM    167  CD  ARG A  23      36.302  17.533  17.914  1.00 22.30           C  
+ANISOU  167  CD  ARG A  23     2892   3370   2211    609   -485  -1197       C  
+ATOM    168  NE  ARG A  23      36.426  16.938  19.220  1.00 27.61           N  
+ANISOU  168  NE  ARG A  23     3847   4412   2231    612   -528   -946       N  
+ATOM    169  CZ  ARG A  23      37.283  17.087  20.218  1.00 32.47           C  
+ANISOU  169  CZ  ARG A  23     4384   5237   2714   1083  -1153   -924       C  
+ATOM    170  NH1 ARG A  23      38.297  17.941  20.115  1.00 38.45           N  
+ANISOU  170  NH1 ARG A  23     5097   5060   4453    501  -1800  -2152       N  
+ATOM    171  NH2 ARG A  23      37.130  16.376  21.348  1.00 41.83           N  
+ANISOU  171  NH2 ARG A  23     6117   7262   2516   2112   -829   -356       N  
+ATOM    172  N   GLU A  24      37.459  18.015  12.374  1.00 15.82           N  
+ANISOU  172  N   GLU A  24     2502   1199   2308   -187   -713   -768       N  
+ATOM    173  CA  GLU A  24      36.989  18.422  11.052  1.00 17.14           C  
+ANISOU  173  CA  GLU A  24     2678   1710   2126   -245   -401   -554       C  
+ATOM    174  C   GLU A  24      37.277  17.369   9.989  1.00 14.02           C  
+ANISOU  174  C   GLU A  24     2044   1480   1805   -402   -111   -156       C  
+ATOM    175  O   GLU A  24      36.426  17.018   9.175  1.00 14.26           O  
+ANISOU  175  O   GLU A  24     2454   1488   1476   -260   -327     16       O  
+ATOM    176  CB  GLU A  24      37.588  19.762  10.599  1.00 22.33           C  
+ANISOU  176  CB  GLU A  24     4303   1832   2348   -883   -603   -563       C  
+ATOM    177  CG  GLU A  24      36.844  20.301   9.394  1.00 32.30           C  
+ANISOU  177  CG  GLU A  24     6222   2682   3368   -602  -1231    467       C  
+ATOM    178  CD  GLU A  24      37.455  21.423   8.604  1.00 37.60           C  
+ANISOU  178  CD  GLU A  24     7149   3076   4060   -876  -1024    901       C  
+ATOM    179  OE1 GLU A  24      38.493  21.965   9.054  1.00 44.89           O  
+ANISOU  179  OE1 GLU A  24     8512   3737   4809  -2213  -1141    558       O  
+ATOM    180  OE2 GLU A  24      36.909  21.754   7.523  1.00 40.49           O  
+ANISOU  180  OE2 GLU A  24     6686   3404   5293    604  -1016   1950       O  
+ATOM    181  N   THR A  25      38.473  16.815   9.975  1.00 13.95           N  
+ANISOU  181  N   THR A  25     2202   1323   1777   -348   -104    176       N  
+ATOM    182  CA  THR A  25      38.837  15.781   9.003  1.00 13.77           C  
+ANISOU  182  CA  THR A  25     1799   1708   1723   -448    150     25       C  
+ATOM    183  C   THR A  25      37.913  14.580   9.156  1.00 10.36           C  
+ANISOU  183  C   THR A  25     1457   1392   1089   -105     66    -31       C  
+ATOM    184  O   THR A  25      37.423  14.035   8.171  1.00 11.04           O  
+ANISOU  184  O   THR A  25     1767   1468    959   -147     40     16       O  
+ATOM    185  CB  THR A  25      40.298  15.332   9.209  1.00 13.41           C  
+ANISOU  185  CB  THR A  25     1750   1818   1528   -588     28     84       C  
+ATOM    186  OG1 THR A  25      41.140  16.436   8.832  1.00 19.45           O  
+ANISOU  186  OG1 THR A  25     2047   2655   2687   -956     55    928       O  
+ATOM    187  CG2 THR A  25      40.694  14.131   8.367  1.00 15.24           C  
+ANISOU  187  CG2 THR A  25     1466   2910   1413   -266    454   -325       C  
+ATOM    188  N   CYS A  26      37.703  14.152  10.393  1.00 10.29           N  
+ANISOU  188  N   CYS A  26     1596   1372    942   -293    113   -344       N  
+ATOM    189  CA  CYS A  26      36.894  12.964  10.681  1.00  9.69           C  
+ANISOU  189  CA  CYS A  26     1417   1203   1063   -114   -161    -59       C  
+ATOM    190  C   CYS A  26      35.414  13.208  10.415  1.00  9.14           C  
+ANISOU  190  C   CYS A  26     1383   1135    953     -2    -75   -176       C  
+ATOM    191  O   CYS A  26      34.714  12.315   9.943  1.00  9.59           O  
+ANISOU  191  O   CYS A  26     1396   1221   1027    -33   -109   -244       O  
+ATOM    192  CB  CYS A  26      37.137  12.509  12.125  1.00 10.69           C  
+ANISOU  192  CB  CYS A  26     1532   1463   1067     -1   -174     -3       C  
+ATOM    193  SG  CYS A  26      38.863  12.059  12.382  1.00 11.09           S  
+ANISOU  193  SG  CYS A  26     1453   1427   1333   -125   -223    -12       S  
+ATOM    194  N   ALA A  27      34.915  14.419  10.668  1.00 10.01           N  
+ANISOU  194  N   ALA A  27     1574   1247    984     67     40   -243       N  
+ATOM    195  CA  ALA A  27      33.509  14.768  10.330  1.00  9.98           C  
+ANISOU  195  CA  ALA A  27     1584   1176   1032    110    -30   -280       C  
+ATOM    196  C   ALA A  27      33.269  14.663   8.838  1.00  9.06           C  
+ANISOU  196  C   ALA A  27     1482   1002    958    -60     85   -200       C  
+ATOM    197  O   ALA A  27      32.221  14.168   8.429  1.00  9.65           O  
+ANISOU  197  O   ALA A  27     1464   1328    875    -31    111   -235       O  
+ATOM    198  CB  ALA A  27      33.134  16.160  10.842  1.00 14.55           C  
+ANISOU  198  CB  ALA A  27     2664   1821   1042    931   -292   -604       C  
+ATOM    199  N   LYS A  28      34.233  15.108   8.049  1.00  8.60           N  
+ATOM    200  CA  LYS A  28      34.066  15.026   6.609  1.00  9.77           C  
+ANISOU  200  CA  LYS A  28     1440   1507    766    440    -20   -237       C  
+ATOM    201  C   LYS A  28      33.869  13.582   6.158  1.00  9.03           C  
+ANISOU  201  C   LYS A  28     1363   1446    620    337     66    -45       C  
+ATOM    202  O   LYS A  28      32.945  13.298   5.400  1.00  8.80           O  
+ANISOU  202  O   LYS A  28     1261   1284    799    324     16    -12       O  
+ATOM    203  CB  LYS A  28      35.239  15.647   5.893  1.00 10.82           C  
+ANISOU  203  CB  LYS A  28     1516   1600    996    151   -124   -268       C  
+ATOM    204  CG  LYS A  28      35.350  17.162   5.917  1.00 14.32           C  
+ANISOU  204  CG  LYS A  28     2128   1588   1724     92   -252   -195       C  
+ATOM    205  CD  LYS A  28      36.674  17.564   5.272  1.00 21.66           C  
+ANISOU  205  CD  LYS A  28     2918   2410   2903   -892    302   -324       C  
+ATOM    206  CE  LYS A  28      36.783  18.958   4.789  1.00 27.50           C  
+ANISOU  206  CE  LYS A  28     3796   2602   4052  -1223    456    -34       C  
+ATOM    207  NZ  LYS A  28      37.974  19.090   3.872  1.00 35.97           N  
+ANISOU  207  NZ  LYS A  28     4051   4182   5436  -2712    970   -113       N  
+ATOM    208  N   LEU A  29      34.749  12.682   6.591  1.00  7.93           N  
+ANISOU  208  N   LEU A  29     1184   1212    619      9    -67    -85       N  
+ATOM    209  CA  LEU A  29      34.708  11.303   6.127  1.00  8.55           C  
+ANISOU  209  CA  LEU A  29     1473   1154    621     43    175   -117       C  
+ATOM    210  C   LEU A  29      33.484  10.560   6.597  1.00  7.91           C  
+ANISOU  210  C   LEU A  29     1508    995    502    125    133    -17       C  
+ATOM    211  O   LEU A  29      33.050   9.567   6.025  1.00  9.90           O  
+ANISOU  211  O   LEU A  29     1540   1417    806   -127    233   -312       O  
+ATOM    212  CB  LEU A  29      35.954  10.548   6.601  1.00  9.27           C  
+ANISOU  212  CB  LEU A  29     1527   1127    870     -1     13     -5       C  
+ATOM    213  CG  LEU A  29      37.291  11.073   6.058  1.00  8.22           C  
+ANISOU  213  CG  LEU A  29     1596    743    784    178    190    120       C  
+ATOM    214  CD1 LEU A  29      38.428  10.357   6.740  1.00 11.14           C  
+ANISOU  214  CD1 LEU A  29     1625   1712    895    573    277    240       C  
+ATOM    215  CD2 LEU A  29      37.367  10.850   4.555  1.00 11.54           C  
+ANISOU  215  CD2 LEU A  29     2255   1402    726    536    138     73       C  
+ATOM    216  N   SER A  30      32.880  10.996   7.706  1.00  8.07           N  
+ANISOU  216  N   SER A  30     1306    974    789    259    232     19       N  
+ATOM    217  CA  SER A  30      31.816  10.259   8.392  1.00  8.08           C  
+ANISOU  217  CA  SER A  30     1420    997    653    175    153    139       C  
+ATOM    218  C   SER A  30      30.434  10.800   8.097  1.00  7.73           C  
+ANISOU  218  C   SER A  30     1343   1034    560    183     69    -77       C  
+ATOM    219  O   SER A  30      29.457  10.156   8.464  1.00  9.25           O  
+ANISOU  219  O   SER A  30     1466   1125    923    -10   -151    -94       O  
+ATOM    220  CB  SER A  30      32.094  10.313   9.905  1.00  8.51           C  
+ANISOU  220  CB  SER A  30     1413   1150    671     33     15    109       C  
+ATOM    221  OG  SER A  30      32.033  11.667  10.366  1.00  9.82           O  
+ANISOU  221  OG  SER A  30     1542   1392    796     30    339   -176       O  
+ATOM    222  N   GLY A  31      30.363  12.004   7.504  1.00  8.59           N  
+ANISOU  222  N   GLY A  31     1352   1128    785    337    176    -23       N  
+ATOM    223  CA  GLY A  31      29.124  12.717   7.369  1.00  9.35           C  
+ANISOU  223  CA  GLY A  31     1385   1475    693    494    -88   -219       C  
+ATOM    224  C   GLY A  31      28.589  13.279   8.673  1.00  9.35           C  
+ANISOU  224  C   GLY A  31     1330   1621    603    554    118     15       C  
+ATOM    225  O   GLY A  31      27.437  13.686   8.728  1.00 12.44           O  
+ANISOU  225  O   GLY A  31     1478   2156   1092    831    168    -24       O  
+ATOM    226  N   CYS A  32      29.394  13.287   9.706  1.00  9.79           N  
+ANISOU  226  N   CYS A  32     1424   1665    630    346    122   -211       N  
+ATOM    227  CA  CYS A  32      28.979  13.846  11.005  1.00  9.80           C  
+ANISOU  227  CA  CYS A  32     1535   1542    648    361    247   -188       C  
+ATOM    228  C   CYS A  32      29.182  15.349  11.024  1.00 10.78           C  
+ANISOU  228  C   CYS A  32     1676   1499    921    529    196   -110       C  
+ATOM    229  O   CYS A  32      29.883  15.877  10.164  1.00 12.44           O  
+ANISOU  229  O   CYS A  32     2069   1463   1195    314    396   -226       O  
+ATOM    230  CB  CYS A  32      29.742  13.196  12.158  1.00 11.16           C  
+ANISOU  230  CB  CYS A  32     1867   1609    765    501     98   -140       C  
+ATOM    231  SG  CYS A  32      29.701  11.353  12.210  1.00 11.73           S  
+ANISOU  231  SG  CYS A  32     1685   1606   1165    624    360   -118       S  
+ATOM    232  N   LYS A  33      28.577  15.996  12.013  1.00 10.84           N  
+ANISOU  232  N   LYS A  33     1818   1406    896    323    204   -125       N  
+ATOM    233  CA  LYS A  33      28.677  17.428  12.197  1.00 12.23           C  
+ANISOU  233  CA  LYS A  33     2108   1448   1092    310    299   -246       C  
+ATOM    234  C   LYS A  33      29.315  17.713  13.540  1.00 12.74           C  
+ANISOU  234  C   LYS A  33     2082   1534   1225    328    231   -372       C  
+ATOM    235  O   LYS A  33      29.055  16.988  14.498  1.00 14.13           O  
+ANISOU  235  O   LYS A  33     2520   1658   1190    214     54   -272       O  
+ATOM    236  CB  LYS A  33      27.331  18.128  12.100  1.00 16.85           C  
+ANISOU  236  CB  LYS A  33     2701   1656   2045    787   -410   -537       C  
+ATOM    237  CG  LYS A  33      26.616  17.917  10.796  1.00 20.82           C  
+ANISOU  237  CG  LYS A  33     3165   2507   2238    781   -781   -437       C  
+ATOM    238  CD  LYS A  33      27.371  18.194   9.523  1.00 26.05           C  
+ANISOU  238  CD  LYS A  33     4112   3644   2143    940   -694     53       C  
+ATOM    239  CE  LYS A  33      26.796  17.473   8.301  1.00 28.93           C  
+ANISOU  239  CE  LYS A  33     4559   4268   2166   1216   -803   -321       C  
+ATOM    240  NZ  LYS A  33      27.535  17.561   7.000  1.00 30.43           N  
+ANISOU  240  NZ  LYS A  33     4416   4947   2198   1390   -826    -83       N  
+ATOM    241  N   ILE A  34      30.165  18.718  13.613  1.00 14.45           N  
+ANISOU  241  N   ILE A  34     2388   1531   1572    226    274   -511       N  
+ATOM    242  CA  ILE A  34      30.705  19.147  14.912  1.00 15.80           C  
+ANISOU  242  CA  ILE A  34     2449   1613   1941    371    112   -904       C  
+ATOM    243  C   ILE A  34      29.947  20.415  15.321  1.00 17.42           C  
+ANISOU  243  C   ILE A  34     2948   1589   2083    621    270   -702       C  
+ATOM    244  O   ILE A  34      29.931  21.405  14.581  1.00 21.98           O  
+ANISOU  244  O   ILE A  34     4286   1594   2472    616    724   -496       O  
+ATOM    245  CB  ILE A  34      32.213  19.470  14.867  1.00 17.61           C  
+ANISOU  245  CB  ILE A  34     2510   1645   2537    248     31   -931       C  
+ATOM    246  CG1 ILE A  34      33.055  18.334  14.250  1.00 15.56           C  
+ANISOU  246  CG1 ILE A  34     2311   1376   2224     46    313   -670       C  
+ATOM    247  CG2 ILE A  34      32.732  19.895  16.228  1.00 21.79           C  
+ANISOU  247  CG2 ILE A  34     2733   2484   3063    294   -207  -1757       C  
+ATOM    248  CD1 ILE A  34      32.807  17.008  14.905  1.00 14.76           C  
+ANISOU  248  CD1 ILE A  34     2043   1782   1784    528    740   -231       C  
+ATOM    249  N   ILE A  35      29.336  20.373  16.477  1.00 19.19           N  
+ANISOU  249  N   ILE A  35     3303   1920   2069   1201    358   -485       N  
+ATOM    250  CA  ILE A  35      28.404  21.378  16.929  1.00 23.11           C  
+ANISOU  250  CA  ILE A  35     3612   2600   2566   1700    242   -874       C  
+ATOM    251  C   ILE A  35      28.763  21.738  18.352  1.00 25.38           C  
+ANISOU  251  C   ILE A  35     3943   2977   2724   1797    242  -1219       C  
+ATOM    252  O   ILE A  35      29.113  20.869  19.151  1.00 27.08           O  
+ANISOU  252  O   ILE A  35     4722   3119   2449   1779   -101  -1363       O  
+ATOM    253  CB  ILE A  35      26.960  20.862  16.925  1.00 26.97           C  
+ANISOU  253  CB  ILE A  35     3472   3542   3235   1729    275  -1136       C  
+ATOM    254  CG1 ILE A  35      26.477  20.362  15.564  1.00 29.20           C  
+ANISOU  254  CG1 ILE A  35     3610   3796   3691   1435    176  -1554       C  
+ATOM    255  CG2 ILE A  35      26.022  21.950  17.465  1.00 37.11           C  
+ANISOU  255  CG2 ILE A  35     3964   5322   4815   2050    799  -2532       C  
+ATOM    256  CD1 ILE A  35      25.084  19.727  15.525  1.00 35.10           C  
+ANISOU  256  CD1 ILE A  35     3562   4268   5508   1421   -453  -1303       C  
+ATOM    257  N   SER A  36      28.668  23.027  18.604  1.00 25.69           N  
+ANISOU  257  N   SER A  36     3633   2960   3168   1408    302  -1295       N  
+ATOM    258  CA  SER A  36      28.945  23.491  19.951  1.00 26.09           C  
+ANISOU  258  CA  SER A  36     3466   3089   3357    811    397  -1441       C  
+ATOM    259  C   SER A  36      27.672  23.416  20.780  1.00 26.62           C  
+ANISOU  259  C   SER A  36     3401   3286   3428    823    389  -1979       C  
+ATOM    260  O   SER A  36      26.971  24.412  20.969  1.00 35.19           O  
+ANISOU  260  O   SER A  36     3766   3225   6378    675    984  -2737       O  
+ATOM    261  CB  SER A  36      29.511  24.906  19.897  1.00 30.74           C  
+ANISOU  261  CB  SER A  36     3939   3056   4684    707    614  -1622       C  
+ATOM    262  OG  SER A  36      29.952  25.201  21.239  1.00 41.13           O  
+ANISOU  262  OG  SER A  36     4965   4618   6047    353   -811  -2669       O  
+ATOM    263  N   ALA A  37      27.304  22.258  21.282  1.00 23.89           N  
+ANISOU  263  N   ALA A  37     3014   3519   2543    640    315  -2043       N  
+ATOM    264  CA  ALA A  37      26.036  22.058  21.940  1.00 24.11           C  
+ANISOU  264  CA  ALA A  37     2852   4007   2300    992    250  -2066       C  
+ATOM    265  C   ALA A  37      26.198  20.871  22.881  1.00 23.11           C  
+ANISOU  265  C   ALA A  37     2529   4111   2140    181   -156  -2043       C  
+ATOM    266  O   ALA A  37      27.151  20.143  22.671  1.00 23.24           O  
+ANISOU  266  O   ALA A  37     2574   3715   2543    105     54  -1254       O  
+ATOM    267  CB  ALA A  37      24.924  21.700  20.975  1.00 26.77           C  
+ANISOU  267  CB  ALA A  37     2961   4016   3193    927   -349  -1435       C  
+ATOM    268  N   SER A  38      25.303  20.695  23.805  1.00 25.72           N  
+ANISOU  268  N   SER A  38     2694   4807   2273   -247     -6  -2108       N  
+ATOM    269  CA  SER A  38      25.326  19.560  24.710  1.00 26.93           C  
+ANISOU  269  CA  SER A  38     2834   5491   1905    -29   -100  -1841       C  
+ATOM    270  C   SER A  38      24.443  18.390  24.290  1.00 24.27           C  
+ANISOU  270  C   SER A  38     2824   5057   1342    -45   -283  -1011       C  
+ATOM    271  O   SER A  38      24.364  17.343  24.941  1.00 31.82           O  
+ANISOU  271  O   SER A  38     3647   6771   1673  -1136   -888    422       O  
+ATOM    272  CB  SER A  38      24.851  20.040  26.107  1.00 32.28           C  
+ANISOU  272  CB  SER A  38     3834   5952   2477   -727    866  -2214       C  
+ATOM    273  OG  SER A  38      23.700  20.886  25.869  1.00 34.86           O  
+ANISOU  273  OG  SER A  38     3739   6196   3311   -488   1330  -2627       O  
+ATOM    274  N   THR A  39      23.757  18.502  23.154  1.00 18.70           N  
+ANISOU  274  N   THR A  39     1924   4012   1170    235    150   -913       N  
+ATOM    275  CA  THR A  39      22.875  17.503  22.583  1.00 15.20           C  
+ANISOU  275  CA  THR A  39     1858   3019    898    703     83   -631       C  
+ATOM    276  C   THR A  39      22.989  17.551  21.061  1.00 14.52           C  
+ANISOU  276  C   THR A  39     1889   2722    906    761    -51   -396       C  
+ATOM    277  O   THR A  39      23.556  18.498  20.530  1.00 14.70           O  
+ANISOU  277  O   THR A  39     1794   2762   1031    684     91   -545       O  
+ATOM    278  CB  THR A  39      21.387  17.701  22.927  1.00 13.23           C  
+ANISOU  278  CB  THR A  39     1777   2352    900    730   -121   -623       C  
+ATOM    279  OG1 THR A  39      20.939  18.915  22.319  1.00 14.37           O  
+ANISOU  279  OG1 THR A  39     2125   2070   1265    546    175   -575       O  
+ATOM    280  CG2 THR A  39      21.171  17.855  24.422  1.00 16.05           C  
+ANISOU  280  CG2 THR A  39     2388   2644   1065    547    469   -551       C  
+ATOM    281  N   CYS A  40      22.476  16.511  20.391  1.00 13.35           N  
+ANISOU  281  N   CYS A  40     1989   2346    738    995    118   -329       N  
+ATOM    282  CA  CYS A  40      22.491  16.450  18.942  1.00 12.06           C  
+ANISOU  282  CA  CYS A  40     1774   2063    746    957     51   -239       C  
+ATOM    283  C   CYS A  40      21.085  16.707  18.403  1.00 11.84           C  
+ANISOU  283  C   CYS A  40     1659   2029    810    907    155   -268       C  
+ATOM    284  O   CYS A  40      20.117  16.385  19.074  1.00 13.17           O  
+ANISOU  284  O   CYS A  40     1770   2274    959    937    311   -228       O  
+ATOM    285  CB  CYS A  40      22.999  15.078  18.463  1.00 13.34           C  
+ANISOU  285  CB  CYS A  40     1814   2264    990   1094    264   -327       C  
+ATOM    286  SG  CYS A  40      24.787  14.843  18.739  1.00 14.73           S  
+ANISOU  286  SG  CYS A  40     1933   2617   1047   1205    -42   -287       S  
+ATOM    287  N   PRO A  41      20.992  17.231  17.186  1.00 12.80           N  
+ANISOU  287  N   PRO A  41     1631   2457    774   1006    117   -198       N  
+ATOM    288  CA  PRO A  41      19.670  17.347  16.563  1.00 12.22           C  
+ANISOU  288  CA  PRO A  41     1743   1790   1111   1155     34   -138       C  
+ATOM    289  C   PRO A  41      19.167  15.998  16.077  1.00 11.67           C  
+ANISOU  289  C   PRO A  41     1760   1930    745   1038    216   -261       C  
+ATOM    290  O   PRO A  41      19.923  15.042  15.874  1.00 12.35           O  
+ANISOU  290  O   PRO A  41     1671   1908   1112   1005    113   -335       O  
+ATOM    291  CB  PRO A  41      19.930  18.222  15.365  1.00 13.26           C  
+ANISOU  291  CB  PRO A  41     1965   1819   1254   1175     86    -45       C  
+ATOM    292  CG  PRO A  41      21.383  17.941  15.028  1.00 13.16           C  
+ANISOU  292  CG  PRO A  41     1876   2026   1097   1102    -33    299       C  
+ATOM    293  CD  PRO A  41      22.080  17.781  16.321  1.00 13.31           C  
+ANISOU  293  CD  PRO A  41     1883   2317    857    761     21    -48       C  
+ATOM    294  N   SER A  42      17.850  15.936  15.876  1.00 12.81           N  
+ANISOU  294  N   SER A  42     1706   2045   1117   1010     27    226       N  
+ATOM    295  CA  SER A  42      17.254  14.676  15.463  1.00 13.42           C  
+ANISOU  295  CA  SER A  42     1733   2109   1256    804    176    260       C  
+ATOM    296  C   SER A  42      17.714  14.102  14.130  1.00 13.45           C  
+ANISOU  296  C   SER A  42     1561   2207   1344    914      1     75       C  
+ATOM    297  O   SER A  42      17.612  12.888  13.903  1.00 14.59           O  
+ANISOU  297  O   SER A  42     1420   2352   1771    565     70   -250       O  
+ATOM    298  CB  SER A  42      15.739  14.794  15.424  1.00 14.62           C  
+ANISOU  298  CB  SER A  42     1714   2617   1224    738    274    334       C  
+ATOM    299  OG  SER A  42      15.204  15.575  14.396  1.00 17.58           O  
+ANISOU  299  OG  SER A  42     2054   3223   1404   1301     66    342       O  
+ATOM    300  N   ASN A  43      18.192  14.993  13.252  1.00 13.52           N  
+ANISOU  300  N   ASN A  43     1508   2459   1170    887     61     52       N  
+ATOM    301  CA  ASN A  43      18.662  14.504  11.958  1.00 14.07           C  
+ANISOU  301  CA  ASN A  43     1631   2715   1001    857   -285   -234       C  
+ATOM    302  C   ASN A  43      20.134  14.039  11.986  1.00 12.63           C  
+ANISOU  302  C   ASN A  43     1448   2416    935    543    -75   -408       C  
+ATOM    303  O   ASN A  43      20.627  13.486  11.007  1.00 15.15           O  
+ANISOU  303  O   ASN A  43     1973   2761   1021    745     35   -523       O  
+ATOM    304  CB  ASN A  43      18.378  15.540  10.874  1.00 17.86           C  
+ANISOU  304  CB  ASN A  43     2180   3395   1213   1147    -25    210       C  
+ATOM    305  CG  ASN A  43      18.948  16.907  11.138  1.00 17.91           C  
+ANISOU  305  CG  ASN A  43     2709   2966   1132   1487    -55    362       C  
+ATOM    306  OD1 ASN A  43      19.366  17.235  12.230  1.00 17.80           O  
+ANISOU  306  OD1 ASN A  43     2601   2962   1199   1506    -58    186       O  
+ATOM    307  ND2 ASN A  43      19.032  17.742  10.090  1.00 23.89           N  
+ANISOU  307  ND2 ASN A  43     4904   2803   1369   2119   -219    548       N  
+ATOM    308  N   TYR A  44      20.811  14.182  13.124  1.00 12.34           N  
+ANISOU  308  N   TYR A  44     1567   2011   1111    915   -277   -461       N  
+ATOM    309  CA  TYR A  44      22.177  13.661  13.305  1.00 12.52           C  
+ANISOU  309  CA  TYR A  44     1513   2217   1028    995     24   -159       C  
+ATOM    310  C   TYR A  44      22.282  13.084  14.708  1.00 11.86           C  
+ANISOU  310  C   TYR A  44     1273   2395    838    774     28   -245       C  
+ATOM    311  O   TYR A  44      22.990  13.603  15.554  1.00 12.92           O  
+ANISOU  311  O   TYR A  44     1812   2048   1050    821    -23   -467       O  
+ATOM    312  CB  TYR A  44      23.281  14.689  13.097  1.00 12.60           C  
+ANISOU  312  CB  TYR A  44     1579   2086   1122    990    193   -221       C  
+ATOM    313  CG  TYR A  44      23.342  15.247  11.700  1.00 13.57           C  
+ANISOU  313  CG  TYR A  44     1895   2129   1133   1046    221   -186       C  
+ATOM    314  CD1 TYR A  44      22.599  16.323  11.265  1.00 13.42           C  
+ANISOU  314  CD1 TYR A  44     1761   1965   1374    800    325    -19       C  
+ATOM    315  CD2 TYR A  44      24.182  14.673  10.771  1.00 14.67           C  
+ANISOU  315  CD2 TYR A  44     2187   2120   1267    991    536      0       C  
+ATOM    316  CE1 TYR A  44      22.690  16.799   9.978  1.00 14.79           C  
+ANISOU  316  CE1 TYR A  44     2252   2114   1253    646   -102   -119       C  
+ATOM    317  CE2 TYR A  44      24.260  15.131   9.489  1.00 16.50           C  
+ANISOU  317  CE2 TYR A  44     2566   2404   1298    793    592     93       C  
+ATOM    318  CZ  TYR A  44      23.517  16.192   9.080  1.00 16.88           C  
+ANISOU  318  CZ  TYR A  44     2916   2392   1105    860    228     -3       C  
+ATOM    319  OH  TYR A  44      23.632  16.639   7.773  1.00 24.85           O  
+ANISOU  319  OH  TYR A  44     4908   3262   1272   1355    438    323       O  
+ATOM    320  N   PRO A  45      21.490  12.055  14.967  1.00 12.31           N  
+ANISOU  320  N   PRO A  45     1499   2117   1062    836    132   -310       N  
+ATOM    321  CA  PRO A  45      21.305  11.632  16.338  1.00 13.95           C  
+ANISOU  321  CA  PRO A  45     1665   2412   1225    751    283    -70       C  
+ATOM    322  C   PRO A  45      22.268  10.595  16.870  1.00 16.11           C  
+ANISOU  322  C   PRO A  45     1946   2858   1317    984    455    303       C  
+ATOM    323  O   PRO A  45      22.148  10.242  18.062  1.00 21.93           O  
+ANISOU  323  O   PRO A  45     2466   4301   1565   1946    863    823       O  
+ATOM    324  CB  PRO A  45      19.870  11.059  16.247  1.00 16.23           C  
+ANISOU  324  CB  PRO A  45     1809   2776   1583    561    285    -41       C  
+ATOM    325  CG  PRO A  45      19.780  10.429  14.908  1.00 16.83           C  
+ANISOU  325  CG  PRO A  45     1876   2740   1780    353    276   -233       C  
+ATOM    326  CD  PRO A  45      20.618  11.332  14.030  1.00 13.05           C  
+ANISOU  326  CD  PRO A  45     1411   2145   1401    792    199   -444       C  
+ATOM    327  N   LYS A  46      23.187  10.113  16.085  1.00 14.00           N  
+ANISOU  327  N   LYS A  46     1744   2434   1142    899    311    399       N  
+ATOM    328  CA  LYS A  46      24.097   9.035  16.451  1.00 14.27           C  
+ANISOU  328  CA  LYS A  46     1864   2195   1364    726    366    561       C  
+ATOM    329  C   LYS A  46      25.493   9.497  16.879  1.00 15.51           C  
+ANISOU  329  C   LYS A  46     1483   2478   1930    835    618    648       C  
+ATOM    330  O   LYS A  46      26.213   8.619  17.441  1.00 18.40           O  
+ANISOU  330  O   LYS A  46     1963   2823   2205    873    283    952       O  
+ATOM    331  CB  LYS A  46      24.213   8.014  15.310  1.00 16.66           C  
+ANISOU  331  CB  LYS A  46     2117   2597   1614    837    916    255       C  
+ATOM    332  CG  LYS A  46      22.864   7.444  14.854  1.00 19.86           C  
+ANISOU  332  CG  LYS A  46     2569   3265   1712    447    740   -369       C  
+ATOM    333  CD  LYS A  46      22.114   6.661  15.918  1.00 24.38           C  
+ANISOU  333  CD  LYS A  46     2808   3933   2522   -267    967   -210       C  
+ATOM    334  CE  LYS A  46      21.183   5.604  15.378  1.00 31.18           C  
+ANISOU  334  CE  LYS A  46     3899   4471   3476   -912    721   -381       C  
+ATOM    335  NZ  LYS A  46      20.749   4.610  16.415  1.00 45.52           N  
+ANISOU  335  NZ  LYS A  46     5805   6189   5303  -2655   1869    320       N  
+ATOM    336  OXT LYS A  46      25.840  10.665  16.672  1.00 14.49           O  
+ANISOU  336  OXT LYS A  46     1921   2222   1363    749    216     94       O  
+TER     337      LYS A  46                                                      
+ATOM    338  N   LYS B   1       4.751  14.940  23.553  1.00 20.35           N  
+ANISOU  338  N   LYS B   1     2626   2264   2844     96   -129   1457       N  
+ATOM    339  CA  LYS B   1       5.104  16.341  23.574  1.00 17.06           C  
+ANISOU  339  CA  LYS B   1     2693   2277   1513    172    140    701       C  
+ATOM    340  C   LYS B   1       5.235  16.842  22.135  1.00 14.69           C  
+ANISOU  340  C   LYS B   1     2446   1752   1384     60    219    420       C  
+ATOM    341  O   LYS B   1       5.742  16.094  21.301  1.00 18.47           O  
+ANISOU  341  O   LYS B   1     3193   2339   1486    824    -89    236       O  
+ATOM    342  CB  LYS B   1       6.417  16.445  24.344  1.00 18.68           C  
+ANISOU  342  CB  LYS B   1     2801   2570   1728    333    -39    571       C  
+ATOM    343  CG  LYS B   1       6.795  17.923  24.490  1.00 19.70           C  
+ANISOU  343  CG  LYS B   1     2860   2675   1949    129   -126    589       C  
+ATOM    344  CD  LYS B   1       8.020  18.093  25.365  1.00 20.85           C  
+ANISOU  344  CD  LYS B   1     3229   2904   1791    501   -340    -75       C  
+ATOM    345  CE  LYS B   1       8.328  19.538  25.617  1.00 19.78           C  
+ANISOU  345  CE  LYS B   1     2678   2898   1940    675   -119   -132       C  
+ATOM    346  NZ  LYS B   1       7.209  20.303  26.214  1.00 30.38           N  
+ANISOU  346  NZ  LYS B   1     3277   4350   3915   1242    -62  -1534       N  
+ATOM    347  N   SER B   2       4.803  18.059  21.833  1.00 13.07           N  
+ANISOU  347  N   SER B   2     1790   1809   1365    -10    134    338       N  
+ATOM    348  CA  SER B   2       4.949  18.633  20.514  1.00 11.96           C  
+ANISOU  348  CA  SER B   2     1430   1702   1413     54   -228    391       C  
+ATOM    349  C   SER B   2       6.249  19.433  20.492  1.00  9.67           C  
+ANISOU  349  C   SER B   2     1371   1522    780    161   -298    287       C  
+ATOM    350  O   SER B   2       6.551  20.146  21.445  1.00 11.29           O  
+ANISOU  350  O   SER B   2     1494   1852    944    104     11    -34       O  
+ATOM    351  CB  SER B   2       3.736  19.501  20.114  1.00 13.29           C  
+ANISOU  351  CB  SER B   2     1389   1919   1742    171   -451    -39       C  
+ATOM    352  OG  SER B   2       3.577  20.558  21.058  1.00 14.10           O  
+ANISOU  352  OG  SER B   2     1749   1778   1831     72    -23     78       O  
+ATOM    353  N   CYS B   3       7.018  19.306  19.408  1.00  9.59           N  
+ANISOU  353  N   CYS B   3     1546   1259    840    182   -174    138       N  
+ATOM    354  CA  CYS B   3       8.293  19.989  19.240  1.00  9.26           C  
+ANISOU  354  CA  CYS B   3     1453   1199    867    376   -111    224       C  
+ATOM    355  C   CYS B   3       8.288  20.660  17.878  1.00  8.36           C  
+ANISOU  355  C   CYS B   3     1331   1124    721    487    -73     74       C  
+ATOM    356  O   CYS B   3       8.102  19.965  16.879  1.00  9.22           O  
+ANISOU  356  O   CYS B   3     1364   1295    846    551   -193    -28       O  
+ATOM    357  CB  CYS B   3       9.471  19.035  19.391  1.00 10.41           C  
+ANISOU  357  CB  CYS B   3     1562   1419    974    538     14    375       C  
+ATOM    358  SG  CYS B   3       9.512  18.255  21.040  1.00 12.02           S  
+ANISOU  358  SG  CYS B   3     1690   1819   1058    610    -99    462       S  
+ATOM    359  N   CYS B   4       8.504  21.968  17.843  1.00  8.70           N  
+ANISOU  359  N   CYS B   4     1337   1180    788    393   -171    159       N  
+ATOM    360  CA  CYS B   4       8.278  22.746  16.627  1.00  8.44           C  
+ANISOU  360  CA  CYS B   4     1273   1177    759    338    -86    117       C  
+ATOM    361  C   CYS B   4       9.528  23.457  16.106  1.00  9.31           C  
+ANISOU  361  C   CYS B   4     1243   1551    742    365    -31    209       C  
+ATOM    362  O   CYS B   4      10.406  23.817  16.875  1.00  9.79           O  
+ANISOU  362  O   CYS B   4      966   1740   1012    431    -63    183       O  
+ATOM    363  CB  CYS B   4       7.137  23.773  16.889  1.00  9.53           C  
+ANISOU  363  CB  CYS B   4     1211   1378   1034    420    -83    340       C  
+ATOM    364  SG  CYS B   4       5.542  22.969  17.263  1.00 10.31           S  
+ANISOU  364  SG  CYS B   4     1265   1653    999    275    -34     72       S  
+ATOM    365  N   PRO B   5       9.587  23.608  14.787  1.00 10.03           N  
+ANISOU  365  N   PRO B   5     1412   1625    775    436     -8    311       N  
+ATOM    366  CA  PRO B   5      10.781  24.161  14.153  1.00 11.55           C  
+ANISOU  366  CA  PRO B   5     1544   1790   1053    550    310    332       C  
+ATOM    367  C   PRO B   5      10.918  25.664  14.323  1.00 11.20           C  
+ANISOU  367  C   PRO B   5     1217   1852   1188    339    348    320       C  
+ATOM    368  O   PRO B   5      12.014  26.193  14.162  1.00 15.28           O  
+ANISOU  368  O   PRO B   5     1129   2142   2533    400    591    535       O  
+ATOM    369  CB  PRO B   5      10.620  23.848  12.666  1.00 13.74           C  
+ANISOU  369  CB  PRO B   5     2053   2094   1074    635    485    108       C  
+ATOM    370  CG  PRO B   5       9.119  23.830  12.494  1.00 12.81           C  
+ANISOU  370  CG  PRO B   5     2180   1974    711    515    158    435       C  
+ATOM    371  CD  PRO B   5       8.602  23.187  13.752  1.00 11.69           C  
+ANISOU  371  CD  PRO B   5     2020   1858    563    191    -26    267       C  
+ATOM    372  N   SER B   6       9.827  26.356  14.620  1.00  9.64           N  
+ANISOU  372  N   SER B   6     1048   1606   1009    247    273    293       N  
+ATOM    373  CA  SER B   6       9.789  27.794  14.563  1.00  9.50           C  
+ANISOU  373  CA  SER B   6     1040   1582    987    -19     79    102       C  
+ATOM    374  C   SER B   6       8.631  28.311  15.406  1.00  9.22           C  
+ANISOU  374  C   SER B   6      934   1445   1124    129    -56    211       C  
+ATOM    375  O   SER B   6       7.743  27.538  15.744  1.00  8.86           O  
+ANISOU  375  O   SER B   6      927   1603    835    185      7    350       O  
+ATOM    376  CB  SER B   6       9.629  28.308  13.125  1.00 10.52           C  
+ANISOU  376  CB  SER B   6     1036   1708   1254    284     61    443       C  
+ATOM    377  OG  SER B   6       8.342  27.940  12.643  1.00  9.79           O  
+ANISOU  377  OG  SER B   6     1262   1585    872     30     66     46       O  
+ATOM    378  N   THR B   7       8.611  29.575  15.757  1.00 10.83           N  
+ANISOU  378  N   THR B   7     1213   1542   1360    120     -4      2       N  
+ATOM    379  CA  THR B   7       7.498  30.187  16.478  1.00  9.79           C  
+ANISOU  379  CA  THR B   7     1231   1519    971    -98     64    -42       C  
+ATOM    380  C   THR B   7       6.232  30.069  15.619  1.00  8.33           C  
+ANISOU  380  C   THR B   7     1195   1086    882     49    142    -84       C  
+ATOM    381  O   THR B   7       5.156  29.773  16.189  1.00  9.13           O  
+ANISOU  381  O   THR B   7     1200   1460    809    -67    162     37       O  
+ATOM    382  CB  THR B   7       7.865  31.625  16.819  1.00 12.19           C  
+ANISOU  382  CB  THR B   7     1532   1784   1316   -128    -73   -469       C  
+ATOM    383  OG1 THR B   7       8.946  31.662  17.736  1.00 18.11           O  
+ANISOU  383  OG1 THR B   7     1925   2517   2439   -164   -796   -671       O  
+ATOM    384  CG2 THR B   7       6.645  32.298  17.475  1.00 16.43           C  
+ANISOU  384  CG2 THR B   7     1973   2102   2170    153    269   -719       C  
+ATOM    385  N   THR B   8       6.325  30.237  14.315  1.00  8.45           N  
+ANISOU  385  N   THR B   8     1095   1216    901    -32    172     29       N  
+ATOM    386  CA  THR B   8       5.125  30.086  13.478  1.00  9.14           C  
+ANISOU  386  CA  THR B   8     1136   1367    971   -105    102    281       C  
+ATOM    387  C   THR B   8       4.610  28.676  13.566  1.00  8.35           C  
+ANISOU  387  C   THR B   8     1077   1359    738    -50    -32    209       C  
+ATOM    388  O   THR B   8       3.419  28.467  13.705  1.00  8.65           O  
+ANISOU  388  O   THR B   8     1080   1271    936    -63      0    320       O  
+ATOM    389  CB  THR B   8       5.430  30.428  12.015  1.00 10.87           C  
+ANISOU  389  CB  THR B   8     1335   1755   1040    -89     12    556       C  
+ATOM    390  OG1 THR B   8       5.845  31.814  11.945  1.00 16.80           O  
+ANISOU  390  OG1 THR B   8     2212   1966   2204   -254   -191   1353       O  
+ATOM    391  CG2 THR B   8       4.202  30.266  11.142  1.00 15.34           C  
+ANISOU  391  CG2 THR B   8     1701   2555   1571     76   -520   1053       C  
+ATOM    392  N   GLY B   9       5.498  27.666  13.494  1.00  8.19           N  
+ANISOU  392  N   GLY B   9     1109   1440    562     19    208    114       N  
+ATOM    393  CA  GLY B   9       5.023  26.305  13.657  1.00  8.46           C  
+ANISOU  393  CA  GLY B   9     1133   1400    681    104    118    254       C  
+ATOM    394  C   GLY B   9       4.321  26.093  14.976  1.00  6.93           C  
+ANISOU  394  C   GLY B   9      909   1094    631    140     17    112       C  
+ATOM    395  O   GLY B   9       3.284  25.444  15.051  1.00  7.44           O  
+ANISOU  395  O   GLY B   9      919   1211    698     43    -12    157       O  
+ATOM    396  N   ARG B  10       4.902  26.603  16.078  1.00  6.93           N  
+ANISOU  396  N   ARG B  10      793   1090    749     53     98     21       N  
+ATOM    397  CA  ARG B  10       4.291  26.517  17.399  1.00  7.50           C  
+ANISOU  397  CA  ARG B  10      893   1298    657    271     43     35       C  
+ATOM    398  C   ARG B  10       2.887  27.129  17.393  1.00  6.92           C  
+ANISOU  398  C   ARG B  10      750   1316    564    118    -26     80       C  
+ATOM    399  O   ARG B  10       1.932  26.544  17.913  1.00  8.02           O  
+ANISOU  399  O   ARG B  10      931   1385    731    156    250    179       O  
+ATOM    400  CB  ARG B  10       5.159  27.210  18.437  1.00  8.22           C  
+ANISOU  400  CB  ARG B  10      723   1718    684    172    -49     66       C  
+ATOM    401  CG  ARG B  10       4.554  27.428  19.804  1.00  9.91           C  
+ANISOU  401  CG  ARG B  10     1277   1783    707    273     81    -16       C  
+ATOM    402  CD  ARG B  10       4.038  26.134  20.389  1.00  9.87           C  
+ANISOU  402  CD  ARG B  10      991   1997    764    295     74    182       C  
+ATOM    403  NE  ARG B  10       5.039  25.067  20.501  1.00  9.89           N  
+ANISOU  403  NE  ARG B  10     1066   1739    954    125    -42    121       N  
+ATOM    404  CZ  ARG B  10       4.724  23.799  20.657  1.00 11.38           C  
+ANISOU  404  CZ  ARG B  10     1473   1675   1177     17   -225   -282       C  
+ATOM    405  NH1 ARG B  10       3.473  23.388  20.731  1.00 12.78           N  
+ANISOU  405  NH1 ARG B  10     1610   1632   1613   -124    -82     79       N  
+ATOM    406  NH2 ARG B  10       5.694  22.902  20.759  1.00 12.11           N  
+ANISOU  406  NH2 ARG B  10     1719   1731   1153    151   -139    285       N  
+ATOM    407  N   ASN B  11       2.740  28.302  16.768  1.00  7.07           N  
+ANISOU  407  N   ASN B  11      875   1089    723    116     87    -47       N  
+ATOM    408  CA  ASN B  11       1.439  28.968  16.762  1.00  7.73           C  
+ANISOU  408  CA  ASN B  11      901   1196    841    230     78    -71       C  
+ATOM    409  C   ASN B  11       0.414  28.195  15.947  1.00  6.99           C  
+ANISOU  409  C   ASN B  11      957   1066    631    187     13    206       C  
+ATOM    410  O   ASN B  11      -0.745  28.086  16.350  1.00  8.29           O  
+ANISOU  410  O   ASN B  11      974   1173   1004     64    165     94       O  
+ATOM    411  CB  ASN B  11       1.608  30.408  16.251  1.00  9.80           C  
+ANISOU  411  CB  ASN B  11      840   1169   1715    193    -28     13       C  
+ATOM    412  CG  ASN B  11       2.339  31.256  17.268  1.00 11.20           C  
+ANISOU  412  CG  ASN B  11     1099   1251   1904    282     39   -385       C  
+ATOM    413  OD1 ASN B  11       2.404  30.962  18.455  1.00 15.09           O  
+ANISOU  413  OD1 ASN B  11     1893   2032   1806    205    -42   -591       O  
+ATOM    414  ND2 ASN B  11       2.949  32.329  16.806  1.00 15.64           N  
+ANISOU  414  ND2 ASN B  11     1523   1525   2896   -163    -94   -288       N  
+ATOM    415  N   ILE B  12       0.813  27.676  14.789  1.00  7.97           N  
+ANISOU  415  N   ILE B  12     1026   1260    743    -12     95     65       N  
+ATOM    416  CA  ILE B  12      -0.072  26.854  13.963  1.00  7.20           C  
+ANISOU  416  CA  ILE B  12      935   1105    694    218    -30    121       C  
+ATOM    417  C   ILE B  12      -0.527  25.637  14.770  1.00  7.27           C  
+ANISOU  417  C   ILE B  12     1070   1238    454     30   -130    179       C  
+ATOM    418  O   ILE B  12      -1.727  25.283  14.789  1.00  8.61           O  
+ANISOU  418  O   ILE B  12      953   1427    890    187     34    291       O  
+ATOM    419  CB  ILE B  12       0.571  26.400  12.639  1.00  7.33           C  
+ANISOU  419  CB  ILE B  12      908   1333    543    158    -40    209       C  
+ATOM    420  CG1 ILE B  12       0.841  27.568  11.700  1.00  9.02           C  
+ANISOU  420  CG1 ILE B  12     1157   1479    789    354      3    405       C  
+ATOM    421  CG2 ILE B  12      -0.254  25.321  11.974  1.00  8.09           C  
+ANISOU  421  CG2 ILE B  12      798   1600    676    227   -120     -6       C  
+ATOM    422  CD1 ILE B  12       1.756  27.223  10.557  1.00 10.72           C  
+ANISOU  422  CD1 ILE B  12     1503   1688    883     -6    286    366       C  
+ATOM    423  N   TYR B  13       0.427  24.922  15.378  1.00  7.91           N  
+ANISOU  423  N   TYR B  13      985   1326    692     48    -66    296       N  
+ATOM    424  CA  TYR B  13       0.083  23.745  16.136  1.00  7.90           C  
+ANISOU  424  CA  TYR B  13     1129   1272    600    222     40    278       C  
+ATOM    425  C   TYR B  13      -0.918  24.064  17.233  1.00  7.90           C  
+ANISOU  425  C   TYR B  13      995   1302    703    202     15    316       C  
+ATOM    426  O   TYR B  13      -1.928  23.386  17.419  1.00  8.74           O  
+ANISOU  426  O   TYR B  13     1057   1199   1064    169    142    292       O  
+ATOM    427  CB  TYR B  13       1.341  23.108  16.758  1.00  8.03           C  
+ANISOU  427  CB  TYR B  13      976   1178    896    115     13    245       C  
+ATOM    428  CG  TYR B  13       1.019  21.849  17.546  1.00  7.57           C  
+ANISOU  428  CG  TYR B  13      986   1208    681    -11   -106    259       C  
+ATOM    429  CD1 TYR B  13       0.930  20.609  16.849  1.00  9.82           C  
+ANISOU  429  CD1 TYR B  13     1608   1220    904    -51     98    152       C  
+ATOM    430  CD2 TYR B  13       0.824  21.846  18.904  1.00  8.62           C  
+ANISOU  430  CD2 TYR B  13     1022   1559    693    195     29    228       C  
+ATOM    431  CE1 TYR B  13       0.636  19.455  17.566  1.00 10.22           C  
+ANISOU  431  CE1 TYR B  13     1723   1093   1068    345    -62    295       C  
+ATOM    432  CE2 TYR B  13       0.516  20.684  19.599  1.00 10.25           C  
+ANISOU  432  CE2 TYR B  13     1425   1815    656     -1    -33    397       C  
+ATOM    433  CZ  TYR B  13       0.428  19.500  18.919  1.00 11.29           C  
+ANISOU  433  CZ  TYR B  13     1678   1549   1064    154    -88    525       C  
+ATOM    434  OH  TYR B  13       0.131  18.351  19.612  1.00 14.10           O  
+ANISOU  434  OH  TYR B  13     2115   1704   1540    362    106    881       O  
+ATOM    435  N   ASN B  14      -0.632  25.097  18.024  1.00  8.20           N  
+ANISOU  435  N   ASN B  14     1091   1457    567    146     84    259       N  
+ATOM    436  CA  ASN B  14      -1.473  25.462  19.169  1.00  9.08           C  
+ANISOU  436  CA  ASN B  14     1161   1462    827    114    381    253       C  
+ATOM    437  C   ASN B  14      -2.862  25.839  18.720  1.00  8.91           C  
+ANISOU  437  C   ASN B  14     1253   1305    828    222    335    203       C  
+ATOM    438  O   ASN B  14      -3.864  25.415  19.320  1.00  9.64           O  
+ANISOU  438  O   ASN B  14     1209   1511    942    382    403    441       O  
+ATOM    439  CB  ASN B  14      -0.819  26.615  19.937  1.00 10.67           C  
+ANISOU  439  CB  ASN B  14     1163   1693   1199    185    401   -119       C  
+ATOM    440  CG  ASN B  14       0.366  26.183  20.779  1.00 11.49           C  
+ANISOU  440  CG  ASN B  14     1257   2129    980     20    377    -13       C  
+ATOM    441  OD1 ASN B  14       0.648  24.984  20.942  1.00 13.35           O  
+ANISOU  441  OD1 ASN B  14     1857   2191   1025    100   -234    264       O  
+ATOM    442  ND2 ASN B  14       1.054  27.202  21.311  1.00 14.81           N  
+ANISOU  442  ND2 ASN B  14     1533   2434   1658    292    110   -796       N  
+ATOM    443  N   THR B  15      -2.949  26.613  17.658  1.00  9.23           N  
+ANISOU  443  N   THR B  15      945   1542   1022    -79    270    373       N  
+ATOM    444  CA  THR B  15      -4.247  26.980  17.088  1.00  9.85           C  
+ANISOU  444  CA  THR B  15     1057   1701    985    158    212    256       C  
+ATOM    445  C   THR B  15      -5.046  25.759  16.631  1.00  9.34           C  
+ANISOU  445  C   THR B  15      927   1715    907    216    112    308       C  
+ATOM    446  O   THR B  15      -6.246  25.600  16.944  1.00  9.73           O  
+ANISOU  446  O   THR B  15     1133   1435   1130    164    374    383       O  
+ATOM    447  CB  THR B  15      -4.064  27.965  15.906  1.00 10.73           C  
+ANISOU  447  CB  THR B  15     1318   1651   1108    335    335    362       C  
+ATOM    448  OG1 THR B  15      -3.551  29.206  16.408  1.00 13.55           O  
+ANISOU  448  OG1 THR B  15     1637   1562   1949    294    410    359       O  
+ATOM    449  CG2 THR B  15      -5.373  28.229  15.214  1.00 13.35           C  
+ANISOU  449  CG2 THR B  15     1739   1453   1880    769    -29    426       C  
+ATOM    450  N   CYS B  16      -4.352  24.886  15.900  1.00  8.42           N  
+ANISOU  450  N   CYS B  16      751   1458    992    140     98    451       N  
+ATOM    451  CA  CYS B  16      -5.013  23.683  15.407  1.00 10.22           C  
+ANISOU  451  CA  CYS B  16     1074   1646   1163    -50     15    340       C  
+ATOM    452  C   CYS B  16      -5.557  22.861  16.571  1.00  9.47           C  
+ANISOU  452  C   CYS B  16     1155   1314   1130    -30     97    130       C  
+ATOM    453  O   CYS B  16      -6.623  22.253  16.514  1.00 10.46           O  
+ANISOU  453  O   CYS B  16     1145   1540   1288   -189    126     24       O  
+ATOM    454  CB  CYS B  16      -4.011  22.924  14.551  1.00 10.49           C  
+ANISOU  454  CB  CYS B  16     1565   1753    669     85    -49    339       C  
+ATOM    455  SG  CYS B  16      -4.541  21.303  13.994  1.00 13.36           S  
+ANISOU  455  SG  CYS B  16     1786   1944   1344    -98    -32    101       S  
+ATOM    456  N   ARG B  17      -4.808  22.810  17.702  1.00  9.60           N  
+ANISOU  456  N   ARG B  17     1160   1362   1125   -176    109    234       N  
+ATOM    457  CA  ARG B  17      -5.304  21.961  18.799  1.00  9.63           C  
+ANISOU  457  CA  ARG B  17     1438   1156   1064    -34    155    151       C  
+ATOM    458  C   ARG B  17      -6.559  22.522  19.445  1.00 10.03           C  
+ANISOU  458  C   ARG B  17     1683   1235    894    -16    316    340       C  
+ATOM    459  O   ARG B  17      -7.319  21.759  20.033  1.00 14.44           O  
+ANISOU  459  O   ARG B  17     1660   1721   2106   -210    562    759       O  
+ATOM    460  CB  ARG B  17      -4.170  21.710  19.757  1.00 10.73           C  
+ANISOU  460  CB  ARG B  17     1646   1510    921    -99     77     10       C  
+ATOM    461  CG  ARG B  17      -3.064  20.803  19.270  1.00 10.36           C  
+ANISOU  461  CG  ARG B  17     1217   1560   1158   -180    180    363       C  
+ATOM    462  CD  ARG B  17      -3.515  19.376  19.242  1.00 11.68           C  
+ANISOU  462  CD  ARG B  17     1762   1417   1259    -42    270    390       C  
+ATOM    463  NE  ARG B  17      -3.501  18.774  20.542  1.00 13.54           N  
+ANISOU  463  NE  ARG B  17     2048   1759   1336   -496   -111    550       N  
+ATOM    464  CZ  ARG B  17      -4.232  17.717  20.919  1.00 14.91           C  
+ANISOU  464  CZ  ARG B  17     2372   1963   1331   -646     99    567       C  
+ATOM    465  NH1 ARG B  17      -5.064  17.136  20.087  1.00 17.34           N  
+ANISOU  465  NH1 ARG B  17     3028   1831   1731  -1036     65    282       N  
+ATOM    466  NH2 ARG B  17      -4.099  17.252  22.150  1.00 18.01           N  
+ANISOU  466  NH2 ARG B  17     2987   2405   1451   -225    304    903       N  
+ATOM    467  N   LEU B  18      -6.824  23.798  19.296  1.00  8.99           N  
+ANISOU  467  N   LEU B  18     1303   1209    902    -42     48    148       N  
+ATOM    468  CA  LEU B  18      -8.049  24.406  19.833  1.00  9.75           C  
+ANISOU  468  CA  LEU B  18     1393   1470    840     -4    164     77       C  
+ATOM    469  C   LEU B  18      -9.275  24.012  19.022  1.00  9.71           C  
+ANISOU  469  C   LEU B  18     1269   1362   1057    -79    208    119       C  
+ATOM    470  O   LEU B  18     -10.371  24.186  19.512  1.00 11.23           O  
+ANISOU  470  O   LEU B  18     1308   1780   1181   -110    303     24       O  
+ATOM    471  CB  LEU B  18      -7.917  25.908  19.836  1.00  9.23           C  
+ANISOU  471  CB  LEU B  18     1318   1469    719     67     78   -152       C  
+ATOM    472  CG  LEU B  18      -6.761  26.546  20.611  1.00  9.90           C  
+ANISOU  472  CG  LEU B  18     1448   1702    610    139   -102   -260       C  
+ATOM    473  CD1 LEU B  18      -6.800  28.057  20.447  1.00 11.11           C  
+ANISOU  473  CD1 LEU B  18     1281   1670   1272    -72   -139   -311       C  
+ATOM    474  CD2 LEU B  18      -6.774  26.117  22.086  1.00 10.85           C  
+ANISOU  474  CD2 LEU B  18     1327   2196    600    175    123   -247       C  
+ATOM    475  N   THR B  19      -9.089  23.487  17.830  1.00 10.53           N  
+ANISOU  475  N   THR B  19     1113   1693   1194   -191    117   -142       N  
+ATOM    476  CA  THR B  19     -10.180  22.984  17.017  1.00 11.96           C  
+ANISOU  476  CA  THR B  19     1099   1867   1577   -285    126   -306       C  
+ATOM    477  C   THR B  19     -10.592  21.577  17.454  1.00 14.78           C  
+ANISOU  477  C   THR B  19     1333   1941   2341   -465    240   -299       C  
+ATOM    478  O   THR B  19     -11.586  21.047  16.930  1.00 19.95           O  
+ANISOU  478  O   THR B  19     1673   2465   3442   -844     13   -625       O  
+ATOM    479  CB  THR B  19      -9.828  22.943  15.529  1.00 13.07           C  
+ANISOU  479  CB  THR B  19     1479   2039   1449     99   -176   -423       C  
+ATOM    480  OG1 THR B  19      -8.905  21.862  15.282  1.00 12.64           O  
+ANISOU  480  OG1 THR B  19     1664   1851   1290     56    -22   -270       O  
+ATOM    481  CG2 THR B  19      -9.167  24.237  15.036  1.00 15.09           C  
+ANISOU  481  CG2 THR B  19     2497   2047   1190    468   -128    334       C  
+ATOM    482  N   GLY B  20      -9.896  20.925  18.356  1.00 15.51           N  
+ANISOU  482  N   GLY B  20     1867   1745   2280   -418    448    -50       N  
+ATOM    483  CA  GLY B  20     -10.152  19.538  18.735  1.00 18.40           C  
+ANISOU  483  CA  GLY B  20     2404   1846   2740   -557   1006     21       C  
+ATOM    484  C   GLY B  20      -9.569  18.534  17.776  1.00 16.57           C  
+ANISOU  484  C   GLY B  20     2424   1603   2268   -368    561    227       C  
+ATOM    485  O   GLY B  20      -9.730  17.306  17.941  1.00 19.23           O  
+ANISOU  485  O   GLY B  20     2876   1612   2819   -365    785    369       O  
+ATOM    486  N   SER B  21      -8.846  19.015  16.772  1.00 14.58           N  
+ANISOU  486  N   SER B  21     2284   1524   1733   -427    186     98       N  
+ATOM    487  CA  SER B  21      -8.085  18.108  15.911  1.00 13.17           C  
+ANISOU  487  CA  SER B  21     2006   1510   1489   -541    -93     22       C  
+ATOM    488  C   SER B  21      -6.976  17.382  16.661  1.00 13.82           C  
+ANISOU  488  C   SER B  21     1982   1552   1718   -552    -31    192       C  
+ATOM    489  O   SER B  21      -6.423  17.842  17.659  1.00 14.19           O  
+ANISOU  489  O   SER B  21     1880   1869   1644   -248    -68     94       O  
+ATOM    490  CB  SER B  21      -7.509  18.916  14.745  1.00 13.84           C  
+ANISOU  490  CB  SER B  21     1976   1579   1702   -263     40    161       C  
+ATOM    491  OG  SER B  21      -8.546  19.415  13.906  1.00 14.99           O  
+ANISOU  491  OG  SER B  21     2294   1695   1705   -242   -215    189       O  
+ATOM    492  N   SER B  22      -6.601  16.224  16.140  1.00 13.63           N  
+ANISOU  492  N   SER B  22     1913   1685   1581   -490     90    185       N  
+ATOM    493  CA  SER B  22      -5.608  15.382  16.768  1.00 14.85           C  
+ANISOU  493  CA  SER B  22     2088   1472   2082   -563    -67    273       C  
+ATOM    494  C   SER B  22      -4.184  15.936  16.717  1.00 13.06           C  
+ANISOU  494  C   SER B  22     1884   1475   1602   -359    213    494       C  
+ATOM    495  O   SER B  22      -3.857  16.792  15.920  1.00 12.92           O  
+ANISOU  495  O   SER B  22     2293   1135   1482      6    664    285       O  
+ATOM    496  CB  SER B  22      -5.558  13.987  16.106  1.00 16.97           C  
+ANISOU  496  CB  SER B  22     2644   1583   2220   -482     98     66       C  
+ATOM    497  OG  SER B  22      -4.989  14.067  14.785  1.00 18.22           O  
+ANISOU  497  OG  SER B  22     2958   1559   2406   -548    390    214       O  
+ATOM    498  N   ARG B  23      -3.365  15.373  17.577  1.00 13.86           N  
+ANISOU  498  N   ARG B  23     1927   1484   1854   -143    202    517       N  
+ATOM    499  CA  ARG B  23      -1.970  15.797  17.586  1.00 12.52           C  
+ANISOU  499  CA  ARG B  23     1930   1370   1457   -141    161    562       C  
+ATOM    500  C   ARG B  23      -1.322  15.509  16.243  1.00 13.41           C  
+ANISOU  500  C   ARG B  23     2000   1531   1563   -247    165    281       C  
+ATOM    501  O   ARG B  23      -0.560  16.383  15.740  1.00 12.60           O  
+ANISOU  501  O   ARG B  23     1840   1433   1514     27    205    493       O  
+ATOM    502  CB  ARG B  23      -1.219  15.091  18.707  1.00 15.14           C  
+ANISOU  502  CB  ARG B  23     2128   1812   1813    -16    118    887       C  
+ATOM    503  CG  ARG B  23      -1.591  15.515  20.103  1.00 17.65           C  
+ANISOU  503  CG  ARG B  23     2251   2876   1578     63   -209    776       C  
+ATOM    504  CD  ARG B  23      -0.796  14.725  21.133  1.00 28.97           C  
+ANISOU  504  CD  ARG B  23     3977   4800   2232    852  -1263    915       C  
+ATOM    505  NE  ARG B  23      -0.251  15.534  22.209  1.00 39.23           N  
+ANISOU  505  NE  ARG B  23     5597   6035   3274   1133  -2581    270       N  
+ATOM    506  CZ  ARG B  23       0.784  15.237  23.014  1.00 46.76           C  
+ANISOU  506  CZ  ARG B  23     6491   7379   3899   1448  -3341    298       C  
+ATOM    507  NH1 ARG B  23       1.481  14.090  22.954  1.00 53.53           N  
+ANISOU  507  NH1 ARG B  23     5726   9845   4769   3103  -2857   -415       N  
+ATOM    508  NH2 ARG B  23       1.178  16.098  23.964  1.00 53.90           N  
+ANISOU  508  NH2 ARG B  23     7061   7314   6105   -237  -4653    349       N  
+ATOM    509  N   GLU B  24      -1.594  14.346  15.622  1.00 14.49           N  
+ANISOU  509  N   GLU B  24     2406   1392   1709     16    -77    296       N  
+ATOM    510  CA  GLU B  24      -1.012  14.064  14.297  1.00 16.65           C  
+ANISOU  510  CA  GLU B  24     3060   1523   1742     72     -5     82       C  
+ATOM    511  C   GLU B  24      -1.489  15.042  13.246  1.00 13.65           C  
+ANISOU  511  C   GLU B  24     2279   1325   1582   -166    222      5       C  
+ATOM    512  O   GLU B  24      -0.757  15.541  12.406  1.00 14.22           O  
+ANISOU  512  O   GLU B  24     2296   1424   1684    -88    408    -77       O  
+ATOM    513  CB  GLU B  24      -1.314  12.596  13.909  1.00 24.06           C  
+ANISOU  513  CB  GLU B  24     5400   1381   2359   -128    714    101       C  
+ATOM    514  CG  GLU B  24      -0.888  12.106  12.528  1.00 34.63           C  
+ANISOU  514  CG  GLU B  24     7320   2797   3039     26    702  -1245       C  
+ATOM    515  CD  GLU B  24      -1.467  10.751  12.161  1.00 40.27           C  
+ANISOU  515  CD  GLU B  24     8530   2985   3785   -413    342  -1318       C  
+ATOM    516  OE1 GLU B  24      -1.424   9.755  12.936  1.00 50.11           O  
+ANISOU  516  OE1 GLU B  24     9759   3742   5537  -1572   -106    -89       O  
+ATOM    517  OE2 GLU B  24      -1.985  10.658  11.018  1.00 50.20           O  
+ANISOU  517  OE2 GLU B  24    10106   4208   4762  -1204  -1003  -1398       O  
+ATOM    518  N   THR B  25      -2.765  15.365  13.196  1.00 13.93           N  
+ANISOU  518  N   THR B  25     2217   1617   1457   -263    196    -79       N  
+ATOM    519  CA  THR B  25      -3.316  16.319  12.253  1.00 12.92           C  
+ANISOU  519  CA  THR B  25     1897   1622   1389   -440    -51   -223       C  
+ATOM    520  C   THR B  25      -2.632  17.677  12.374  1.00 11.41           C  
+ANISOU  520  C   THR B  25     1664   1616   1056   -351     61   -121       C  
+ATOM    521  O   THR B  25      -2.254  18.293  11.368  1.00 11.62           O  
+ANISOU  521  O   THR B  25     1968   1495    953    -14   -189    126       O  
+ATOM    522  CB  THR B  25      -4.833  16.475  12.508  1.00 15.10           C  
+ANISOU  522  CB  THR B  25     1774   2253   1710   -688   -218   -229       C  
+ATOM    523  OG1 THR B  25      -5.477  15.232  12.133  1.00 17.20           O  
+ANISOU  523  OG1 THR B  25     2060   2639   1835   -793   -136   -889       O  
+ATOM    524  CG2 THR B  25      -5.420  17.590  11.665  1.00 15.77           C  
+ANISOU  524  CG2 THR B  25     1533   2863   1596   -432   -289   -204       C  
+ATOM    525  N   CYS B  26      -2.491  18.115  13.623  1.00 10.99           N  
+ANISOU  525  N   CYS B  26     1581   1575   1019   -304     51   -167       N  
+ATOM    526  CA  CYS B  26      -1.898  19.422  13.882  1.00  9.58           C  
+ANISOU  526  CA  CYS B  26     1427   1360    853   -145     28     83       C  
+ATOM    527  C   CYS B  26      -0.403  19.442  13.637  1.00  9.12           C  
+ANISOU  527  C   CYS B  26     1363   1323    779    -39     15    291       C  
+ATOM    528  O   CYS B  26       0.127  20.444  13.173  1.00  8.78           O  
+ANISOU  528  O   CYS B  26     1259   1247    830     72     15    237       O  
+ATOM    529  CB  CYS B  26      -2.238  19.859  15.321  1.00 10.26           C  
+ANISOU  529  CB  CYS B  26     1471   1384   1044   -186    225   -108       C  
+ATOM    530  SG  CYS B  26      -4.023  20.043  15.543  1.00 11.03           S  
+ANISOU  530  SG  CYS B  26     1341   1522   1329   -141     31    -10       S  
+ATOM    531  N   ALA B  27       0.281  18.341  13.926  1.00  9.87           N  
+ANISOU  531  N   ALA B  27     1656   1291    802    112    185    213       N  
+ATOM    532  CA  ALA B  27       1.711  18.246  13.630  1.00  9.42           C  
+ANISOU  532  CA  ALA B  27     1552   1204    825     41     -4     48       C  
+ATOM    533  C   ALA B  27       1.993  18.410  12.143  1.00  8.91           C  
+ANISOU  533  C   ALA B  27     1383   1154    847     26     36     34       C  
+ATOM    534  O   ALA B  27       2.928  19.052  11.684  1.00  9.54           O  
+ANISOU  534  O   ALA B  27     1304   1487    835     10    -20    162       O  
+ATOM    535  CB  ALA B  27       2.207  16.908  14.166  1.00 11.33           C  
+ANISOU  535  CB  ALA B  27     1663   1472   1172    131   -152    321       C  
+ATOM    536  N   LYS B  28       1.127  17.776  11.320  1.00  9.30           N  
+ANISOU  536  N   LYS B  28     1573   1069    890     62   -119     93       N  
+ATOM    537  CA  LYS B  28       1.299  17.876   9.887  1.00  9.67           C  
+ANISOU  537  CA  LYS B  28     1556   1245    876    185    -51     27       C  
+ATOM    538  C   LYS B  28       1.244  19.320   9.398  1.00  8.54           C  
+ANISOU  538  C   LYS B  28     1265   1232    747    184   -223     92       C  
+ATOM    539  O   LYS B  28       2.140  19.789   8.660  1.00  9.24           O  
+ANISOU  539  O   LYS B  28     1327   1354    831      0   -203     22       O  
+ATOM    540  CB  LYS B  28       0.236  17.060   9.159  1.00 10.62           C  
+ANISOU  540  CB  LYS B  28     1852   1225    959    118   -181   -108       C  
+ATOM    541  CG  LYS B  28       0.382  15.545   9.277  1.00 13.72           C  
+ANISOU  541  CG  LYS B  28     2271   1259   1684     86      2   -141       C  
+ATOM    542  CD  LYS B  28      -0.825  14.894   8.588  1.00 22.03           C  
+ANISOU  542  CD  LYS B  28     2979   1861   3528   -885   -145   -517       C  
+ATOM    543  CE  LYS B  28      -0.671  13.421   8.340  1.00 29.42           C  
+ANISOU  543  CE  LYS B  28     4280   1991   4906   -969   -344   -841       C  
+ATOM    544  NZ  LYS B  28      -2.027  12.958   7.877  1.00 39.10           N  
+ANISOU  544  NZ  LYS B  28     5338   2624   6893  -1728  -1395  -1266       N  
+ATOM    545  N   LEU B  29       0.226  20.062   9.794  1.00  8.88           N  
+ANISOU  545  N   LEU B  29     1411   1127    835     62    -76    142       N  
+ATOM    546  CA  LEU B  29       0.020  21.434   9.360  1.00  8.34           C  
+ANISOU  546  CA  LEU B  29     1547   1071    550    228   -207    -95       C  
+ATOM    547  C   LEU B  29       1.092  22.405   9.832  1.00  7.28           C  
+ANISOU  547  C   LEU B  29     1342   1032    391    270    -36     13       C  
+ATOM    548  O   LEU B  29       1.325  23.441   9.198  1.00  9.67           O  
+ANISOU  548  O   LEU B  29     1486   1456    732    -12   -147    371       O  
+ATOM    549  CB  LEU B  29      -1.339  21.926   9.856  1.00  8.55           C  
+ANISOU  549  CB  LEU B  29     1460   1184    604    113   -208   -142       C  
+ATOM    550  CG  LEU B  29      -2.560  21.233   9.294  1.00  9.49           C  
+ANISOU  550  CG  LEU B  29     1593   1211    803    111   -196   -426       C  
+ATOM    551  CD1 LEU B  29      -3.828  21.705   9.962  1.00 12.07           C  
+ANISOU  551  CD1 LEU B  29     1539   1985   1062   -103    184   -176       C  
+ATOM    552  CD2 LEU B  29      -2.683  21.504   7.786  1.00 10.33           C  
+ANISOU  552  CD2 LEU B  29     1346   1779    802    180   -216   -285       C  
+ATOM    553  N   SER B  30       1.737  22.090  10.955  1.00  7.01           N  
+ANISOU  553  N   SER B  30     1222    928    514    255    -80     -2       N  
+ATOM    554  CA  SER B  30       2.625  22.970  11.629  1.00  7.60           C  
+ANISOU  554  CA  SER B  30     1258   1047    583    -52     10    115       C  
+ATOM    555  C   SER B  30       4.088  22.634  11.365  1.00  8.07           C  
+ANISOU  555  C   SER B  30     1267   1199    600     64    -41     32       C  
+ATOM    556  O   SER B  30       4.940  23.461  11.742  1.00  8.78           O  
+ANISOU  556  O   SER B  30     1309   1258    771    -55     11     41       O  
+ATOM    557  CB  SER B  30       2.404  22.913  13.137  1.00  7.62           C  
+ANISOU  557  CB  SER B  30     1243   1059    591     21    -14    -68       C  
+ATOM    558  OG  SER B  30       2.617  21.582  13.600  1.00  8.45           O  
+ANISOU  558  OG  SER B  30     1478   1140    595    137    -82    132       O  
+ATOM    559  N   GLY B  31       4.413  21.525  10.759  1.00  8.02           N  
+ANISOU  559  N   GLY B  31     1123   1204    722     74   -272    -12       N  
+ATOM    560  CA  GLY B  31       5.769  21.058  10.655  1.00  8.82           C  
+ANISOU  560  CA  GLY B  31     1169   1631    550    201   -149    -62       C  
+ATOM    561  C   GLY B  31       6.406  20.624  11.955  1.00  8.88           C  
+ANISOU  561  C   GLY B  31     1219   1539    618    512    -57    -13       C  
+ATOM    562  O   GLY B  31       7.641  20.481  12.044  1.00 12.36           O  
+ANISOU  562  O   GLY B  31     1351   2527    818    927   -218   -223       O  
+ATOM    563  N   CYS B  32       5.602  20.410  12.973  1.00  9.53           N  
+ANISOU  563  N   CYS B  32     1436   1488    698    192    -46    144       N  
+ATOM    564  CA  CYS B  32       6.070  19.973  14.294  1.00  9.05           C  
+ANISOU  564  CA  CYS B  32     1149   1488    803    151   -101    181       C  
+ATOM    565  C   CYS B  32       6.137  18.447  14.343  1.00 10.47           C  
+ANISOU  565  C   CYS B  32     1720   1489    768    270    -82     69       C  
+ATOM    566  O   CYS B  32       5.589  17.731  13.486  1.00 11.75           O  
+ANISOU  566  O   CYS B  32     1755   1523   1187     86   -230     37       O  
+ATOM    567  CB  CYS B  32       5.184  20.528  15.408  1.00 10.15           C  
+ANISOU  567  CB  CYS B  32     1452   1686    718    451   -152     90       C  
+ATOM    568  SG  CYS B  32       4.941  22.316  15.418  1.00 11.41           S  
+ANISOU  568  SG  CYS B  32     1553   1671   1110    449   -311     77       S  
+ATOM    569  N   LYS B  33       6.813  17.933  15.342  1.00 11.38           N  
+ANISOU  569  N   LYS B  33     1985   1421    919    365   -164    128       N  
+ATOM    570  CA  LYS B  33       6.935  16.520  15.621  1.00 13.30           C  
+ANISOU  570  CA  LYS B  33     2098   1456   1499    447    199    280       C  
+ATOM    571  C   LYS B  33       6.309  16.198  16.983  1.00 12.31           C  
+ANISOU  571  C   LYS B  33     1829   1500   1350    177    -25    255       C  
+ATOM    572  O   LYS B  33       6.392  16.994  17.921  1.00 13.00           O  
+ANISOU  572  O   LYS B  33     2265   1354   1322     27   -103    309       O  
+ATOM    573  CB  LYS B  33       8.399  16.066  15.562  1.00 15.76           C  
+ANISOU  573  CB  LYS B  33     2111   1692   2184    483    465    511       C  
+ATOM    574  CG  LYS B  33       9.072  16.452  14.251  1.00 21.98           C  
+ANISOU  574  CG  LYS B  33     2604   3544   2204    -72    804    267       C  
+ATOM    575  CD  LYS B  33       8.435  15.920  12.988  1.00 29.11           C  
+ANISOU  575  CD  LYS B  33     3930   4876   2256   -670    447    261       C  
+ATOM    576  CE  LYS B  33       9.154  16.365  11.722  1.00 33.76           C  
+ANISOU  576  CE  LYS B  33     4966   5713   2150  -1310    312    607       C  
+ATOM    577  NZ  LYS B  33       8.219  16.589  10.533  1.00 38.90           N  
+ANISOU  577  NZ  LYS B  33     6404   5230   3145  -1002   -572   1605       N  
+ATOM    578  N   ILE B  34       5.680  15.040  17.049  1.00 12.64           N  
+ANISOU  578  N   ILE B  34     2033   1391   1378    199    -69    151       N  
+ATOM    579  CA  ILE B  34       5.154  14.523  18.316  1.00 12.14           C  
+ANISOU  579  CA  ILE B  34     2045   1322   1245    -43   -284    188       C  
+ATOM    580  C   ILE B  34       6.174  13.517  18.832  1.00 14.13           C  
+ANISOU  580  C   ILE B  34     2263   1641   1465    156   -395    226       C  
+ATOM    581  O   ILE B  34       6.457  12.518  18.159  1.00 16.33           O  
+ANISOU  581  O   ILE B  34     2934   1542   1729    411   -489    210       O  
+ATOM    582  CB  ILE B  34       3.771  13.884  18.168  1.00 13.64           C  
+ANISOU  582  CB  ILE B  34     2196   1822   1162   -240   -435    327       C  
+ATOM    583  CG1 ILE B  34       2.764  14.796  17.486  1.00 12.95           C  
+ANISOU  583  CG1 ILE B  34     1886   1671   1362   -165   -215    187       C  
+ATOM    584  CG2 ILE B  34       3.208  13.339  19.486  1.00 19.03           C  
+ANISOU  584  CG2 ILE B  34     3038   2291   1904   -672    -53    939       C  
+ATOM    585  CD1 ILE B  34       2.566  16.122  18.185  1.00 15.51           C  
+ANISOU  585  CD1 ILE B  34     2175   2271   1448    160     78   -176       C  
+ATOM    586  N   ILE B  35       6.706  13.833  20.012  1.00 16.27           N  
+ANISOU  586  N   ILE B  35     2351   2130   1702    235   -616     72       N  
+ATOM    587  CA  ILE B  35       7.770  12.986  20.566  1.00 19.03           C  
+ANISOU  587  CA  ILE B  35     2544   3003   1685    736   -638    -96       C  
+ATOM    588  C   ILE B  35       7.363  12.594  21.974  1.00 19.97           C  
+ANISOU  588  C   ILE B  35     2854   2914   1820    829   -673    191       C  
+ATOM    589  O   ILE B  35       6.922  13.465  22.722  1.00 22.35           O  
+ANISOU  589  O   ILE B  35     3248   3547   1696   1511   -255    371       O  
+ATOM    590  CB  ILE B  35       9.108  13.742  20.490  1.00 24.73           C  
+ANISOU  590  CB  ILE B  35     2373   4263   2761    559   -715    677       C  
+ATOM    591  CG1 ILE B  35       9.526  14.229  19.091  1.00 25.95           C  
+ANISOU  591  CG1 ILE B  35     2209   4804   2848    651   -588    836       C  
+ATOM    592  CG2 ILE B  35      10.221  12.901  21.081  1.00 25.24           C  
+ANISOU  592  CG2 ILE B  35     2437   3849   3305    562   -453   1029       C  
+ATOM    593  CD1 ILE B  35      10.782  15.062  18.939  1.00 28.19           C  
+ANISOU  593  CD1 ILE B  35     1970   5742   3001    555   -679   1142       C  
+ATOM    594  N   SER B  36       7.445  11.328  22.400  1.00 23.90           N  
+ANISOU  594  N   SER B  36     3380   2796   2905    121   -354    334       N  
+ATOM    595  CA  SER B  36       7.072  11.093  23.797  1.00 25.83           C  
+ANISOU  595  CA  SER B  36     3946   2819   3047    -91   -249    656       C  
+ATOM    596  C   SER B  36       8.324  11.178  24.654  1.00 23.59           C  
+ANISOU  596  C   SER B  36     3730   2559   2673    358    -55    664       C  
+ATOM    597  O   SER B  36       8.979  10.157  24.957  1.00 33.52           O  
+ANISOU  597  O   SER B  36     6561   2259   3916    376  -1960   1016       O  
+ATOM    598  CB ASER B  36       6.391   9.747  24.047  0.75 28.98           C  
+ANISOU  598  CB ASER B  36     4349   2906   3755   -248    -58    576       C  
+ATOM    599  CB BSER B  36       6.380   9.752  24.013  0.25 28.36           C  
+ANISOU  599  CB BSER B  36     4328   2823   3626   -185    -58    515       C  
+ATOM    600  OG ASER B  36       5.574   9.384  22.939  0.75 33.75           O  
+ANISOU  600  OG ASER B  36     4847   3451   4525   -437   -302   -403       O  
+ATOM    601  OG BSER B  36       6.880   8.779  23.115  0.25 30.76           O  
+ANISOU  601  OG BSER B  36     4652   2980   4054    221   -520    165       O  
+ATOM    602  N   ALA B  37       8.658  12.388  25.027  1.00 21.42           N  
+ATOM    603  CA  ALA B  37       9.752  12.813  25.890  1.00 18.14           C  
+ANISOU  603  CA  ALA B  37     3098   2005   1789    912    482    643       C  
+ATOM    604  C   ALA B  37       9.422  14.130  26.592  1.00 17.65           C  
+ANISOU  604  C   ALA B  37     3112   1720   1874    570    543    730       C  
+ATOM    605  O   ALA B  37       8.462  14.795  26.191  1.00 20.14           O  
+ANISOU  605  O   ALA B  37     2870   1698   3086    540    228    339       O  
+ATOM    606  CB  ALA B  37      11.056  12.985  25.133  1.00 18.14           C  
+ANISOU  606  CB  ALA B  37     2535   2573   1784    883    -16    476       C  
+ATOM    607  N   SER B  38      10.207  14.505  27.611  1.00 18.19           N  
+ANISOU  607  N   SER B  38     3124   2390   1397    713    828    578       N  
+ATOM    608  CA  SER B  38       9.822  15.734  28.295  1.00 18.37           C  
+ANISOU  608  CA  SER B  38     3065   2497   1418    721    666    471       C  
+ATOM    609  C   SER B  38      10.481  16.958  27.710  1.00 15.48           C  
+ANISOU  609  C   SER B  38     2458   2450    973    577    251    173       C  
+ATOM    610  O   SER B  38      10.086  18.058  28.143  1.00 15.39           O  
+ANISOU  610  O   SER B  38     2179   2467   1201    424    469     34       O  
+ATOM    611  CB  SER B  38      10.172  15.682  29.792  1.00 21.06           C  
+ANISOU  611  CB  SER B  38     3824   2812   1365    713    669    518       C  
+ATOM    612  OG  SER B  38      11.527  15.444  30.006  1.00 26.37           O  
+ANISOU  612  OG  SER B  38     4300   3467   2252   1398   -304    165       O  
+ATOM    613  N   THR B  39      11.426  16.780  26.809  1.00 13.57           N  
+ANISOU  613  N   THR B  39     2265   2179    711    851     13    366       N  
+ATOM    614  CA  THR B  39      12.120  17.906  26.181  1.00 13.77           C  
+ANISOU  614  CA  THR B  39     2200   2353    679    745    -80    426       C  
+ATOM    615  C   THR B  39      12.202  17.692  24.693  1.00 12.89           C  
+ANISOU  615  C   THR B  39     1995   2121    780    640    158    330       C  
+ATOM    616  O   THR B  39      12.001  16.602  24.176  1.00 15.37           O  
+ANISOU  616  O   THR B  39     2754   2097    990    638    174    243       O  
+ATOM    617  CB  THR B  39      13.532  18.042  26.733  1.00 14.28           C  
+ANISOU  617  CB  THR B  39     2087   2579    762    873     95    190       C  
+ATOM    618  OG1 THR B  39      14.329  16.885  26.386  1.00 16.98           O  
+ANISOU  618  OG1 THR B  39     2598   2679   1175   1314     93    517       O  
+ATOM    619  CG2 THR B  39      13.525  18.059  28.272  1.00 16.67           C  
+ANISOU  619  CG2 THR B  39     2181   3406    749    244    -92    107       C  
+ATOM    620  N   CYS B  40      12.476  18.770  23.980  1.00 13.10           N  
+ANISOU  620  N   CYS B  40     1966   2253    757    455     58    395       N  
+ATOM    621  CA  CYS B  40      12.548  18.798  22.504  1.00 11.59           C  
+ANISOU  621  CA  CYS B  40     1574   2110    720    635    -37    372       C  
+ATOM    622  C   CYS B  40      14.003  18.893  22.022  1.00 11.75           C  
+ANISOU  622  C   CYS B  40     1501   2211    753    711   -109    435       C  
+ATOM    623  O   CYS B  40      14.864  19.448  22.730  1.00 13.11           O  
+ANISOU  623  O   CYS B  40     1522   2490    971    669   -157    355       O  
+ATOM    624  CB  CYS B  40      11.796  20.009  21.968  1.00 12.57           C  
+ANISOU  624  CB  CYS B  40     1523   2080   1172    650    -71    435       C  
+ATOM    625  SG  CYS B  40       9.997  19.899  22.195  1.00 12.43           S  
+ANISOU  625  SG  CYS B  40     1601   2059   1063    582     20    282       S  
+ATOM    626  N   PRO B  41      14.262  18.377  20.843  1.00 11.47           N  
+ANISOU  626  N   PRO B  41     1389   2036    933    775    -34    399       N  
+ATOM    627  CA  PRO B  41      15.629  18.396  20.285  1.00 12.95           C  
+ANISOU  627  CA  PRO B  41     1588   2257   1077    771    151    426       C  
+ATOM    628  C   PRO B  41      15.901  19.787  19.746  1.00 12.24           C  
+ANISOU  628  C   PRO B  41     1323   2270   1059    948    267    482       C  
+ATOM    629  O   PRO B  41      15.016  20.591  19.462  1.00 13.02           O  
+ANISOU  629  O   PRO B  41     1462   2398   1089   1093    168    428       O  
+ATOM    630  CB  PRO B  41      15.603  17.338  19.212  1.00 13.24           C  
+ANISOU  630  CB  PRO B  41     1863   2137   1031   1178     59    531       C  
+ATOM    631  CG  PRO B  41      14.157  17.426  18.741  1.00 12.67           C  
+ANISOU  631  CG  PRO B  41     1857   2080    877    991     26    435       C  
+ATOM    632  CD  PRO B  41      13.316  17.700  19.938  1.00 11.69           C  
+ANISOU  632  CD  PRO B  41     1724   1838    881    782    -18    240       C  
+ATOM    633  N   SER B  42      17.179  20.073  19.558  1.00 12.17           N  
+ANISOU  633  N   SER B  42     1325   2320    979    813     97    367       N  
+ATOM    634  CA  SER B  42      17.664  21.366  19.157  1.00 12.05           C  
+ANISOU  634  CA  SER B  42     1427   2129   1023    794    154    147       C  
+ATOM    635  C   SER B  42      17.119  21.827  17.785  1.00 12.68           C  
+ANISOU  635  C   SER B  42     1596   2012   1209    523     47    378       C  
+ATOM    636  O   SER B  42      16.995  23.046  17.580  1.00 13.83           O  
+ANISOU  636  O   SER B  42     1449   1976   1830    410    108    576       O  
+ATOM    637  CB  SER B  42      19.193  21.396  19.064  1.00 12.83           C  
+ANISOU  637  CB  SER B  42     1395   2212   1267    615     61   -281       C  
+ATOM    638  OG  SER B  42      19.675  20.360  18.237  1.00 14.72           O  
+ANISOU  638  OG  SER B  42     1645   2674   1274    814    203   -423       O  
+ATOM    639  N   ASN B  43      16.797  20.927  16.897  1.00 11.69           N  
+ANISOU  639  N   ASN B  43     1451   2105    887    707    227    388       N  
+ATOM    640  CA  ASN B  43      16.266  21.236  15.583  1.00 12.24           C  
+ANISOU  640  CA  ASN B  43     1502   2278    870   1094    318    411       C  
+ATOM    641  C   ASN B  43      14.759  21.430  15.602  1.00 10.32           C  
+ANISOU  641  C   ASN B  43     1386   1609    926    642    148    215       C  
+ATOM    642  O   ASN B  43      14.200  21.969  14.632  1.00 12.42           O  
+ANISOU  642  O   ASN B  43     1642   2062   1015    875      5    314       O  
+ATOM    643  CB  ASN B  43      16.659  20.183  14.542  1.00 13.19           C  
+ANISOU  643  CB  ASN B  43     1596   2502    913    888    443    229       C  
+ATOM    644  CG  ASN B  43      16.437  18.737  14.915  1.00 12.82           C  
+ANISOU  644  CG  ASN B  43     1621   2393    858   1082    160    177       C  
+ATOM    645  OD1 ASN B  43      16.399  18.301  16.059  1.00 12.66           O  
+ANISOU  645  OD1 ASN B  43     1620   2443    745   1233      4    157       O  
+ATOM    646  ND2 ASN B  43      16.268  17.942  13.880  1.00 12.90           N  
+ANISOU  646  ND2 ASN B  43     1787   2417    695   1130     -7    262       N  
+ATOM    647  N   TYR B  44      14.090  21.051  16.665  1.00 11.18           N  
+ANISOU  647  N   TYR B  44     1446   1716   1085    621    285    252       N  
+ATOM    648  CA  TYR B  44      12.650  21.354  16.818  1.00 11.03           C  
+ANISOU  648  CA  TYR B  44     1432   1747   1010    726    237    532       C  
+ATOM    649  C   TYR B  44      12.403  21.944  18.208  1.00 11.04           C  
+ANISOU  649  C   TYR B  44     1092   2022   1082    795    124    370       C  
+ATOM    650  O   TYR B  44      11.732  21.286  19.038  1.00 11.53           O  
+ANISOU  650  O   TYR B  44     1419   2002    960    781    153    338       O  
+ATOM    651  CB  TYR B  44      11.807  20.104  16.575  1.00 11.92           C  
+ANISOU  651  CB  TYR B  44     1378   2069   1081    620    256    380       C  
+ATOM    652  CG  TYR B  44      11.843  19.556  15.183  1.00 12.13           C  
+ANISOU  652  CG  TYR B  44     1648   1901   1059    942     31    404       C  
+ATOM    653  CD1 TYR B  44      12.805  18.641  14.795  1.00 12.63           C  
+ANISOU  653  CD1 TYR B  44     1770   1836   1195   1085   -254    274       C  
+ATOM    654  CD2 TYR B  44      10.911  19.970  14.221  1.00 13.02           C  
+ANISOU  654  CD2 TYR B  44     1719   1902   1324   1089   -109    435       C  
+ATOM    655  CE1 TYR B  44      12.850  18.135  13.505  1.00 13.76           C  
+ANISOU  655  CE1 TYR B  44     1773   2055   1400    911   -266    -86       C  
+ATOM    656  CE2 TYR B  44      10.941  19.473  12.939  1.00 13.71           C  
+ANISOU  656  CE2 TYR B  44     2105   1769   1335    851   -336    407       C  
+ATOM    657  CZ  TYR B  44      11.912  18.550  12.575  1.00 13.64           C  
+ANISOU  657  CZ  TYR B  44     1985   1904   1293    707   -359    -30       C  
+ATOM    658  OH  TYR B  44      12.007  18.021  11.300  1.00 16.78           O  
+ANISOU  658  OH  TYR B  44     2264   2799   1311    414   -217   -234       O  
+ATOM    659  N   PRO B  45      12.990  23.103  18.487  1.00 11.72           N  
+ANISOU  659  N   PRO B  45     1220   2119   1114    675    -25    297       N  
+ATOM    660  CA  PRO B  45      13.085  23.521  19.882  1.00 12.99           C  
+ANISOU  660  CA  PRO B  45     1490   2223   1224    758   -255    299       C  
+ATOM    661  C   PRO B  45      11.884  24.269  20.408  1.00 12.70           C  
+ANISOU  661  C   PRO B  45     1539   2274   1012    651   -191     47       C  
+ATOM    662  O   PRO B  45      11.848  24.502  21.626  1.00 16.01           O  
+ANISOU  662  O   PRO B  45     2002   3072   1007    470   -222     14       O  
+ATOM    663  CB  PRO B  45      14.318  24.445  19.825  1.00 14.04           C  
+ANISOU  663  CB  PRO B  45     1504   2300   1531    735   -136   -104       C  
+ATOM    664  CG  PRO B  45      14.184  25.089  18.474  1.00 14.22           C  
+ANISOU  664  CG  PRO B  45     1377   2325   1702    426    -29     93       C  
+ATOM    665  CD  PRO B  45      13.702  23.993  17.568  1.00 11.59           C  
+ANISOU  665  CD  PRO B  45     1131   1946   1326    722    -28    257       C  
+ATOM    666  N   LYS B  46      10.951  24.653  19.569  1.00 12.07           N  
+ANISOU  666  N   LYS B  46     1188   2309   1087    575   -220   -306       N  
+ATOM    667  CA  LYS B  46       9.881  25.584  19.932  1.00 11.74           C  
+ANISOU  667  CA  LYS B  46     1143   2323    995    511   -137   -295       C  
+ATOM    668  C   LYS B  46       8.592  24.904  20.320  1.00 11.44           C  
+ANISOU  668  C   LYS B  46     1157   2153   1035    418   -242   -614       C  
+ATOM    669  O   LYS B  46       8.393  23.727  20.067  1.00 12.62           O  
+ANISOU  669  O   LYS B  46     1719   2065   1009    374   -129   -353       O  
+ATOM    670  CB  LYS B  46       9.599  26.562  18.799  1.00 14.35           C  
+ANISOU  670  CB  LYS B  46     1668   2431   1355    746   -117    -78       C  
+ATOM    671  CG  LYS B  46      10.781  27.344  18.289  1.00 19.80           C  
+ANISOU  671  CG  LYS B  46     2502   3191   1832    -27   -146    421       C  
+ATOM    672  CD  LYS B  46      11.228  28.389  19.286  1.00 27.68           C  
+ANISOU  672  CD  LYS B  46     3063   4696   2758  -1069   -510   -216       C  
+ATOM    673  CE  LYS B  46      12.290  29.291  18.620  1.00 33.30           C  
+ANISOU  673  CE  LYS B  46     4133   4998   3521  -1696    -82   -239       C  
+ATOM    674  NZ  LYS B  46      12.093  30.736  18.830  1.00 43.03           N  
+ANISOU  674  NZ  LYS B  46     5335   4980   6035  -1775    843   -281       N  
+ATOM    675  OXT LYS B  46       7.740  25.572  20.927  1.00 14.05           O  
+ANISOU  675  OXT LYS B  46     1104   2360   1875    363     64   -690       O  
+TER     676      LYS B  46                                                      
+HETATM  677  O   HOH A3001      30.488   6.025  20.320  1.00 34.96           O  
+ANISOU  677  O   HOH A3001     2658   7577   3049   1797     45   1916       O  
+HETATM  678  O   HOH A3002      30.696  14.865   5.341  1.00 11.66           O  
+ANISOU  678  O   HOH A3002     1733   1771    925    637    127     16       O  
+HETATM  679  O   HOH A3004      25.270   4.908   7.055  1.00 12.38           O  
+ANISOU  679  O   HOH A3004     1831   1991    882   -176    -25   -261       O  
+HETATM  680  O   HOH A3005      24.585   2.606   9.724  1.00 12.49           O  
+ANISOU  680  O   HOH A3005     1633   1745   1367   -358   -263     60       O  
+HETATM  681  O   HOH A3007      38.794  14.416   5.614  1.00 13.20           O  
+ANISOU  681  O   HOH A3007     2044   1594   1378     44    164   -105       O  
+HETATM  682  O   HOH A3009      18.917  18.055  20.788  1.00 12.93           O  
+ANISOU  682  O   HOH A3009     1406   2378   1127    926    -97    -29       O  
+HETATM  683  O   HOH A3014      30.072  16.387   7.510  1.00 16.53           O  
+ANISOU  683  O   HOH A3014     3268   1871   1142    906    496     90       O  
+HETATM  684  O   HOH A3017      36.066   9.673  19.210  1.00 18.13           O  
+ANISOU  684  O   HOH A3017     2753   2308   1827    390    689    581       O  
+HETATM  685  O   HOH A3021      46.965   5.980  15.444  1.00 19.53           O  
+ANISOU  685  O   HOH A3021     1795   2621   3006    418   -219   -237       O  
+HETATM  686  O   HOH A3024      32.621   3.184  17.137  1.00 21.11           O  
+ANISOU  686  O   HOH A3024     3666   2581   1773     42    199     17       O  
+HETATM  687  O   HOH A3026      21.557  14.363  22.227  1.00 21.49           O  
+ANISOU  687  O   HOH A3026     2452   2993   2719   1140    503    911       O  
+HETATM  688  O   HOH A3027      38.182   1.428  15.049  1.00 21.20           O  
+ANISOU  688  O   HOH A3027     2772   2941   2342    552   -588  -1021       O  
+HETATM  689  O   HOH A3029      46.182   7.384  18.441  1.00 23.20           O  
+ANISOU  689  O   HOH A3029     3718   3371   1723  -1243   -578   -163       O  
+HETATM  690  O   HOH A3031      38.661  20.279  13.726  1.00 23.95           O  
+ANISOU  690  O   HOH A3031     3843   1694   3563   -362   -577   -818       O  
+HETATM  691  O   HOH A3033      43.487  16.061  10.566  1.00 23.53           O  
+ANISOU  691  O   HOH A3033     2042   3111   3788     53     95   1203       O  
+HETATM  692  O   HOH A3037      22.914  22.527  27.847  1.00 25.58           O  
+ANISOU  692  O   HOH A3037     3941   2380   3398    203    841    231       O  
+HETATM  693  O   HOH A3038      30.615  20.234  11.139  1.00 26.48           O  
+ANISOU  693  O   HOH A3038     5333   2603   2124  -1458    -86    516       O  
+HETATM  694  O   HOH A3045      40.322  18.549  16.260  1.00 25.61           O  
+ANISOU  694  O   HOH A3045     3569   3417   2744  -1303    179  -1385       O  
+HETATM  695  O   HOH A3046      22.569   8.358  19.802  1.00 28.35           O  
+ANISOU  695  O   HOH A3046     3725   3767   3278    744   1970    661       O  
+HETATM  696  O   HOH A3047      25.553   6.226  18.392  1.00 27.68           O  
+ANISOU  696  O   HOH A3047     3231   3749   3536   -232   1009    690       O  
+HETATM  697  O   HOH A3050      28.681   1.910  17.072  1.00 27.70           O  
+ANISOU  697  O   HOH A3050     2647   4924   2954    304    581   1919       O  
+HETATM  698  O   HOH A3052      23.095  13.380   6.484  1.00 27.91           O  
+ANISOU  698  O   HOH A3052     5453   3403   1750   1108   -766   -813       O  
+HETATM  699  O   HOH A3053      22.016   4.089  12.042  1.00 28.75           O  
+ANISOU  699  O   HOH A3053     1918   4686   4320   -859   -791    520       O  
+HETATM  700  O   HOH A3054      33.135  18.033  19.305  1.00 29.96           O  
+ANISOU  700  O   HOH A3054     3104   4983   3298   -141     58   -534       O  
+HETATM  701  O   HOH A3055      21.025  13.873   8.352  1.00 28.90           O  
+ANISOU  701  O   HOH A3055     4059   4986   1933    847   -309    -64       O  
+HETATM  702  O   HOH A3059      48.672   8.164  14.649  1.00 31.28           O  
+ANISOU  702  O   HOH A3059     3203   4791   3890   -455    -66   -448       O  
+HETATM  703  O   HOH A3060      36.571  12.313  19.487  1.00 32.66           O  
+ANISOU  703  O   HOH A3060     4035   3935   4441   -578   1008   1422       O  
+HETATM  704  O   HOH A3062      40.120  16.779   4.987  1.00 33.95           O  
+ANISOU  704  O   HOH A3062     3166   2563   7171   -557    440    470       O  
+HETATM  705  O   HOH A3063      31.691  14.296  20.603  1.00 32.36           O  
+ANISOU  705  O   HOH A3063     5654   3993   2649   -658  -1880     48       O  
+HETATM  706  O   HOH A3064      22.100  15.714   4.945  1.00 33.57           O  
+ANISOU  706  O   HOH A3064     6221   2508   4026    520  -1590   -755       O  
+HETATM  707  O   HOH A3066      28.709  13.000  20.727  1.00 33.15           O  
+ANISOU  707  O   HOH A3066     6585   4395   1615    909   -332    335       O  
+HETATM  708  O   HOH A3067      26.018  -1.116  11.591  1.00 31.47           O  
+ANISOU  708  O   HOH A3067     4543   3631   3783   -117    335    448       O  
+HETATM  709  O   HOH A3068      36.983  18.207   1.192  1.00 34.11           O  
+ANISOU  709  O   HOH A3068     4582   3290   5088  -1071    571  -1030       O  
+HETATM  710  O   HOH A3069      23.706   0.189  10.854  1.00 32.25           O  
+ANISOU  710  O   HOH A3069     4883   3604   3767  -1910   -180    552       O  
+HETATM  711  O   HOH A3072      20.134  19.841  12.099  1.00 34.93           O  
+ANISOU  711  O   HOH A3072     5190   4132   3949   -480   -577   1672       O  
+HETATM  712  O   HOH A3073      35.046  14.261  19.104  1.00 34.40           O  
+ANISOU  712  O   HOH A3073     6335   4042   2694   -871   -826  -2075       O  
+HETATM  713  O   HOH A3074      24.828   9.157  21.739  1.00 36.79           O  
+ANISOU  713  O   HOH A3074     5112   4429   4437    861    964    282       O  
+HETATM  714  O   HOH A3084      39.899  19.220   7.811  1.00 39.13           O  
+ANISOU  714  O   HOH A3084     4448   4588   5831   -233   1013   1180       O  
+HETATM  715  O   HOH A3086      33.316  10.205  19.357  1.00 37.66           O  
+ANISOU  715  O   HOH A3086     6329   4040   3939   2175  -1173    774       O  
+HETATM  716  O   HOH A3087      35.159   2.687  15.660  1.00 35.62           O  
+ANISOU  716  O   HOH A3087     5368   4287   3880    875   1382    300       O  
+HETATM  717  O   HOH A3090      14.426  14.281  12.290  1.00 39.59           O  
+ANISOU  717  O   HOH A3090     4803   4936   5304    565     47  -1490       O  
+HETATM  718  O   HOH A3091      27.962   5.809  20.395  1.00 42.55           O  
+ANISOU  718  O   HOH A3091     6372   6051   3745   -484   -560   2991       O  
+HETATM  719  O   HOH A3093      29.157   9.440  20.992  1.00 39.86           O  
+ANISOU  719  O   HOH A3093     5636   5180   4328   -298     13    733       O  
+HETATM  720  O   HOH A3094      41.079  11.791  19.083  1.00 46.44           O  
+ANISOU  720  O   HOH A3094     6367   3897   7380    157  -3948   -931       O  
+HETATM  721  O   HOH A3098      44.447  14.045   9.028  1.00 45.04           O  
+ANISOU  721  O   HOH A3098     4745   6566   5800  -2390   1685   -625       O  
+HETATM  722  O   HOH A3101      34.820  20.538  19.300  1.00 44.67           O  
+ANISOU  722  O   HOH A3101     5603   5659   5710    460   1197   -535       O  
+HETATM  723  O   HOH A3103      24.652   3.804  17.057  1.00 43.89           O  
+ANISOU  723  O   HOH A3103     6692   5682   4303   1741    151   -865       O  
+HETATM  724  O   HOH A3104      27.751  -0.166  10.009  1.00 47.26           O  
+ANISOU  724  O   HOH A3104     6706   4724   6529    796    162  -1082       O  
+HETATM  725  O   HOH A3105      25.968  15.772   6.235  1.00 46.81           O  
+ANISOU  725  O   HOH A3105     8603   5076   4106  -1413   2681   -598       O  
+HETATM  726  O   HOH A3107      28.029  22.988  25.023  1.00 47.56           O  
+ANISOU  726  O   HOH A3107     5994   6408   5669   -296   -835  -1980       O  
+HETATM  727  O   HOH A3111      17.916  20.956  10.735  1.00 49.49           O  
+ANISOU  727  O   HOH A3111     5551   7170   6084   -315   1647   3524       O  
+HETATM  728  O   HOH A3113      31.251  24.095  16.741  1.00 49.49           O  
+ANISOU  728  O   HOH A3113     7952   4939   5914  -2079   -591    385       O  
+HETATM  729  O   HOH A3115      41.685  20.175  10.058  1.00 51.14           O  
+ANISOU  729  O   HOH A3115     7505   5774   6152  -1259   1747   -270       O  
+HETATM  730  O   HOH A3120      32.915  24.873  21.701  1.00 58.99           O  
+ANISOU  730  O   HOH A3120     5813   7874   8728   -555  -1823    580       O  
+HETATM  731  O   HOH A3121      15.480  12.447  10.499  1.00 57.86           O  
+ANISOU  731  O   HOH A3121     7313   7580   7090   -369  -1653    -55       O  
+HETATM  732  O   HOH A3122      48.578  12.314  12.489  1.00 53.02           O  
+ANISOU  732  O   HOH A3122     7504   5009   7630   -697    -60    825       O  
+HETATM  733  O   HOH A3123      42.113  17.151  19.802  1.00 59.32           O  
+ANISOU  733  O   HOH A3123     6509   8881   7148    332  -1590    482       O  
+HETATM  734  O   HOH A3124      27.084   8.454  20.849  1.00 60.98           O  
+ANISOU  734  O   HOH A3124     6716   8554   7898    878    228   -717       O  
+HETATM  735  O   HOH A3126      19.490  15.699   7.139  1.00 54.73           O  
+ANISOU  735  O   HOH A3126     6048   7659   7090   1041   1875   -873       O  
+HETATM  736  O   HOH A3127      21.330  21.330  23.580  0.50 18.06           O  
+ANISOU  736  O   HOH A3127     2147   2147   2570    224   1080  -1080       O  
+HETATM  737  O   HOH A3128      34.892   1.656  12.222  0.50 17.27           O  
+ANISOU  737  O   HOH A3128     1463   2397   2702   -424    -61    158       O  
+HETATM  738  O   HOH A3130      29.966   0.254  10.976  0.50 24.35           O  
+ANISOU  738  O   HOH A3130     5378   1353   2523   -316   -789   -488       O  
+HETATM  739  O   HOH A3133      32.603  21.651  19.595  0.50 27.26           O  
+ANISOU  739  O   HOH A3133     3922   4164   2273   -239    299    379       O  
+HETATM  740  O   HOH A3134      26.875   3.329  17.794  0.50 29.46           O  
+ANISOU  740  O   HOH A3134     4268   2969   3958   -105   2028    186       O  
+HETATM  741  O   HOH A3135      23.787  23.787  23.580  0.50 34.31           O  
+ANISOU  741  O   HOH A3135     4650   4650   3736   1858   1573  -1573       O  
+HETATM  742  O   HOH A3136      20.203  16.956   4.567  0.50 51.18           O  
+ANISOU  742  O   HOH A3136     5535   7528   6383     -2   -338    411       O  
+HETATM  743  O   HOH B3003       8.192  29.183  10.215  1.00 11.83           O  
+ANISOU  743  O   HOH B3003     2035   1530    929   -622   -131    231       O  
+HETATM  744  O   HOH B3006       4.569  18.567   8.635  1.00 12.67           O  
+ANISOU  744  O   HOH B3006     1770   1760   1284   -140     33   -107       O  
+HETATM  745  O   HOH B3008      -3.514  17.721   8.812  1.00 13.47           O  
+ANISOU  745  O   HOH B3008     2050   1540   1528   -162     51      7       O  
+HETATM  746  O   HOH B3010       8.492  31.750  12.909  1.00 13.64           O  
+ANISOU  746  O   HOH B3010     1772   1724   1687   -120    384    457       O  
+HETATM  747  O   HOH B3011      16.158  17.709  24.544  1.00 13.86           O  
+ANISOU  747  O   HOH B3011     2129   1926   1209   1099    286    268       O  
+HETATM  748  O   HOH B3012      14.024  14.273  26.957  1.00 16.07           O  
+ANISOU  748  O   HOH B3012     1705   2540   1863    616   -175     94       O  
+HETATM  749  O   HOH B3013       5.520  17.252  10.745  1.00 15.97           O  
+ANISOU  749  O   HOH B3013     2634   2162   1271    796   -313   -365       O  
+HETATM  750  O   HOH B3015      -1.445  23.063  22.259  1.00 15.58           O  
+ANISOU  750  O   HOH B3015     1877   2238   1805    755   -681   -269       O  
+HETATM  751  O   HOH B3016      22.326  20.303  18.717  1.00 18.04           O  
+ANISOU  751  O   HOH B3016     1911   3269   1675    888     94   -509       O  
+HETATM  752  O   HOH B3018     -13.011  24.706  18.557  1.00 18.56           O  
+ANISOU  752  O   HOH B3018     1799   2300   2952    223   -244     12       O  
+HETATM  753  O   HOH B3019      -5.049  30.684  18.346  1.00 18.77           O  
+ANISOU  753  O   HOH B3019     2207   3149   1778     74    615    119       O  
+HETATM  754  O   HOH B3020       9.375  21.113  10.020  1.00 18.42           O  
+ANISOU  754  O   HOH B3020     1938   3444   1617    927   -230    173       O  
+HETATM  755  O   HOH B3022      -7.957  15.275  13.601  1.00 20.42           O  
+ANISOU  755  O   HOH B3022     2391   2464   2905   -689   -211   -340       O  
+HETATM  756  O   HOH B3023       1.927  25.238   7.037  1.00 21.03           O  
+ANISOU  756  O   HOH B3023     4156   2360   1473   -368   -703    152       O  
+HETATM  757  O   HOH B3025       7.757  28.020  22.048  1.00 20.27           O  
+ANISOU  757  O   HOH B3025     2750   2306   2646    255   -343   -926       O  
+HETATM  758  O   HOH B3028       0.485  29.943  20.150  1.00 22.33           O  
+ANISOU  758  O   HOH B3028     3791   2521   2174    175    556    101       O  
+HETATM  759  O   HOH B3030     -11.347  20.690  21.760  1.00 23.31           O  
+ANISOU  759  O   HOH B3030     4260   2620   1977   -628   1215   -557       O  
+HETATM  760  O   HOH B3032      13.877  15.349  22.674  1.00 23.09           O  
+ANISOU  760  O   HOH B3032     3891   3258   1625   2369    -51    216       O  
+HETATM  761  O   HOH B3034      15.971  18.900  11.299  1.00 24.99           O  
+ANISOU  761  O   HOH B3034     3386   4869   1239    784   -169    111       O  
+HETATM  762  O   HOH B3035      11.181  30.810  15.295  1.00 23.85           O  
+ANISOU  762  O   HOH B3035     2093   3531   3436   -931    508   -245       O  
+HETATM  763  O   HOH B3036      -2.538  12.063  16.979  1.00 23.55           O  
+ANISOU  763  O   HOH B3036     3847   2069   3032    -39    918    446       O  
+HETATM  764  O   HOH B3039      14.137  21.250  11.871  1.00 25.63           O  
+ANISOU  764  O   HOH B3039     3253   4488   1996   -489    253    184       O  
+HETATM  765  O   HOH B3040       5.474  13.376  14.625  1.00 24.82           O  
+ANISOU  765  O   HOH B3040     5072   2525   1834   -432   -104   -433       O  
+HETATM  766  O   HOH B3041       3.385  19.369  24.016  1.00 26.22           O  
+ANISOU  766  O   HOH B3041     5180   2651   2133    366    547    359       O  
+HETATM  767  O   HOH B3042      -4.522  13.425  19.527  1.00 25.02           O  
+ANISOU  767  O   HOH B3042     3977   3165   2364   -377    546    995       O  
+HETATM  768  O   HOH B3043       4.330  31.731  20.246  1.00 26.08           O  
+ANISOU  768  O   HOH B3043     2664   3963   3282    314   -117  -1387       O  
+HETATM  769  O   HOH B3044       5.519  21.182  23.980  1.00 26.08           O  
+ANISOU  769  O   HOH B3044     3575   3418   2918    123   -567    838       O  
+HETATM  770  O   HOH B3048      -0.528  25.058   7.900  1.00 29.05           O  
+ANISOU  770  O   HOH B3048     6003   2956   2079   2062  -1211   -975       O  
+HETATM  771  O   HOH B3049       7.651  18.660  29.323  1.00 26.88           O  
+ANISOU  771  O   HOH B3049     2996   3386   3831   1025     36   -396       O  
+HETATM  772  O   HOH B3051      20.187  22.028  15.694  1.00 28.76           O  
+ANISOU  772  O   HOH B3051     4223   3685   3018    730   1139    274       O  
+HETATM  773  O   HOH B3056      -4.618  15.189   8.373  1.00 29.33           O  
+ANISOU  773  O   HOH B3056     3282   2465   5395   -347  -1303   -616       O  
+HETATM  774  O   HOH B3057      10.063  18.613   9.427  1.00 31.83           O  
+ANISOU  774  O   HOH B3057     4661   3926   3508   2209   -725    601       O  
+HETATM  775  O   HOH B3058      12.456  13.170  28.946  1.00 31.90           O  
+ANISOU  775  O   HOH B3058     6282   3023   2817   1518   1058    547       O  
+HETATM  776  O   HOH B3061       3.144  27.148  23.653  1.00 33.79           O  
+ANISOU  776  O   HOH B3061     3110   7856   1871   -140     -6   -809       O  
+HETATM  777  O   HOH B3065       9.647   8.699  27.023  1.00 33.73           O  
+ANISOU  777  O   HOH B3065     3718   5678   3419   1875    189   1747       O  
+HETATM  778  O   HOH B3070       0.543  18.410  22.292  1.00 35.25           O  
+ANISOU  778  O   HOH B3070     6985   3938   2468   -242    625   2120       O  
+HETATM  779  O   HOH B3071       6.957  30.408  20.651  1.00 35.24           O  
+ANISOU  779  O   HOH B3071     4887   3980   4523   -710  -2148   1586       O  
+HETATM  780  O   HOH B3075      -2.107  20.051  22.614  1.00 32.64           O  
+ANISOU  780  O   HOH B3075     5972   2959   3471    -12   -969   -922       O  
+HETATM  781  O   HOH B3076      -0.170  20.069  24.303  1.00 35.38           O  
+ANISOU  781  O   HOH B3076     5199   4320   3925    321    255  -1302       O  
+HETATM  782  O   HOH B3077      11.785  21.271  25.909  1.00 37.27           O  
+ANISOU  782  O   HOH B3077     3208   4211   6744   1702   -507    904       O  
+HETATM  783  O   HOH B3078      14.176  17.070  10.282  1.00 33.07           O  
+ANISOU  783  O   HOH B3078     4236   5629   2699    915   -490  -1466       O  
+HETATM  784  O   HOH B3079       9.910  23.149  23.840  1.00 36.47           O  
+ANISOU  784  O   HOH B3079     5816   3636   4405   -305    256   -922       O  
+HETATM  785  O   HOH B3080       7.054  24.566  23.684  1.00 37.54           O  
+ANISOU  785  O   HOH B3080     5628   5438   3198   -147   -710   -106       O  
+HETATM  786  O   HOH B3081       5.538  27.649  23.862  1.00 36.87           O  
+ANISOU  786  O   HOH B3081     3925   6976   3107     -8    273  -1529       O  
+HETATM  787  O   HOH B3082      -4.475  13.327  10.597  1.00 37.49           O  
+ANISOU  787  O   HOH B3082     4815   4527   4904    162   -142  -1507       O  
+HETATM  788  O   HOH B3083       2.741  33.366  14.071  1.00 37.17           O  
+ANISOU  788  O   HOH B3083     4228   3947   5947   1238    707   1565       O  
+HETATM  789  O   HOH B3085     -14.489  22.299  17.712  1.00 38.07           O  
+ANISOU  789  O   HOH B3085     3644   5703   5119    -19    375    681       O  
+HETATM  790  O   HOH B3088       9.404  33.827  14.242  1.00 37.24           O  
+ANISOU  790  O   HOH B3088     5934   4094   4121  -1957   2027  -1747       O  
+HETATM  791  O   HOH B3092       3.612  29.462  22.876  1.00 41.84           O  
+ANISOU  791  O   HOH B3092     4287   7123   4488    479    671    509       O  
+HETATM  792  O   HOH B3095      18.005  25.296  18.512  1.00 44.19           O  
+ANISOU  792  O   HOH B3095     3870   3817   9104   -832     64    165       O  
+HETATM  793  O   HOH B3096       8.144  11.840  16.398  1.00 42.91           O  
+ANISOU  793  O   HOH B3096     4981   4927   6397   1117  -1435  -1351       O  
+HETATM  794  O   HOH B3097     -11.376  16.534  20.380  1.00 42.08           O  
+ANISOU  794  O   HOH B3097     5407   4790   5790  -1288   1000    804       O  
+HETATM  795  O   HOH B3099      13.095  19.319   8.405  1.00 42.31           O  
+ANISOU  795  O   HOH B3099     5893   5055   5128   1137    852   2929       O  
+HETATM  796  O   HOH B3100      -0.981  14.157   4.041  1.00 44.18           O  
+ANISOU  796  O   HOH B3100     5918   3873   6996  -1123   -168    129       O  
+HETATM  797  O   HOH B3102      -9.612  17.522  12.327  1.00 42.76           O  
+ANISOU  797  O   HOH B3102     5495   7321   3432  -4166  -1660   1503       O  
+HETATM  798  O   HOH B3106      -1.560  29.987  19.034  1.00 48.62           O  
+ANISOU  798  O   HOH B3106     5140   6538   6797   1538     75   -172       O  
+HETATM  799  O   HOH B3108      10.601  11.619  29.056  1.00 47.11           O  
+ANISOU  799  O   HOH B3108     6506   7217   4176   -136  -1207     49       O  
+HETATM  800  O   HOH B3109       0.279  29.338   7.670  1.00 47.99           O  
+ANISOU  800  O   HOH B3109     6943   6474   4818   1223   1821   1088       O  
+HETATM  801  O   HOH B3110      10.076  28.435  23.537  1.00 47.48           O  
+ANISOU  801  O   HOH B3110     6922   7151   3966  -1738  -2308   -480       O  
+HETATM  802  O   HOH B3112       5.230  23.560  27.331  1.00 49.09           O  
+ANISOU  802  O   HOH B3112     5730   6639   6284    156    343  -1230       O  
+HETATM  803  O   HOH B3114       5.027  13.680  26.455  1.00 50.04           O  
+ANISOU  803  O   HOH B3114     5994   7141   5876   3295  -1272   1125       O  
+HETATM  804  O   HOH B3116      -1.306  33.022  16.514  1.00 48.02           O  
+ANISOU  804  O   HOH B3116     4078   5649   8520   2141    625   1713       O  
+HETATM  805  O   HOH B3117       8.996  31.356  20.217  1.00 54.02           O  
+ANISOU  805  O   HOH B3117     6080   7497   6947   2277   -787  -1355       O  
+HETATM  806  O   HOH B3118      -2.718  14.309  23.514  1.00 53.70           O  
+ANISOU  806  O   HOH B3118     7461   6027   6914  -1333   -186   3355       O  
+HETATM  807  O   HOH B3119      -5.987  14.844  21.296  1.00 53.48           O  
+ANISOU  807  O   HOH B3119     6523   4571   9226  -1602   2134   2288       O  
+HETATM  808  O   HOH B3125       0.717  11.276  21.141  1.00 59.72           O  
+ANISOU  808  O   HOH B3125     6812   7262   8618   1113   2607   1395       O  
+HETATM  809  O   HOH B3129      -2.056  30.852  14.489  0.50 27.37           O  
+ANISOU  809  O   HOH B3129     2184   2242   5972    237    259   1783       O  
+HETATM  810  O   HOH B3131      -1.155  31.586  13.351  0.50 29.79           O  
+ANISOU  810  O   HOH B3131     4848   5096   1375   2860   -913   1162       O  
+HETATM  811  O   HOH B3132       0.738  31.391   9.389  0.50 27.49           O  
+ANISOU  811  O   HOH B3132     3058   3984   3403   -897   -860    104       O  
+CONECT   21  286                                                                
+CONECT   27  231                                                                
+CONECT  118  193                                                                
+CONECT  193  118                                                                
+CONECT  231   27                                                                
+CONECT  286   21                                                                
+CONECT  358  625                                                                
+CONECT  364  568                                                                
+CONECT  455  530                                                                
+CONECT  530  455                                                                
+CONECT  568  364                                                                
+CONECT  625  358                                                                
+MASTER      240    0    0    4    4    0    0    6  809    2   12    8          
+END                                                                             

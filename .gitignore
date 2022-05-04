@@ -27,8 +27,13 @@ dist/*
 # test
 htmlcov
 .coverage
-covergage.xml
+coverage.xml
 
 # doc
 docs/_build
 docs/apidocs
+
+#pycharm
+.idea
+
+

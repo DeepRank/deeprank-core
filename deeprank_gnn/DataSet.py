@@ -280,10 +280,14 @@ class HDF5DataSet(Dataset):
                 edge_attr = torch.empty((edge_index.shape[1], 0), dtype=torch.float).contiguous()
 
             # internal edges
-            ind = grp['internal_edge_index'][()]
-            if ind.ndim == 2:
-                ind = np.vstack((ind, np.flip(ind, 1))).T
-            internal_edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
+            if 'internal_edge_index' in grp:
+                ind = grp['internal_edge_index'][()]
+                if ind.ndim == 2:
+                    ind = np.vstack((ind, np.flip(ind, 1))).T
+                internal_edge_index = torch.tensor(
+                    ind, dtype=torch.long).contiguous()
+            else:
+                internal_edge_index = torch.empty((2, 0), dtype=torch.long)
 
             # internal edge feature
             internal_edge_data = ()
@@ -312,12 +316,16 @@ class HDF5DataSet(Dataset):
             # positions
             pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
 
-            # node of interest
-            if "node_of_interest" in grp:
-                index = grp["node_of_interest"][()]
-                node_of_interest = torch.tensor(index, dtype=torch.long).contiguous()
+            if self.target in grp['score']:
+
+                y = torch.tensor([grp['score/'+self.target][()]],
+                                 dtype=torch.float).contiguous()
             else:
-                node_of_interest = None
+                raise ValueError("Target {} missing in {}".format(self.target, mol))
+
+        # pos
+        pos = torch.tensor(grp['node_data/pos/']
+                           [()], dtype=torch.float).contiguous()
 
         # load
         data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)

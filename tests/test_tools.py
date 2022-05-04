@@ -19,7 +19,7 @@ class TestTools(unittest.TestCase):
         self.ref = './tests/data/ref/1ATN/'
         self.h5_train_ref = 'tests/data/train_ref/train_data.hdf5'
 
-        self.h5_graphs = 'tests/hdf5/1ATN_residue.hdf5'
+        self.h5_graphs = 'tests/hdf5/1ATN_ppi.hdf5'
 
     def test_pssm_convert(self):
         pssm_3dcons_to_deeprank(self.pssm_path)
@@ -32,7 +32,7 @@ class TestTools(unittest.TestCase):
         f, target_path = tempfile.mkstemp(prefix="target", suffix=".lst")
         os.close(f)
 
-        f, graph_path = tempfile.mkstemp(prefix="1ATN_residue", suffix=".hdf5")
+        f, graph_path = tempfile.mkstemp(prefix="1ATN_ppi", suffix=".hdf5")
         os.close(f)
 
         try:

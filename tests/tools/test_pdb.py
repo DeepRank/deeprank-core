@@ -5,14 +5,16 @@ import numpy
 
 from pdb2sql import pdb2sql
 from deeprank_gnn.tools.pdb import get_residue_contact_pairs, get_surrounding_residues, add_hydrogens
-from deeprank_gnn.domain.amino_acid import valine
+from deeprank_gnn.domain.amino_acid import alanine, valine
 from deeprank_gnn.models.structure import AtomicElement
 from tests.help import memory_limit
 
 
 def test_residue_contact_pairs():
 
-    residue_pairs = get_residue_contact_pairs("tests/data/pdb/1ATN/1ATN_1w.pdb", "1ATN", "A", "B", 8.5)
+    pdb_path = "tests/data/pdb/1ATN/1ATN_1w.pdb"
+
+    residue_pairs = get_residue_contact_pairs(pdb_path, "A", "B", 8.5)
 
     assert len(residue_pairs) > 0
 

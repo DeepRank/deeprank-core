@@ -1,3 +1,4 @@
+from typing import Any
 
 
 class Pair:
@@ -7,7 +8,7 @@ class Pair:
             item2 (object): the pair's second object, must be convertable to string
     """
 
-    def __init__(self, item1, item2):
+    def __init__(self, item1: Any, item2: Any):
         self.item1 = item1
         self.item2 = item2
 
@@ -32,4 +33,5 @@ class Pair:
         # Iterate over the two items in the pair.
         return iter([self.item1, self.item2])
 
-
+    def __repr__(self):
+        return (str(self.item1), str(self.item2))

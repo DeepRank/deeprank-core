@@ -1,4 +1,5 @@
 import os
+import logging
 import traceback
 import sys
 import glob
@@ -7,12 +8,19 @@ from tqdm import tqdm
 import time
 import multiprocessing as mp
 from functools import partial
-import pickle
 
+from .preprocess import PreProcessor
 from .models.graph import Graph
 from .models.query import ProteinProteinInterfaceResidueQuery
-from .tools.graph import graph_to_hdf5
 from .tools.score import get_all_scores
+import deeprank_gnn.feature.amino_acid
+import deeprank_gnn.feature.atomic_contact
+import deeprank_gnn.feature.biopython
+import deeprank_gnn.feature.bsa
+import deeprank_gnn.feature.pssm
+
+
+_log = logging.getLogger(__name__)
 
 
 class GraphHDF5(object):
@@ -41,6 +49,16 @@ class GraphHDF5(object):
             >>> GraphHDF5(pdb_path=pdb_path, ref_path=ref, pssm_path=pssm_path,
                           graph_type='residue', outfile='1AK4_residue.hdf5')
         """
+
+        self._feature_modules = [deeprank_gnn.feature.amino_acid,
+                                 deeprank_gnn.feature.atomic_contact,
+                                 deeprank_gnn.feature.bsa]
+        if pssm_path is not None:
+            self._feature_modules.append(deeprank_gnn.feature.pssm)
+        if biopython:
+            self._feature_modules.append(deeprank_gnn.feature.biopython)
+
+
         # get the list of PDB names
         pdbs = list(filter(lambda x: x.endswith(
             '.pdb'), os.listdir(pdb_path)))
@@ -68,47 +86,15 @@ class GraphHDF5(object):
         if ref_path is None:
             ref = None
         else:
-            ref = os.path.join(ref_path, base_name+'.pdb')
+            ref = os.path.join(ref_path, base_name + '.pdb')
 
         # compute all the graphs on 1 core and directly
         # store the graphs the HDF5 file
         if nproc == 1:
             graphs = self.get_all_graphs(
-                pdbs, pssm_paths, ref, outfile, use_tqdm, biopython)
-
+                pdbs, pssm_paths, ref, outfile, use_tqdm)
         else:
-            if not os.path.isdir(tmpdir):
-                os.mkdir(tmpdir)
-
-            pool = mp.Pool(nproc)
-            part_process = partial(
-                self._pickle_one_graph, pssm_paths=pssm_paths, ref=ref, tmpdir=tmpdir, biopython=biopython)
-            pool.map(part_process, pdbs)
-
-            # get the graph names
-            graph_names = [os.path.join(tmpdir, f)
-                           for f in os.listdir(tmpdir)]
-            graph_names = list(
-                filter(lambda x: x.endswith('.pkl'), graph_names))
-            if select is not None:
-                graph_names = list(
-                    filter(lambda x: x.startswith(tmpdir+select), graph_names))
-
-            # transfer them to the hdf5
-            with h5py.File(outfile, 'w') as f5:
-                desc = '{:25s}'.format('   Store in HDF5')
-
-                for name in graph_names:
-                    f = open(name, 'rb')
-                    g = pickle.load(f)
-                    try:
-                        graph_to_hdf5(g, f5)
-                    except Exception as e:
-                        print(
-                            'Issue encountered while computing graph ', name)
-                        print(e)
-                    f.close()
-                    os.remove(name)
+            self.preprocess_async(nproc, outfile, pdbs, ref, pssm_paths, self._feature_modules)
 
         # clean up
         rmfiles = glob.glob(
@@ -116,7 +102,7 @@ class GraphHDF5(object):
         for f in rmfiles:
             os.remove(f)
 
-    def get_all_graphs(self, pdbs, pssm_paths, ref, outfile, use_tqdm=True, biopython=False):
+    def get_all_graphs(self, pdbs, pssm_paths, ref, outfile, use_tqdm=True):
 
         graphs = []
         if use_tqdm:
@@ -128,47 +114,67 @@ class GraphHDF5(object):
         for pdb_path in lst:
             try:
                 graphs.append(self._get_one_graph(
-                    pdb_path, pssm_paths, ref, biopython))
+                    pdb_path, pssm_paths, ref, self._feature_modules))
             except Exception as e:
                 print('Issue encountered while computing graph ', pdb_path)
                 traceback.print_exc()
 
-        with h5py.File(outfile, 'w') as f5:
-            for g in graphs:
-                try:
-                    graph_to_hdf5(g, f5)
-                except Exception as e:
-                    print('Issue encountered while storing graph ', g.id)
-                    traceback.print_exc()
+        for g in graphs:
+            try:
+                g.write_to_hdf5(outfile)
+            except Exception as e:
+                _log.exception(f"issue encountered while storing graph {g.id}")
 
     @staticmethod
-    def _pickle_one_graph(pdb_path, pssm_paths, ref, tmpdir='./', biopython=False):
+    def preprocess_async(nproc, outfile, pdb_paths, ref_path, pssm_paths, feature_modules):
 
-        # get the graph
-        try:
-
+        prefix = os.path.splitext(outfile)[0] + "-"
+        preprocessor = PreProcessor(feature_modules, prefix, nproc)
+        preprocessor.start()
+        for pdb_path in pdb_paths:
             targets = {}
-            if ref is not None:
-                targets = get_all_scores(pdb_path, ref)
+            if ref_path is not None:
+                targets = get_all_scores(pdb_path, ref_path)
 
             q = ProteinProteinInterfaceResidueQuery(pdb_path, "A", "B", pssm_paths=pssm_paths,
-                                                    targets=targets, use_biopython=biopython)
+                                                    targets=targets)
+            preprocessor.add_query(q)
+        preprocessor.wait()
 
-            g = q.build_graph()
-
-            # pickle it
-            fname = os.path.join(tmpdir, '{}.pkl'.format(g.id))
-
-            f = open(fname, 'wb')
-            pickle.dump(g, f)
-            f.close()
-
-        except Exception as e:
-            print('Issue encountered while storing graph ', pdb_path)
-            traceback.print_exc()
+        GraphHDF5._combine_hdf5_files_with_prefix(prefix, outfile)
 
     @staticmethod
-    def _get_one_graph(pdb_path, pssm_paths, ref, biopython):
+    def _combine_hdf5_files_with_prefix(prefix, output_path):
+
+        for input_path in glob.glob(f"{prefix}*.hdf5"):
+            with h5py.File(input_path, 'r') as input_file:
+                with h5py.File(output_path, 'a') as output_file:
+                    for key in input_file:
+                        GraphHDF5._copy_hdf5(input_file, key, output_file)
+
+            os.remove(input_path)
+
+    @staticmethod
+    def _copy_hdf5(input_, key, output_):
+
+        if type(input_[key]) == h5py.Group:
+
+            out_group = output_.require_group(key)
+
+            for child_key in input_[key]:
+                GraphHDF5._copy_hdf5(input_[key], child_key, out_group)
+
+            for key, value in input_[key].attrs.items():
+                out_group.attrs[key] = value
+
+        elif type(input_[key]) == h5py.Dataset:
+
+            output_.create_dataset(key, data=input_[key][()])
+        else:
+            raise TypeError(type(input_[key]))
+
+    @staticmethod
+    def _get_one_graph(pdb_path, pssm_paths, ref, feature_modules):
 
         targets = {}
         if ref is not None:
@@ -177,9 +183,9 @@ class GraphHDF5(object):
         # get the graph
 
         q = ProteinProteinInterfaceResidueQuery(pdb_path, "A", "B", pssm_paths=pssm_paths,
-                                                targets=targets, use_biopython=biopython)
+                                                targets=targets)
 
-        g = q.build_graph()
+        g = q.build_graph(feature_modules)
 
         return g
 

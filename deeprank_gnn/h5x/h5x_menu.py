@@ -1,9 +1,16 @@
-from PyQt5 import QtWidgets
-from h5xplorer.menu_tools import *
-from h5xplorer.menu_plot import *
+from h5xplorer.menu_tools import (
+    get_current_item,
+    get_current_hdf5_group,
+    get_group_data,
+    get_multilevel_actions,
+    send_dict_to_console)
+from h5xplorer.menu_plot import (
+    plot_histogram,
+    plot_line,
+    plot2d)
 
 
-def context_menu(self, treeview, position):
+def context_menu(self, treeview, position): # noqa: MC0001
     """Generate a right-click menu for the items"""
 
     all_item = get_current_item(self, treeview, single=False)

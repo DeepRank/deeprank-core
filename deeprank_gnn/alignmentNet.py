@@ -160,7 +160,7 @@ class Alignment_GNN(SuperGNN):
         return representations
         
 
-if __name__ == '__maddin__':
+if __name__ == '__main__':
     #####################################
     #   Example of initializing a gnn   #
     #####################################

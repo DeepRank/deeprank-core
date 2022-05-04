@@ -1,4 +1,3 @@
-
 from deeprank_gnn.models.pair import Pair
 
 
@@ -28,5 +27,6 @@ def test_uniqueness():
     d = {pair1: 1}
     d[pair2] = 2
     assert d[pair1] == 1
+
 
 
