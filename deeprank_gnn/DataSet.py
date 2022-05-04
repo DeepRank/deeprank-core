@@ -324,6 +324,8 @@ class HDF5DataSet(Dataset):
             pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
 
             # cluster
+            cluster0 = None
+            cluster1 = None
             if self.clustering_method is not None:
                 if 'clustering' in grp.keys():
                     if self.clustering_method in grp['clustering'].keys():
