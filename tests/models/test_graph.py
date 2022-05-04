@@ -9,7 +9,7 @@ import numpy
 from deeprank_gnn.models.grid import GridSettings, MapMethod
 from deeprank_gnn.models.graph import Graph, Edge, Node
 from deeprank_gnn.models.contact import ResidueContact
-from deeprank_gnn.tools.pdb import get_structure
+from deeprank_gnn.tools.pdb import get_surrounding_residues
 from deeprank_gnn.domain.amino_acid import *
 from deeprank_gnn.domain.storage import *
 
@@ -22,15 +22,12 @@ def test_graph_build_and_export():
     entry_id = "test"
 
     # load the structure
-    pdb = pdb2sql("tests/data/pdb/101M/101M.pdb")
-    try:
-        structure = get_structure(pdb, entry_id)
-    finally:
-        pdb._close()
+    residues = get_surrounding_residues("tests/data/pdb/101M/101M.pdb", "101M",
+                                        "A", 0, None, 10.0)
 
     # build a contact from two residues
-    residue0 = structure.chains[0].residues[0]
-    residue1 = structure.chains[0].residues[1]
+    residue0 = residues[0]
+    residue1 = residues[1]
     contact01 = ResidueContact(residue0, residue1)
 
     # build two nodes and an edge
@@ -51,7 +48,7 @@ def test_graph_build_and_export():
     hdf5_path = os.path.join(tmp_dir_path, "101m.hdf5")
     try:
         # init the graph
-        graph = Graph(structure.id)
+        graph = Graph(entry_id)
 
         graph.add_node(node0)
         graph.add_node(node1)
