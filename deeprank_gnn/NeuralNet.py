@@ -1,6 +1,5 @@
 import numpy as np
 from time import time
-import h5py
 import os
 import logging
 import csv
@@ -104,7 +103,7 @@ class NeuralNet(object):
         if metrics_exporters is not None:
             self._metrics_exporters = metrics_exporters
         else:
-            self._metrics_exporters = MetricsExporterCollection([])
+            self._metrics_exporters = MetricsExporterCollection()
 
     def load_pretrained_model(self, database, Net):
         """
