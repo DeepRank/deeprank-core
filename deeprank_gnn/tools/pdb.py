@@ -67,11 +67,11 @@ def _add_atom_to_residue(atom, residue):
     return atom
 
 
-def _to_atoms(atom_rows: numpy.ndarray, structure_id: str) -> List[Atom]:
+def _to_atoms(atom_rows: numpy.ndarray, structure: Structure) -> List[Atom]:
     """
         Args:
             atom_rows: output from pdb2sql
-            id: unique id for the pdb structure
+            structure: to add the atoms to
     """
 
     elements_by_symbol = {element.name: element for element in AtomicElement}
@@ -81,11 +81,7 @@ def _to_atoms(atom_rows: numpy.ndarray, structure_id: str) -> List[Atom]:
 
     # We need these intermediary dicts to keep track of which residues and
     # chains have already been created.
-    chains = {}
-    residues = {}
     atoms = set([])
-
-    structure = Structure(structure_id)
 
     # Iterate over the atom output from pdb2sql
     for row in atom_rows:
@@ -119,29 +115,28 @@ def _to_atoms(atom_rows: numpy.ndarray, structure_id: str) -> List[Atom]:
         atom_position = numpy.array([x, y, z])
 
         # Init chain.
-        if chain_id not in chains:
-
-            chain = Chain(structure, chain_id)
-            chains[chain_id] = chain
-            structure.add_chain(chain)
+        if structure.has_chain(chain_id):
+            chain = structure.get_chain(chain_id)
         else:
-            chain = chains[chain_id]
+            chain = Chain(structure, chain_id)
+            structure.add_chain(chain)
 
         # Init residue.
-        residue_id = (chain_id, residue_number, insertion_code)
-        if residue_id not in residues:
+        for residue in chain.residues:
+            if residue.number == residue_number and \
+               residue.insertion_code == insertion_code:
 
-            residue = Residue(chain, residue_number, amino_acid, insertion_code)
-            residues[residue_id] = residue
-            chain.add_residue(residue)
+                atom_residue = residue
+                break
         else:
-            residue = residues[residue_id]
+            atom_residue = Residue(chain, residue_number, amino_acid, insertion_code)
+            chain.add_residue(atom_residue)
 
         # Init atom.
         atom = Atom(
-            residue, atom_name, elements_by_symbol[element], atom_position, occupancy
+            atom_residue, atom_name, elements_by_symbol[element], atom_position, occupancy
         )
-        _add_atom_to_residue(atom, residue)
+        _add_atom_to_residue(atom, atom_residue)
         atoms.add(atom)
 
     return list(atoms)
@@ -182,6 +177,7 @@ def get_residue_contact_pairs( # pylint: disable=too-many-locals
         interface._close() # pylint: disable=protected-access
 
     # Map to residue objects
+    structure = Structure(structure_id)
     residue_pairs = set([])
     for (residue_chain_id1, residue_number1, residue_name1), residue_keys2 in contact_residues.items():
 
@@ -196,7 +192,7 @@ def get_residue_contact_pairs( # pylint: disable=too-many-locals
                 f"Not found: {pdb_path} {residue_chain_id1} {residue_number1} {residue_name1}"
             )
 
-        residue1_atoms = _to_atoms(residue1_atom_rows, structure_id)
+        residue1_atoms = _to_atoms(residue1_atom_rows, structure)
         residue1 = residue1_atoms[0].residue
 
         for residue_chain_id2, residue_number2, residue_name2 in residue_keys2:
@@ -212,12 +208,12 @@ def get_residue_contact_pairs( # pylint: disable=too-many-locals
                     f"Not found: {pdb_path} {residue_chain_id2} {residue_number2} {residue_name2}"
                 )
 
-            residue2_atoms = _to_atoms(residue2_atom_rows, structure_id)
+            residue2_atoms = _to_atoms(residue2_atom_rows, structure)
             residue2 = residue2_atoms[0].residue
 
             residue_pairs.add(Pair(residue1, residue2))
 
-    return residue_pairs
+    return list(residue_pairs)
 
 
 def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
@@ -259,10 +255,11 @@ def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
 
     neighbour_atom_rows = [structure_atom_rows[i] for i in neighbour_indices]
 
-    atoms = _to_atoms(neighbour_atom_rows, structure_id)
+    structure = Structure(structure_id)
+    atoms = _to_atoms(neighbour_atom_rows, structure)
 
     residues = set([atom.residue for atom in atoms])
 
-    return residues
+    return list(residues)
 
 

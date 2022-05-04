@@ -28,6 +28,9 @@ class Structure:
     def __repr__(self) -> str:
         return self._id
 
+    def has_chain(self, chain_id: str):
+        return chain_id in self._chains
+
     def get_chain(self, chain_id: str):
         return self._chains[chain_id]
 

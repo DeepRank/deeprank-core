@@ -259,14 +259,19 @@ class HDF5DataSet(Dataset):
             x = torch.tensor(np.hstack(node_data), dtype=torch.float)
 
             # index, we have to have all the edges i.e : (i,j) and (j,i)
-            ind = grp['edge_index'][()]
-            if ind.ndim == 2:
-                ind = np.vstack((ind, np.flip(ind, 1))).T
-            edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
+            if "edge_index" in grp:
+                ind = grp['edge_index'][()]
+                if ind.ndim == 2:
+                    ind = np.vstack((ind, np.flip(ind, 1))).T
+                edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
+            else:
+                edge_index = torch.empty((2, 0), dtype=torch.long)
 
             # edge feature (same issue as above)
             edge_data = ()
-            if self.edge_feature is not None and len(self.edge_feature) > 0:
+            if self.edge_feature is not None and len(self.edge_feature) > 0 and \
+               "edge_data" in grp:
+
                 for feat in self.edge_feature:
                     vals = grp['edge_data/'+feat][()]
                     if vals.ndim == 1:
@@ -291,7 +296,9 @@ class HDF5DataSet(Dataset):
 
             # internal edge feature
             internal_edge_data = ()
-            if self.edge_feature is not None and len(self.edge_feature) > 0:
+            if self.edge_feature is not None and len(self.edge_feature) > 0 and \
+               "internal_edge_data" in grp:
+
                 for feat in self.edge_feature:
                     vals = grp['internal_edge_data/'+feat][()]
                     if vals.ndim == 1:
@@ -311,27 +318,15 @@ class HDF5DataSet(Dataset):
                 if "score" in grp and self.target in grp["score"]:
                     y = torch.tensor([grp['score/'+self.target][()]], dtype=torch.float).contiguous()
                 else:
-                    y = None
+                    raise ValueError("Target {} missing in {}".format(self.target, mol))
 
             # positions
             pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
-
-            if self.target in grp['score']:
-
-                y = torch.tensor([grp['score/'+self.target][()]],
-                                 dtype=torch.float).contiguous()
-            else:
-                raise ValueError("Target {} missing in {}".format(self.target, mol))
-
-        # pos
-        pos = torch.tensor(grp['node_data/pos/']
-                           [()], dtype=torch.float).contiguous()
 
         # load
         data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
         data.internal_edge_index = internal_edge_index
         data.internal_edge_attr = internal_edge_attr
-        data.node_of_interest_index = node_of_interest
 
         # mol name
         data.mol = mol

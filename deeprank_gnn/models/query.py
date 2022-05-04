@@ -21,8 +21,7 @@ from deeprank_gnn.tools.forcefield.potentials import get_coulomb_potentials, get
 from deeprank_gnn.models.forcefield.vanderwaals import VanderwaalsParam
 from deeprank_gnn.domain.amino_acid import *
 from deeprank_gnn.domain.feature import *
-from deeprank_gnn.models.structure import Residue, Atom
-from deeprank_gnn.tools.pssm import parse_pssm
+from deeprank_gnn.models.structure import Residue, Atom, Structure
 from deeprank_gnn.tools.graph import build_residue_graph, build_atomic_graph
 from deeprank_gnn.models.variant import SingleResidueVariant
 import deeprank_gnn.feature.amino_acid
@@ -63,6 +62,14 @@ class Query:
 
         for target_name, target_data in self._targets.items():
             graph.targets[target_name] = target_data
+
+    @staticmethod
+    def _load_pssm(structure: Structure, pssm_paths: Dict[str, str]):
+        for chain in structure.chains:
+            if chain.id in pssm_paths:
+                pssm_path = pssm_paths[chain.id]
+                with open(pssm_path, 'rt') as pssm_file:
+                    chain.pssm = parse_pssm(pssm_file, chain)
 
     @property
     def model_id(self) -> str:
@@ -149,9 +156,8 @@ class SingleResidueVariantResidueQuery(Query):
 
         # read the pssm
         if self._pssm_paths is not None:
-            for chain in structure.chains:
-                if chain.id in self._pssm_paths:
-                    pssm_path = self._pssm_paths[chain.id]
+            structure = residues[0].chain.model
+            self._load_pssm(structure, self._pssm_paths)
 
         # find the variant residue
         variant_residue = None
@@ -171,9 +177,6 @@ class SingleResidueVariantResidueQuery(Query):
 
         # define the variant
         variant = SingleResidueVariant(variant_residue, self._variant_amino_acid)
-
-        # select which residues will be the graph
-        residues = get_surrounding_residues(structure, residue, self._radius)
 
         # build the graph
         graph = build_residue_graph(residues, self.get_query_id(), self._external_distance_cutoff)
@@ -265,6 +268,11 @@ class SingleResidueVariantAtomicQuery(Query):
                                                 self._radius)
         finally:
             os.remove(hydrogens_pdb_path)
+
+        # read the pssm
+        if self._pssm_paths is not None:
+            structure = residues[0].chain.model
+            self._load_pssm(structure, self._pssm_paths)
 
         # find the variant residue
         variant_residue = None
@@ -358,6 +366,11 @@ class ProteinProteinInterfaceAtomicQuery(Query):
                 atoms_selected.add(atom)
         atoms_selected = list(atoms_selected)
 
+        # read the pssm
+        if self._pssm_paths is not None:
+            structure = interface_pairs[0].item1.chain.model
+            self._load_pssm(structure, self._pssm_paths)
+
         # build the graph
         graph = build_atomic_graph(atoms_selected, self.get_query_id(), self._interface_distance_cutoff)
 
@@ -415,11 +428,8 @@ class ProteinProteinInterfaceResidueQuery(Query):
                 feature_modules (list of modules): each must implement the add_features function.
         """
 
-        # load pdb structure
-        structure = self._load_structure(self._pdb_path, self._pssm_paths)
-
         # get the contact residues
-        interface_pairs = get_residue_contact_pairs(self._pdb_path, structure,
+        interface_pairs = get_residue_contact_pairs(self._pdb_path,
                                                     self._chain_id1, self._chain_id2,
                                                     self._interface_distance_cutoff)
 
@@ -431,6 +441,11 @@ class ProteinProteinInterfaceResidueQuery(Query):
             residues_selected.add(residue1)
             residues_selected.add(residue2)
         residues_selected = list(residues_selected)
+
+        # read the pssm
+        if self._pssm_paths is not None:
+            structure = interface_pairs[0].item1.chain.model
+            self._load_pssm(structure, self._pssm_paths)
 
         # build the graph
         graph = build_residue_graph(residues_selected, self.get_query_id(), self._interface_distance_cutoff)

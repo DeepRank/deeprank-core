@@ -11,6 +11,7 @@ from deeprank_gnn.models.graph import Graph
 from deeprank_gnn.domain.feature import *
 from deeprank_gnn.feature import sasa, atomic_contact, bsa, pssm, amino_acid, biopython
 from deeprank_gnn.DataSet import HDF5DataSet
+from deeprank_gnn.models.pair import Pair
 
 
 def _check_graph_makes_sense(g, node_feature_names, edge_feature_names):
@@ -157,8 +158,7 @@ def test_variant_graph_9API():
 def test_variant_residue_graph_101M():
     query = SingleResidueVariantResidueQuery("tests/data/pdb/101M/101M.pdb", "A", 25, None, glycine, alanine,
                                              {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
-                                             targets={"bin_class": 0},
-                                             variant_only_features={"conservation": 1.0})
+                                             targets={"bin_class": 0})
 
     g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
 
@@ -168,8 +168,7 @@ def test_variant_residue_graph_101M():
                               FEATURENAME_PSSM,
                               FEATURENAME_AMINOACID,
                               FEATURENAME_VARIANTAMINOACID,
-                              FEATURENAME_POLARITY,
-                              "conservation"],
+                              FEATURENAME_POLARITY],
                              [FEATURENAME_EDGEDISTANCE,
                               FEATURENAME_EDGECOULOMB,
                               FEATURENAME_EDGEVANDERWAALS])
@@ -181,7 +180,7 @@ def test_variant_residue_graph_2y69():
                                               "G": "tests/data/pssm/2Y69/2y69.G.pdb.pssm",
                                               "N": "tests/data/pssm/2Y69/2y69.N.pdb.pssm"},
                                              targets={"bin_class": 0})
-    g = query.build_graph()
+    g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
 
 
 def test_negative_coulomb():
@@ -189,10 +188,16 @@ def test_negative_coulomb():
                                              {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
                                              targets={"bin_class": 0})
 
-    g = query.build_graph()
+    g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
 
-    arg_node_name = "101M A 45"
-    asp_node_name = "101M A 60"
+    search_pair = Pair(arginine, aspartate)
+    count_matching_edges = 0
+    for edge in g.edges:
+        contact = edge.id
+        amino_acid_pair = Pair(contact.residue1.amino_acid, contact.residue2.amino_acid)
+        if amino_acid_pair == search_pair:
+            count_matching_edges += 1
+            coulomb = edge.features[FEATURENAME_EDGECOULOMB]
+            assert coulomb < 0.0, f"coulomb potential for {contact} is {coulomb}"
 
-    coulomb = g.edges[arg_node_name, asp_node_name][FEATURENAME_EDGECOULOMB]
-    assert coulomb < 0.0, f"coulomb potential between asp and arg is {coulomb}"
+    assert count_matching_edges > 0
