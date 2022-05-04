@@ -46,7 +46,7 @@ setup(
         'numpy >= 1.21.5', 'scipy >= 1.7.3', 'h5py >= 3.6.0',
         'networkx == 2.6.3', 'matplotlib >= 3.5.1', 'pdb2sql >= 0.5.1', 'sklearn',
         'chart-studio >= 1.1.0', 'BioPython >= 1.79', 'python-louvain >= 0.16',
-        'markov-clustering >= 0.0.6.dev0',
+        'markov-clustering >= 0.0.6.dev0', "tensorboard", "torchvision",
         'tqdm >= 4.63.0', 'freesasa >= 2.1.0'
     ],
     extras_require={
