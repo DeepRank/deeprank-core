@@ -216,7 +216,7 @@ def get_residue_contact_pairs( # pylint: disable=too-many-locals
     return list(residue_pairs)
 
 
-def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
+def get_surrounding_residues(pdb_path: str, chain_id: str,
                              residue_number: int, insertion_code: Optional[str],
                              radius: float) -> List[Residue]:
 
@@ -224,7 +224,6 @@ def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
 
         Args:
             pdb_path: points to PDB file
-            structure_id: name for the structure
             chain_id: identifies the residue in the pdb
             residue_number: identifies the residue in the pdb
             insertion_code: identifies the residue in the pdb
@@ -239,6 +238,8 @@ def get_surrounding_residues(pdb_path: str, structure_id: str, chain_id: str,
     # convert insertion code to pdb2sql's format
     if insertion_code is None:
         insertion_code = ""
+
+    structure_id = f"{pdb_name}-centered-{chain_id}:{residue_number}{insertion_code}"
 
     residue_atom_positions = pdb.get("x,y,z",
                                      chainID=chain_id,
