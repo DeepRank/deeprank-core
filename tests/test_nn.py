@@ -14,8 +14,7 @@ from deeprank_gnn.sGAT import sGAT
 
 def _model_base_test(work_directory, hdf5_path, model_class,
                      node_features, edge_features,
-                     task, target,
-                     plot=False):
+                     task, target):
 
     NN = NeuralNet(hdf5_path, model_class,
                    node_feature=node_features,
@@ -34,12 +33,6 @@ def _model_base_test(work_directory, hdf5_path, model_class,
     NN_cpy = NeuralNet(hdf5_path, model_class,
                        pretrained_model='test.pth.tar')
 
-    if plot:
-        NN.plot_scatter()
-        NN.plot_loss()
-        NN.plot_acc()
-        NN.plot_hit_rate()
-
 
 class TestNeuralNet(unittest.TestCase):
 
@@ -54,7 +47,7 @@ class TestNeuralNet(unittest.TestCase):
     def test_ginet(self):
         _model_base_test(self.work_directory, "tests/hdf5/1ATN_ppi.hdf5", GINet,
                          ['type', 'polarity', 'bsa', 'depth', 'hse', 'ic', 'pssm'], ['dist'],
-                         'reg', 'irmsd', plot=True)
+                         'reg', 'irmsd')
 
     def test_ginet_class(self):
         _model_base_test(self.work_directory, "tests/hdf5/variants.hdf5", GINet,
