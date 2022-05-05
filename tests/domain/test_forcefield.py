@@ -8,7 +8,7 @@ from deeprank_gnn.domain.amino_acid import arginine, glutamate
 
 def test_atomic_forcefield():
 
-    residues = get_surrounding_residues("tests/data/pdb/101M/101M.pdb", "101M",
+    residues = get_surrounding_residues("tests/data/pdb/101M/101M.pdb",
                                         "A", 40, None, 100.0)
 
     # The arginine C-zeta should get a positive charge
