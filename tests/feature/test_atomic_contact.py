@@ -7,6 +7,7 @@ from deeprank_gnn.models.structure import Chain, Atom
 from deeprank_gnn.models.contact import AtomicContact, ResidueContact
 from deeprank_gnn.models.graph import Edge, Graph
 from deeprank_gnn.tools.pdb import get_surrounding_residues
+from deeprank_gnn.tools.graph import build_residue_graph, graph_has_nan
 from deeprank_gnn.feature.atomic_contact import add_features
 from deeprank_gnn.domain.amino_acid import *
 from deeprank_gnn.models.variant import SingleResidueVariant
@@ -28,6 +29,17 @@ def _wrap_in_graph(edge: Edge):
     g = Graph(uuid4().hex)
     g.add_edge(edge)
     return g
+
+
+def test_no_nan():
+    pdb_path = "tests/data/pdb/101M/101M.pdb"
+    residues = get_surrounding_residues(pdb_path, "A", 10, None, 30.0)
+    variant = SingleResidueVariant(residues[10], alanine)
+
+    graph = build_residue_graph(residues, "101M-test", 4.5)
+
+    assert not graph_has_nan(graph)
+
 
 def test_add_features():
 
