@@ -60,7 +60,8 @@ def _add_atom_to_residue(atom, residue):
             # occupancy
             if other_atom.occupancy < atom.occupancy:
                 other_atom.change_altloc(atom)
-                return other_atom
+
+            return other_atom
 
     # not there yet, add it
     residue.add_atom(atom)
@@ -122,11 +123,11 @@ def _to_atoms(atom_rows: numpy.ndarray, structure: Structure) -> List[Atom]:
             structure.add_chain(chain)
 
         # Init residue.
-        for residue in chain.residues:
-            if residue.number == residue_number and \
-               residue.insertion_code == insertion_code:
+        for chain_residue in chain.residues:
+            if chain_residue.number == residue_number and \
+               chain_residue.insertion_code == insertion_code:
 
-                atom_residue = residue
+                atom_residue = chain_residue
                 break
         else:
             atom_residue = Residue(chain, residue_number, amino_acid, insertion_code)
@@ -136,7 +137,7 @@ def _to_atoms(atom_rows: numpy.ndarray, structure: Structure) -> List[Atom]:
         atom = Atom(
             atom_residue, atom_name, elements_by_symbol[element], atom_position, occupancy
         )
-        _add_atom_to_residue(atom, atom_residue)
+        atom = _add_atom_to_residue(atom, atom_residue)
         atoms.add(atom)
 
     return list(atoms)
@@ -160,7 +161,7 @@ def get_residue_contact_pairs( # pylint: disable=too-many-locals
     Returns: the pairs of contacting residues
     """
 
-    pdb_name = os.path.splitext(os.path.basename(pdb_path))
+    pdb_name = os.path.splitext(os.path.basename(pdb_path))[0]
     structure_id = f"interface-{pdb_name}-{chain_id1}:{chain_id2}"
 
     # Find out which residues are pairs
@@ -239,6 +240,7 @@ def get_surrounding_residues(pdb_path: str, chain_id: str,
     if insertion_code is None:
         insertion_code = ""
 
+    pdb_name = os.path.splitext(os.path.basename(pdb_path))[0]
     structure_id = f"{pdb_name}-centered-{chain_id}:{residue_number}{insertion_code}"
 
     residue_atom_positions = pdb.get("x,y,z",

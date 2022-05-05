@@ -148,7 +148,7 @@ class SingleResidueVariantResidueQuery(Query):
         # get the residues and atoms involved
         try:
             add_hydrogens(self._pdb_path, hydrogens_pdb_path)
-            residues = get_surrounding_residues(hydrogens_pdb_path, self.model_id, self._chain_id,
+            residues = get_surrounding_residues(hydrogens_pdb_path, self._chain_id,
                                                 self._residue_number, self._insertion_code,
                                                 self._radius)
         finally:
@@ -263,7 +263,7 @@ class SingleResidueVariantAtomicQuery(Query):
             add_hydrogens(self._pdb_path, hydrogens_pdb_path)
 
             # get the residues and atoms involved
-            residues = get_surrounding_residues(hydrogens_pdb_path, self.model_id, self._chain_id,
+            residues = get_surrounding_residues(hydrogens_pdb_path, self._chain_id,
                                                 self._residue_number, self._insertion_code,
                                                 self._radius)
         finally:

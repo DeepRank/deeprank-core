@@ -7,7 +7,7 @@ from deeprank_gnn.models.graph import Graph, Node
 from deeprank_gnn.models.structure import Chain, Residue
 from deeprank_gnn.feature.sasa import add_features
 from deeprank_gnn.tools.graph import build_residue_graph, build_atomic_graph
-from deeprank_gnn.tools.pdb import get_structure, get_surrounding_residues
+from deeprank_gnn.tools.pdb import get_surrounding_residues
 from deeprank_gnn.domain.feature import FEATURENAME_SASA
 
 
@@ -41,17 +41,12 @@ def test_add_features_to_residues():
 
     pdb_path = "tests/data/pdb/101M/101M.pdb"
 
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "101M")
-    finally:
-        pdb._close()
+    residues = get_surrounding_residues(pdb_path, "A", 108, None, 10.0)
+    assert len(residues) > 0
+    structure = residues[0].chain.model
 
     residue = _get_residue(structure.chains[0], 108)
     variant = SingleResidueVariant(residue, alanine)
-
-    residues = get_surrounding_residues(structure, residue, 10.0)
-    assert len(residues) > 0
 
     graph = build_residue_graph(residues, "101M-108-res", 4.5)
     add_features(pdb_path, graph, variant)
@@ -73,16 +68,12 @@ def test_add_features_to_atoms():
 
     pdb_path = "tests/data/pdb/101M/101M.pdb"
 
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "101M")
-    finally:
-        pdb._close()
+    residues = get_surrounding_residues(pdb_path, "A", 108, None, 10.0)
+    structure = residues[0].chain.model
 
     residue = _get_residue(structure.chains[0], 108)
     variant = SingleResidueVariant(residue, alanine)
 
-    residues = get_surrounding_residues(structure, residue, 10.0)
     atoms = set([])
     for residue in residues:
         for atom in residue.atoms:

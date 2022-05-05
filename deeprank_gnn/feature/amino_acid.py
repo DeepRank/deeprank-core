@@ -1,4 +1,5 @@
 from typing import Optional
+import logging
 
 import numpy
 
@@ -11,8 +12,12 @@ from deeprank_gnn.domain.feature import (FEATURENAME_AMINOACID, FEATURENAME_VARI
                                          FEATURENAME_HYDROGENBONDDONORS, FEATURENAME_HYDROGENBONDDONORSDIFFERENCE,
                                          FEATURENAME_HYDROGENBONDACCEPTORS, FEATURENAME_HYDROGENBONDACCEPTORSDIFFERENCE)
 
+
+_log = logging.getLogger(__name__)
+
+
 def add_features(pdb_path: str, graph: Graph,
-                 single_amino_acid_variant: Optional[SingleResidueVariant] = None):
+                 single_residue_variant: Optional[SingleResidueVariant] = None):
 
     for node in graph.nodes:
         if type(node.id) == Residue:
@@ -30,12 +35,15 @@ def add_features(pdb_path: str, graph: Graph,
         node.features[FEATURENAME_HYDROGENBONDDONORS] = residue.amino_acid.count_hydrogen_bond_donors
         node.features[FEATURENAME_HYDROGENBONDACCEPTORS] = residue.amino_acid.count_hydrogen_bond_acceptors
 
-        if single_amino_acid_variant is not None:
+        if single_residue_variant is not None:
 
-            wildtype = single_amino_acid_variant.wildtype_amino_acid
-            variant = single_amino_acid_variant.variant_amino_acid
+            wildtype = single_residue_variant.wildtype_amino_acid
+            variant = single_residue_variant.variant_amino_acid
 
-            if residue == single_amino_acid_variant.residue:
+            if residue == single_residue_variant.residue:
+
+                _log.debug(f"variant on {residue}: {wildtype} -> {variant}")
+
                 node.features[FEATURENAME_SIZEDIFFERENCE] = variant.size - wildtype.size
                 node.features[FEATURENAME_VARIANTAMINOACID] = variant.onehot
                 node.features[FEATURENAME_POLARITYDIFFERENCE] = variant.polarity.onehot - wildtype.polarity.onehot

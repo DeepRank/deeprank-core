@@ -5,21 +5,18 @@ from deeprank_gnn.models.graph import Graph, Node
 from deeprank_gnn.models.structure import Chain, Residue
 from deeprank_gnn.feature.biopython import add_features
 from deeprank_gnn.tools.graph import build_residue_graph
-from deeprank_gnn.tools.pdb import get_structure, get_residue_contact_pairs
+from deeprank_gnn.tools.pdb import get_residue_contact_pairs
 from deeprank_gnn.domain.feature import FEATURENAME_HALFSPHEREEXPOSURE, FEATURENAME_RESIDUEDEPTH
 
 
 def test_add_features():
+
     pdb_path = "tests/data/pdb/1ATN/1ATN_1w.pdb"
 
-    pdb = pdb2sql(pdb_path)
-    try:
-        structure = get_structure(pdb, "1ATN_1w")
-    finally:
-        pdb._close()
+    residue_contact_pairs = get_residue_contact_pairs(pdb_path, "A", "B", 8.5)
 
     residues = set([])
-    for residue1, residue2 in get_residue_contact_pairs(pdb_path, structure, "A", "B", 8.5):
+    for residue1, residue2 in residue_contact_pairs:
         residues.add(residue1)
         residues.add(residue2)
 

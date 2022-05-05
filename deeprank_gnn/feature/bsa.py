@@ -5,7 +5,7 @@ import freesasa
 import numpy
 
 from deeprank_gnn.models.graph import Graph
-from deeprank_gnn.models.structure import Residue, Atom
+from deeprank_gnn.models.structure import Residue, Atom, AtomicElement
 from deeprank_gnn.models.variant import SingleResidueVariant
 from deeprank_gnn.domain.feature import FEATURENAME_BURIEDSURFACEAREA
 
@@ -28,12 +28,14 @@ def add_features(pdb_path: str, graph: Graph, *args, **kwargs):
                 sasa_chain_structures[chain_id] = freesasa.Structure()
 
             for atom in residue.atoms:
-                sasa_chain_structures[chain_id].addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
-                                                        atom.residue.number, atom.residue.chain.id,
-                                                        atom.position[0], atom.position[1], atom.position[2])
-                sasa_complete_structure.addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
-                                                atom.residue.number, atom.residue.chain.id,
-                                                atom.position[0], atom.position[1], atom.position[2]) 
+
+                if atom.element != AtomicElement.H:
+                    sasa_chain_structures[chain_id].addAtom(f" {atom.element.name}", residue.amino_acid.three_letter_code,
+                                                            residue.number, residue.chain.id,
+                                                            atom.position[0], atom.position[1], atom.position[2])
+                    sasa_complete_structure.addAtom(f" {atom.element.name}", residue.amino_acid.three_letter_code,
+                                                    residue.number, residue.chain.id,
+                                                    atom.position[0], atom.position[1], atom.position[2])
 
         elif type(node.id) == Atom:
             atom = node.id
@@ -42,15 +44,12 @@ def add_features(pdb_path: str, graph: Graph, *args, **kwargs):
             if chain_id not in sasa_chain_structures:
                 sasa_chain_structures[chain_id] = freesasa.Structure()
 
-            sasa_chain_structures[chain_id].addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
-                                                    atom.residue.number, atom.residue.chain.id,
+            sasa_chain_structures[chain_id].addAtom(atom.name, residue.amino_acid.three_letter_code,
+                                                    residue.number, residue.chain.id,
                                                     atom.position[0], atom.position[1], atom.position[2])
-            sasa_complete_structure.addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
-                                            atom.residue.number, atom.residue.chain.id,
+            sasa_complete_structure.addAtom(atom.name, residue.amino_acid.three_letter_code,
+                                            residue.number, residue.chain.id,
                                             atom.position[0], atom.position[1], atom.position[2])
-
-            area_key = "atom"
-            selection = ('atom, (name %s) and (resi %s) and (chain %s)' % (atom.name, atom.residue.number_string, atom.residue.chain.id),)
         else:
             raise TypeError("Unexpected node type: {}".format(type(node.id)))
 
@@ -58,12 +57,15 @@ def add_features(pdb_path: str, graph: Graph, *args, **kwargs):
     sasa_chain_results = {chain_id: freesasa.calc(structure)
                           for chain_id, structure in sasa_chain_structures.items()}
 
+    if numpy.isnan(sasa_complete_result.totalArea()):
+        raise ValueError("total area is NaN")
+
     for node in graph.nodes:
         if type(node.id) == Residue:
             residue = node.id
             chain_id = residue.chain.id
-            area_key = "residue"
-            selection = ("residue, (resi %s) and (chain %s)" % (residue.number_string, residue.chain.id),)
+            area_key = "res"
+            selection = ("res, (resi %s) and (chain %s)" % (residue.number_string, residue.chain.id),)
 
         elif type(node.id) == Atom:
             atom = node.id
@@ -73,6 +75,12 @@ def add_features(pdb_path: str, graph: Graph, *args, **kwargs):
 
         area_monomer = freesasa.selectArea(selection, sasa_chain_structures[chain_id], sasa_chain_results[chain_id])[area_key]
         area_multimer = freesasa.selectArea(selection, sasa_complete_structure, sasa_complete_result)[area_key]
+
+        if numpy.isnan(area_monomer):
+            raise ValueError(f"monomer NaN for {selection}")
+
+        if numpy.isnan(area_multimer):
+            raise ValueError(f"multimer NaN for {selection}")
 
         node.features[FEATURENAME_BURIEDSURFACEAREA] = area_monomer - area_multimer
 
