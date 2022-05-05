@@ -2,6 +2,7 @@ import logging
 from tempfile import mkstemp
 import os
 from typing import Dict, List, Iterator, Optional
+from time import time
 
 import freesasa
 import numpy
@@ -142,17 +143,10 @@ class SingleResidueVariantResidueQuery(Query):
                 feature_modules (list of modules): each must implement the add_features function.
         """
 
-        hydrogens_pdb_handle, hydrogens_pdb_path = mkstemp(suffix=".pdb")
-        os.close(hydrogens_pdb_handle)
-
         # get the residues and atoms involved
-        try:
-            add_hydrogens(self._pdb_path, hydrogens_pdb_path)
-            residues = get_surrounding_residues(hydrogens_pdb_path, self._chain_id,
-                                                self._residue_number, self._insertion_code,
-                                                self._radius)
-        finally:
-            os.remove(hydrogens_pdb_path)
+        residues = get_surrounding_residues(self._pdb_path, self._chain_id,
+                                            self._residue_number, self._insertion_code,
+                                            self._radius)
 
         # read the pssm
         if self._pssm_paths is not None:
@@ -256,18 +250,10 @@ class SingleResidueVariantAtomicQuery(Query):
                 feature_modules (list of modules): each must implement the add_features function.
         """
 
-        hydrogens_pdb_handle, hydrogens_pdb_path = mkstemp(suffix=".pdb")
-        os.close(hydrogens_pdb_handle)
-
-        try:
-            add_hydrogens(self._pdb_path, hydrogens_pdb_path)
-
-            # get the residues and atoms involved
-            residues = get_surrounding_residues(hydrogens_pdb_path, self._chain_id,
-                                                self._residue_number, self._insertion_code,
-                                                self._radius)
-        finally:
-            os.remove(hydrogens_pdb_path)
+        # get the residues and atoms involved
+        residues = get_surrounding_residues(self._pdb_path, self._chain_id,
+                                            self._residue_number, self._insertion_code,
+                                            self._radius)
 
         # read the pssm
         if self._pssm_paths is not None:
