@@ -34,4 +34,5 @@ class Pair:
         return iter([self.item1, self.item2])
 
     def __repr__(self):
-        return (str(self.item1), str(self.item2))
+        return f"{self.item1}-{self.item2}"
+
