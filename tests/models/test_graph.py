@@ -22,7 +22,7 @@ def test_graph_build_and_export():
     entry_id = "test"
 
     # load the structure
-    residues = get_surrounding_residues("tests/data/pdb/101M/101M.pdb", "101M",
+    residues = get_surrounding_residues("tests/data/pdb/101M/101M.pdb",
                                         "A", 0, None, 10.0)
 
     # build a contact from two residues
