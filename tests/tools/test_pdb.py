@@ -27,7 +27,7 @@ def test_surrounding_residues():
     chain_id = "A"
     residue_number = 138
 
-    close_residues = get_surrounding_residues(pdb_path, "test", chain_id, residue_number, None, 10.0)
+    close_residues = get_surrounding_residues(pdb_path, chain_id, residue_number, None, 10.0)
 
     assert len(close_residues) > 0, "no close residues found"
     assert len(close_residues) < 1000, "all residues were picked"
@@ -42,7 +42,7 @@ def test_surrounding_residues_large_structure():
     chain_id = "E"
     residue_number = 74
 
-    close_residues = get_surrounding_residues(pdb_path, "test", chain_id, residue_number, None, 10.0)
+    close_residues = get_surrounding_residues(pdb_path, chain_id, residue_number, None, 10.0)
 
     assert len(close_residues) > 0, "no close residues found"
     assert len(close_residues) < 1000, "too many residues were picked"
