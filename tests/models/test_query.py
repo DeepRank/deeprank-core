@@ -183,21 +183,3 @@ def test_variant_residue_graph_2y69():
     g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
 
 
-def test_negative_coulomb():
-    query = SingleResidueVariantResidueQuery("tests/data/pdb/101M/101M.pdb", "A", 46, None, valine, alanine,
-                                             {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
-                                             targets={"bin_class": 0})
-
-    g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
-
-    search_pair = Pair(arginine, aspartate)
-    count_matching_edges = 0
-    for edge in g.edges:
-        contact = edge.id
-        amino_acid_pair = Pair(contact.residue1.amino_acid, contact.residue2.amino_acid)
-        if amino_acid_pair == search_pair:
-            count_matching_edges += 1
-            coulomb = edge.features[FEATURENAME_EDGECOULOMB]
-            assert coulomb < 0.0, f"coulomb potential for {contact} is {coulomb}"
-
-    assert count_matching_edges > 0
