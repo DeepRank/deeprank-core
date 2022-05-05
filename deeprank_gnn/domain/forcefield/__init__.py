@@ -100,6 +100,9 @@ class AtomicForcefield:
         """
 
         atom_name = atom.name
+        if atom.residue.amino_acid is None:
+            raise UnknownAtomError(f"residue {atom.residue} does not have an amino acid")
+
         amino_acid_code = atom.residue.amino_acid.three_letter_code
 
         charge = None
