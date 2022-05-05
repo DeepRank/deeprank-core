@@ -32,18 +32,18 @@ HDF5KEY_GRAPH_INTERNALEDGEFEATURES = "internal_edge_data"
 
 
 def graph_has_nan(graph):
-    for node_key, node_dict in graph.nodes.items():
-        for feature_name, feature_value in node_dict.items():
+    for node in graph.nodes:
+        for feature_name, feature_value in node.features.items():
 
             if numpy.any(numpy.isnan(feature_value)):
-                _log.debug(f"node {node_key} {feature_name} has NaN")
+                _log.debug(f"node {node.id} {feature_name} has NaN")
                 return True
 
-    for edge_key, edge_dict in graph.edges.items():
-        for feature_name, feature_value in edge_dict.items():
+    for edge in graph.edges:
+        for feature_name, feature_value in edge.features.items():
 
             if numpy.any(numpy.isnan(feature_value)):
-                _log.debug(f"edge {edge_key} {feature_name} has NaN")
+                _log.debug(f"edge {edge.id} {feature_name} has NaN")
                 return True
 
     return False
@@ -355,6 +355,17 @@ def build_residue_graph( # pylint: disable=too-many-locals
 
             residue1 = atom1.residue
             residue2 = atom2.residue
+
+            # leave metals and nucleic acids out for now..
+            if residue1.amino_acid is None:
+                continue
+
+            if residue2.amino_acid is None:
+                continue
+
+            # don't edge a residue with itself
+            if residue1 == residue2:
+                continue
 
             contact = ResidueContact(residue1, residue2)
 
