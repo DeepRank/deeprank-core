@@ -151,54 +151,60 @@ class Graph:
             # create a group to hold everything
             graph_group = hdf5_file.require_group(self.id)
 
-            # store node names
-            node_names = numpy.array([str(key) for key in self._nodes]).astype('S')
-            graph_group.create_dataset(HDF5KEY_GRAPH_NODENAMES, data=node_names)
+            try:
+                # store node names
+                node_names = numpy.array([str(key) for key in self._nodes]).astype('S')
+                graph_group.create_dataset(HDF5KEY_GRAPH_NODENAMES, data=node_names)
 
-            # store node features
-            node_features_group = graph_group.create_group(HDF5KEY_GRAPH_NODEFEATURES)
-            node_key_list = list(self._nodes.keys())
-            first_node_data = list(self._nodes.values())[0].features
-            node_feature_names = list(first_node_data.keys())
-            for node_feature_name in node_feature_names:
+                # store node features
+                node_features_group = graph_group.create_group(HDF5KEY_GRAPH_NODEFEATURES)
+                node_key_list = list(self._nodes.keys())
+                first_node_data = list(self._nodes.values())[0].features
+                node_feature_names = list(first_node_data.keys())
+                for node_feature_name in node_feature_names:
 
-                node_feature_data = [node.features[node_feature_name] for node in self._nodes.values()]
+                    node_feature_data = [node.features[node_feature_name] for node in self._nodes.values()]
 
-                node_features_group.create_dataset(node_feature_name, data=node_feature_data)
+                    node_features_group.create_dataset(node_feature_name, data=node_feature_data)
 
-            # store edges
-            edge_indices = []
-            edge_names = []
+                # store edges
+                edge_indices = []
+                edge_names = []
 
-            first_edge_data = list(self._edges.values())[0].features
-            edge_feature_names = list(first_edge_data.keys())
+                first_edge_data = list(self._edges.values())[0].features
+                edge_feature_names = list(first_edge_data.keys())
 
-            edge_feature_data = {name: [] for name in edge_feature_names}
+                edge_feature_data = {name: [] for name in edge_feature_names}
 
-            for edge_id, edge in self._edges.items():
+                for edge_id, edge in self._edges.items():
 
-                id1, id2 = edge_id
-                node_index1 = node_key_list.index(id1)
-                node_index2 = node_key_list.index(id2)
+                    id1, id2 = edge_id
+                    node_index1 = node_key_list.index(id1)
+                    node_index2 = node_key_list.index(id2)
 
-                edge_indices.append((node_index1, node_index2))
-                edge_names.append(f"{id1}-{id2}")
+                    edge_indices.append((node_index1, node_index2))
+                    edge_names.append(f"{id1}-{id2}")
 
+                    for edge_feature_name in edge_feature_names:
+                        edge_feature_data[edge_feature_name].append(edge.features[edge_feature_name])
+
+                graph_group.create_dataset(HDF5KEY_GRAPH_EDGENAMES, data=numpy.array(edge_names).astype('S'))
+
+                graph_group.create_dataset(HDF5KEY_GRAPH_EDGEINDICES, data=edge_indices)
+
+                edge_feature_group = graph_group.create_group(HDF5KEY_GRAPH_EDGEFEATURES)
                 for edge_feature_name in edge_feature_names:
-                    edge_feature_data[edge_feature_name].append(edge.features[edge_feature_name])
+                    edge_feature_group.create_dataset(edge_feature_name, data=edge_feature_data[edge_feature_name])
 
-            graph_group.create_dataset(HDF5KEY_GRAPH_EDGENAMES, data=numpy.array(edge_names).astype('S'))
+                # store target values
+                score_group = graph_group.create_group(HDF5KEY_GRAPH_SCORE)
+                for target_name, target_data in self.targets.items():
+                    score_group.create_dataset(target_name, data=target_data)
 
-            graph_group.create_dataset(HDF5KEY_GRAPH_EDGEINDICES, data=edge_indices)
-
-            edge_feature_group = graph_group.create_group(HDF5KEY_GRAPH_EDGEFEATURES)
-            for edge_feature_name in edge_feature_names:
-                edge_feature_group.create_dataset(edge_feature_name, data=edge_feature_data[edge_feature_name])
-
-            # store target values
-            score_group = graph_group.create_group(HDF5KEY_GRAPH_SCORE)
-            for target_name, target_data in self.targets.items():
-                score_group.create_dataset(target_name, data=target_data)
+            except:
+                # do not leave behind a partly finished hdf5 entry
+                del hdf5_file[self.id]
+                raise
 
     def write_as_grid_to_hdf5(self, hdf5_path: str, settings: GridSettings, method: MapMethod) -> str:
 

@@ -228,18 +228,22 @@ class Grid:
             # create a group to hold everything
             grid_group = hdf5_file.require_group(self.id)
 
-            # store grid points
-            points_group = grid_group.create_group(HDF5KEY_GRID_POINTS)
-            points_group.create_dataset(HDF5KEY_GRID_X, data=self.xs)
-            points_group.create_dataset(HDF5KEY_GRID_Y, data=self.ys)
-            points_group.create_dataset(HDF5KEY_GRID_Z, data=self.zs)
-            points_group.create_dataset(HDF5KEY_GRID_CENTER, data=self.center)
+            try:
+                # store grid points
+                points_group = grid_group.create_group(HDF5KEY_GRID_POINTS)
+                points_group.create_dataset(HDF5KEY_GRID_X, data=self.xs)
+                points_group.create_dataset(HDF5KEY_GRID_Y, data=self.ys)
+                points_group.create_dataset(HDF5KEY_GRID_Z, data=self.zs)
+                points_group.create_dataset(HDF5KEY_GRID_CENTER, data=self.center)
 
-            # store grid features
-            features_group = grid_group.require_group(HDF5KEY_GRID_MAPPEDFEATURES)
-            for feature_name, feature_data in self.features.items():
+                # store grid features
+                features_group = grid_group.require_group(HDF5KEY_GRID_MAPPEDFEATURES)
+                for feature_name, feature_data in self.features.items():
 
-                feature_group = features_group.require_group(feature_name)
-                feature_group.create_dataset(HDF5KEY_GRID_MAPPEDFEATURESVALUE, data=feature_data, compression="lzf", chunks=True)
-
+                    feature_group = features_group.require_group(feature_name)
+                    feature_group.create_dataset(HDF5KEY_GRID_MAPPEDFEATURESVALUE, data=feature_data, compression="lzf", chunks=True)
+            except:
+                # do not leave behind a partly filled hdf5 entry
+                del hdf5_file[self.id]
+                raise
 
