@@ -82,13 +82,13 @@ def PreCluster(dataset, method):
         method_grp = clust_grp.create_group(method.lower())
 
         cluster = community_detection(
-            data.internal_edge_index, data.num_nodes, method=method)
+            data.edge_index, data.num_nodes, method=method)
         method_grp.create_dataset('depth_0', data=cluster)
 
         data = community_pooling(cluster, data)
 
         cluster = community_detection(
-            data.internal_edge_index, data.num_nodes, method=method)
+            data.edge_index, data.num_nodes, method=method)
         method_grp.create_dataset('depth_1', data=cluster)
 
         f5.close()
@@ -242,7 +242,7 @@ class HDF5DataSet(Dataset):
             mol (str): name of the molecule
 
         Returns:
-            Data object or None: torch_geometric Data object containing the node features, the internal and external edge features, the target and the xyz coordinates. Return None if features cannot be loaded.
+            Data object or None: torch_geometric Data object containing the node features, the edge features, the target and the xyz coordinates. Return None if features cannot be loaded.
         """
 
         with h5py.File(fname, 'r') as f5:
@@ -258,7 +258,7 @@ class HDF5DataSet(Dataset):
 
             x = torch.tensor(np.hstack(node_data), dtype=torch.float)
 
-            # index, we have to have all the edges i.e : (i,j) and (j,i)
+            # edge index, we have to have all the edges i.e : (i,j) and (j,i)
             if "edge_index" in grp:
                 ind = grp['edge_index'][()]
                 if ind.ndim == 2:
@@ -283,33 +283,6 @@ class HDF5DataSet(Dataset):
                 edge_attr = torch.tensor(edge_data, dtype=torch.float).contiguous()
             else:
                 edge_attr = torch.empty((edge_index.shape[1], 0), dtype=torch.float).contiguous()
-
-            # internal edges
-            if 'internal_edge_index' in grp:
-                ind = grp['internal_edge_index'][()]
-                if ind.ndim == 2:
-                    ind = np.vstack((ind, np.flip(ind, 1))).T
-                internal_edge_index = torch.tensor(
-                    ind, dtype=torch.long).contiguous()
-            else:
-                internal_edge_index = torch.empty((2, 0), dtype=torch.long)
-
-            # internal edge feature
-            internal_edge_data = ()
-            if self.edge_feature is not None and len(self.edge_feature) > 0 and \
-               "internal_edge_data" in grp:
-
-                for feat in self.edge_feature:
-                    vals = grp['internal_edge_data/'+feat][()]
-                    if vals.ndim == 1:
-                        vals = vals.reshape(-1, 1)
-                    internal_edge_data += (vals,)
-                internal_edge_data = np.hstack(internal_edge_data)
-                internal_edge_data = np.vstack((internal_edge_data, internal_edge_data))
-                internal_edge_data = self.edge_feature_transform(internal_edge_data)
-                internal_edge_attr = torch.tensor(internal_edge_data, dtype=torch.float).contiguous()
-            else:
-                internal_edge_attr = torch.empty((internal_edge_index.shape[1], 0), dtype=torch.float).contiguous()
 
             # target
             if self.target is None:
@@ -347,8 +320,6 @@ class HDF5DataSet(Dataset):
 
         # load
         data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
-        data.internal_edge_index = internal_edge_index
-        data.internal_edge_attr = internal_edge_attr
         data.cluster0 = cluster0
         data.cluster1 = cluster1
 

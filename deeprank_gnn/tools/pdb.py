@@ -86,12 +86,10 @@ def _to_atoms(atom_rows: numpy.ndarray, structure: Structure) -> List[Atom]:
 
     # Iterate over the atom output from pdb2sql
     for row in atom_rows:
-
         (
             x,
             y,
             z,
-            _,
             atom_name,
             altloc,
             occupancy,
@@ -101,6 +99,10 @@ def _to_atoms(atom_rows: numpy.ndarray, structure: Structure) -> List[Atom]:
             residue_name,
             insertion_code,
         ) = row
+
+        # Make sure not to take the same atom twice.
+        if altloc is not None and altloc != "" and altloc != "A":
+            continue
 
         # We use None to indicate that the residue has no insertion code.
         if insertion_code == "":
@@ -182,7 +184,7 @@ def get_residue_contact_pairs( # pylint: disable=too-many-locals
     residue_pairs = set([])
     for (residue_chain_id1, residue_number1, residue_name1), residue_keys2 in contact_residues.items():
 
-        residue1_atom_rows = pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode",
+        residue1_atom_rows = pdb.get("x,y,z,name,altLoc,occ,element,chainID,resSeq,resName,iCode",
                                      model=0,
                                      chainID=residue_chain_id1,
                                      resSeq=residue_number1,
@@ -198,7 +200,7 @@ def get_residue_contact_pairs( # pylint: disable=too-many-locals
 
         for residue_chain_id2, residue_number2, residue_name2 in residue_keys2:
 
-            residue2_atom_rows = pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode",
+            residue2_atom_rows = pdb.get("x,y,z,name,altLoc,occ,element,chainID,resSeq,resName,iCode",
                                          model=0,
                                          chainID=residue_chain_id2,
                                          resSeq=residue_number2,
@@ -233,7 +235,7 @@ def get_surrounding_residues(pdb_path: str, chain_id: str,
 
     pdb = pdb2sql(pdb_path)
 
-    structure_atom_rows = pdb.get("x,y,z,rowID,name,altLoc,occ,element,chainID,resSeq,resName,iCode", model=0)
+    structure_atom_rows = pdb.get("x,y,z,name,altLoc,occ,element,chainID,resSeq,resName,iCode", model=0)
     structure_atom_positions = [row[:3] for row in structure_atom_rows]
 
     # convert insertion code to pdb2sql's format
@@ -249,7 +251,9 @@ def get_surrounding_residues(pdb_path: str, chain_id: str,
                                      model=0)
 
     if len(residue_atom_positions) == 0:
-        raise ValueError("residue not found in {}: {} {}{}".format(pdb_path, chain_id, residue_number, insertion_code))
+        raise ValueError(
+            f"Not found: {pdb_path} {chain_id} {residue_number}{insertion_code}"
+        )
 
     distances = distance_matrix(structure_atom_positions, residue_atom_positions, p=2)
     neighbours = distances < radius

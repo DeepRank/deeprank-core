@@ -99,7 +99,6 @@ def test_variant_graph_101M():
     query = SingleResidueVariantAtomicQuery("tests/data/pdb/101M/101M.pdb", "A", 27, None, asparagine, phenylalanine,
                                             {"A": "tests/data/pssm/101M/101M.A.pdb.pssm"},
                                             targets={"bin_class": 0}, radius=5.0, external_distance_cutoff=5.0)
-
     # using a small cutoff here, because atomic graphs are big
 
     g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
@@ -140,6 +139,7 @@ def test_variant_graph_9API():
     query = SingleResidueVariantAtomicQuery("tests/data/pdb/9api/9api.pdb", "A", 310, None, lysine, glutamate,
                                             {"A": "tests/data/pssm/9api/9api.A.pdb.pssm", "B": "tests/data/pssm/9api/9api.B.pdb.pssm"},
                                             targets={"bin_class": 0}, external_distance_cutoff=5.0, radius=5.0)
+
     # using a small cutoff here, because atomic graphs are big
 
     g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
@@ -180,6 +180,16 @@ def test_variant_residue_graph_2y69():
                                               "G": "tests/data/pssm/2Y69/2y69.G.pdb.pssm",
                                               "N": "tests/data/pssm/2Y69/2y69.N.pdb.pssm"},
                                              targets={"bin_class": 0})
+
     g = query.build_graph([sasa, amino_acid, pssm, atomic_contact])
 
-
+    _check_graph_makes_sense(g,
+                             [FEATURENAME_POSITION,
+                              FEATURENAME_SASA,
+                              FEATURENAME_PSSM,
+                              FEATURENAME_AMINOACID,
+                              FEATURENAME_VARIANTAMINOACID,
+                              FEATURENAME_POLARITY],
+                             [FEATURENAME_EDGEDISTANCE,
+                              FEATURENAME_EDGECOULOMB,
+                              FEATURENAME_EDGEVANDERWAALS])

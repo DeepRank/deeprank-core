@@ -1,8 +1,9 @@
 from typing import List, Optional
 
 import numpy
-
 from enum import Enum
+from deeprank_gnn.models.amino_acid import AminoAcid
+from deeprank_gnn.models.pssm import PssmRow
 
 from deeprank_gnn.models.amino_acid import AminoAcid
 from deeprank_gnn.models.pssm import PssmRow
@@ -13,14 +14,14 @@ class Structure:
 
     def __init__(self, id_: Optional[str] = None):
         """
-            Args:
-                id_(str): an unique identifier for this structure, can be the pdb accession code.
+        Args:
+            id_(str): an unique identifier for this structure, can be the pdb accession code.
         """
         self._id = id_
         self._chains = {}
 
     def __eq__(self, other) -> bool:
-        return type(self) == type(other) and self._id == other._id
+        return isinstance(self, type(other)) and self._id == other._id
 
     def __hash__(self) -> hash:
         return hash(self._id)
@@ -36,7 +37,7 @@ class Structure:
 
     def add_chain(self, chain):
         if chain.id in self._chains:
-            raise ValueError("duplicate chain: {}".format(chain.id))
+            raise ValueError(f"duplicate chain: {chain.id}")
 
         self._chains[chain.id] = chain
 
@@ -97,20 +98,29 @@ class Chain:
         return self._residues
 
     def __eq__(self, other) -> bool:
-        return type(self) == type(other) and self._model == other._model and self._id == other._id
+        return (
+            isinstance(self, type(other))
+            and self._model == other._model
+            and self._id == other._id
+        )
 
     def __hash__(self) -> hash:
         return hash((self._model, self._id))
 
     def __repr__(self) -> str:
-        return "{} {}".format(self._model, self._id)
+        return f"{self._model} {self._id}"
 
 
 class Residue:
     "represents a pdb residue"
 
-    def __init__(self, chain: Chain, number: int, amino_acid: Optional[AminoAcid] = None,
-                 insertion_code: Optional[str] = None):
+    def __init__(
+        self,
+        chain: Chain,
+        number: int,
+        amino_acid: Optional[AminoAcid] = None,
+        insertion_code: Optional[str] = None,
+    ):
         """
         Args:
             chain(deeprank chain object): the chain that this residue belongs to
@@ -126,10 +136,12 @@ class Residue:
         self._atoms = []
 
     def __eq__(self, other) -> bool:
-        return type(self) == type(other) and \
-            self._chain == other._chain and \
-            self._number == other._number and \
-            self._insertion_code == other._insertion_code
+        return (
+            isinstance(self, type(other))
+            and self._chain == other._chain
+            and self._number == other._number
+            and self._insertion_code == other._insertion_code
+        )
 
     def __hash__(self) -> hash:
         return hash((self._chain, self._number, self._insertion_code))
@@ -141,7 +153,7 @@ class Residue:
 
         pssm = self._chain.pssm
         if pssm is None:
-            raise ValueError("pssm not set on {}".format(self._chain))
+            raise ValueError(f"pssm not set on {self._chain}")
 
         return pssm[self]
 
@@ -166,9 +178,9 @@ class Residue:
         "contains both the number and the insertion code (if any)"
 
         if self._insertion_code is not None:
-            return "{}{}".format(self._number, self._insertion_code)
-        else:
-            return str(self._number)
+            return f"{self._number}{self._insertion_code}"
+
+        return str(self._number)
 
     @property
     def insertion_code(self) -> str:
@@ -178,7 +190,7 @@ class Residue:
         self._atoms.append(atom)
 
     def __repr__(self) -> str:
-        return "{} {}".format(self._chain, self.number_string)
+        return f"{self._chain} {self.number_string}"
 
     @property
     def position(self) -> numpy.array:
@@ -189,7 +201,7 @@ class AtomicElement(Enum):
     "value to represent the type of pdb atoms"
 
     C = 1
-    O = 2
+    O = 2 # noqa: pycodestyle
     N = 3
     S = 4
     P = 5
@@ -205,14 +217,21 @@ class AtomicElement(Enum):
 class Atom:
     "represents a pdb atom"
 
-    def __init__(self, residue: Residue, name: str, element: AtomicElement, position: numpy.array, occupancy: float):
+    def __init__( # pylint: disable=too-many-arguments
+        self,
+        residue: Residue,
+        name: str,
+        element: AtomicElement,
+        position: numpy.array,
+        occupancy: float,
+    ):
         """
-            Args:
-                residue(deeprank residue object): the residue that this atom belongs to
-                name(str): pdb atom name
-                element(deeprank atomic element enumeration): the chemical element
-                position(numpy array of length 3): pdb position xyz of this atom
-                occupancy(float): pdb occupancy value
+        Args:
+            residue(deeprank residue object): the residue that this atom belongs to
+            name(str): pdb atom name
+            element(deeprank atomic element enumeration): the chemical element
+            position(numpy array of length 3): pdb position xyz of this atom
+            occupancy(float): pdb occupancy value
         """
         self._residue = residue
         self._name = name
@@ -221,15 +240,17 @@ class Atom:
         self._occupancy = occupancy
 
     def __eq__(self, other) -> bool:
-        return type(self) == type(other) and \
-            self._residue == other._residue and \
-            self._name == other._name
+        return (
+            isinstance(self, type(other))
+            and self._residue == other._residue
+            and self._name == other._name
+        )
 
     def __hash__(self) -> hash:
         return hash((self._residue, self._name))
 
     def __repr__(self) -> str:
-        return "{} {}".format(self._residue, self._name)
+        return f"{self._residue} {self._name}"
 
     def change_altloc(self, alternative_atom):
         "replace the atom's location by another atom's location"

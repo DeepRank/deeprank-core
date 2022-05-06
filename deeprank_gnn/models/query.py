@@ -12,9 +12,13 @@ from scipy.spatial import distance_matrix
 from deeprank_gnn.models.error import UnknownAtomError
 from deeprank_gnn.tools.pssm import parse_pssm
 from deeprank_gnn.tools import BioWrappers, BSA
-from deeprank_gnn.tools.pdb import (get_residue_contact_pairs, get_surrounding_residues,
-                                    add_hydrogens)
-from deeprank_gnn.models.graph import Graph, Edge, Node
+from ..tools.pdb import (
+    get_residue_contact_pairs,
+    get_surrounding_residues,
+    add_hydrogens,
+)
+from .graph import Graph, Edge, Node
+from .amino_acid import AminoAcid
 from deeprank_gnn.domain.feature import *
 from deeprank_gnn.domain.amino_acid import *
 from deeprank_gnn.domain.forcefield import atomic_forcefield
@@ -25,6 +29,7 @@ from deeprank_gnn.domain.feature import *
 from deeprank_gnn.models.structure import Residue, Atom, Structure
 from deeprank_gnn.tools.graph import build_residue_graph, build_atomic_graph
 from deeprank_gnn.models.variant import SingleResidueVariant
+from deeprank_gnn.tools.pssm import parse_pssm
 import deeprank_gnn.feature.amino_acid
 import deeprank_gnn.feature.atomic_contact
 import deeprank_gnn.feature.biopython
@@ -36,14 +41,13 @@ _log = logging.getLogger(__name__)
 
 
 class Query:
-    """ Represents one entity of interest, like a single residue variant or a protein-protein interface.
+    """Represents one entity of interest, like a single residue variant or a protein-protein interface.
 
-        Query objects are used to generate graphs from structures.
-        objects of this class should be created before any model is loaded
+    Query objects are used to generate graphs from structures.
+    objects of this class should be created before any model is loaded
     """
 
     def __init__(self, model_id: str, targets: Optional[Dict[str, float]] = None):
-
         """
             Args:
                 model_id: the id of the model to load, usually a pdb accession code
@@ -81,7 +85,7 @@ class Query:
         return self._targets
 
     def __repr__(self) -> str:
-        return "{}({})".format(type(self), self.get_query_id())
+        return f"{type(self)}({self.get_query_id()})"
 
 
 class SingleResidueVariantResidueQuery(Query):
@@ -130,12 +134,12 @@ class SingleResidueVariantResidueQuery(Query):
 
         if self._insertion_code is not None:
 
-            return "{}{}".format(self._residue_number, self._insertion_code)
+            return f"{self._residue_number}{self._insertion_code}"
         else:
             return str(self._residue_number)
 
     def get_query_id(self) -> str:
-        return "residue-graph-{}:{}:{}:{}->{}".format(self.model_id, self._chain_id, self.residue_id, self._wildtype_amino_acid.name, self._variant_amino_acid.name)
+        return f"residue-graph-{self.model_id}:{self._chain_id}:{self.residue_id}:{self._wildtype_amino_acid.name}->{self._variant_amino_acid.name}"
 
     def build_graph(self, feature_modules: List) -> Graph:
         """ Builds the graph from the pdb structure.
@@ -156,11 +160,16 @@ class SingleResidueVariantResidueQuery(Query):
         # find the variant residue
         variant_residue = None
         for residue in residues:
-            if residue.chain.id == self._chain_id and residue.number == self._residue_number and residue.insertion_code == self._insertion_code:
+            if (residue.chain.id == self._chain_id
+                and residue.number == self._residue_number
+                and residue.insertion_code == self._insertion_code):
+
                 variant_residue = residue
                 break
         else:
-            raise ValueError("Residue {}:{} not found in {}".format(self._chain_id, self.residue_id, self._pdb_path))
+            raise ValueError(
+                "Residue not found in {self._pdb_path}: {self._chain_id} {self.residue_id}"
+            )
 
         atoms = set([])
         for residue in residues:
@@ -173,7 +182,9 @@ class SingleResidueVariantResidueQuery(Query):
         variant = SingleResidueVariant(variant_residue, self._variant_amino_acid)
 
         # build the graph
-        graph = build_residue_graph(residues, self.get_query_id(), self._external_distance_cutoff)
+        graph = build_residue_graph(
+            residues, self.get_query_id(), self._external_distance_cutoff
+        )
 
         # add data to the graph
         self._set_graph_targets(graph)
@@ -229,20 +240,33 @@ class SingleResidueVariantAtomicQuery(Query):
         "string representation of the residue number and insertion code"
 
         if self._insertion_code is not None:
-            return "{}{}".format(self._residue_number, self._insertion_code)
+            return f"{self._residue_number}{self._insertion_code}"
         else:
             return str(self._residue_number)
 
     def get_query_id(self) -> str:
-        return "{}:{}:{}:{}->{}".format(self.model_id, self._chain_id, self.residue_id, self._wildtype_amino_acid.name, self._variant_amino_acid.name)
+        return "{self.model_id,}:{self._chain_id}:{self.residue_id}:{self._wildtype_amino_acid.name}->{self._variant_amino_acid.name}"
 
     def __eq__(self, other) -> bool:
-        return type(self) == type(other) and self.model_id == other.model_id and \
-            self._chain_id == other._chain_id and self.residue_id == other.residue_id and \
-            self._wildtype_amino_acid == other._wildtype_amino_acid and self._variant_amino_acid == other._variant_amino_acid
+        return (
+            isinstance(self, type(other))
+            and self.model_id == other.model_id
+            and self._chain_id == other._chain_id
+            and self.residue_id == other.residue_id
+            and self._wildtype_amino_acid == other._wildtype_amino_acid
+            and self._variant_amino_acid == other._variant_amino_acid
+        )
 
     def __hash__(self) -> hash:
-        return hash((self.model_id, self._chain_id, self.residue_id, self._wildtype_amino_acid, self._variant_amino_acid))
+        return hash(
+            (
+                self.model_id,
+                self._chain_id,
+                self.residue_id,
+                self._wildtype_amino_acid,
+                self._variant_amino_acid,
+            )
+        )
 
     def build_graph(self, feature_modules: List) -> Graph:
         """ Builds the graph from the pdb structure.
@@ -263,13 +287,17 @@ class SingleResidueVariantAtomicQuery(Query):
         # find the variant residue
         variant_residue = None
         for residue in residues:
-            if residue.number == self._residue_number and residue.insertion_code == self._insertion_code:
+            if (residue.chain.id == self._chain_id
+                and residue.number == self._residue_number
+                and residue.insertion_code == self._insertion_code):
+
                 variant_residue = residue
                 break
 
         if variant_residue is None:
-            raise ValueError("Residue not found in {}: {} {}"
-                             .format(self._pdb_path, self._chain_id, self.residue_id))
+            raise ValueError(
+                "Residue not found in {self._pdb_path}: {self._chain_id} {self.residue_id}"
+            )
 
         # define the variant
         variant = SingleResidueVariant(variant_residue, self._variant_amino_acid)
@@ -283,7 +311,9 @@ class SingleResidueVariantAtomicQuery(Query):
         atoms = list(atoms)
 
         # build the graph
-        graph = build_atomic_graph(atoms, self.get_query_id(), self._external_distance_cutoff)
+        graph = build_atomic_graph(
+            atoms, self.get_query_id(), self._external_distance_cutoff
+        )
 
         # add data to the graph
         self._set_graph_targets(graph)
@@ -297,9 +327,15 @@ class SingleResidueVariantAtomicQuery(Query):
 class ProteinProteinInterfaceAtomicQuery(Query):
     "a query that builds atom-based graphs, using the residues at a protein-protein interface"
 
-    def __init__(self, pdb_path: str, chain_id1: str, chain_id2: str, pssm_paths: Optional[Dict[str, str]] = None,
-                 interface_distance_cutoff: Optional[float] = 8.5,
-                 targets: Optional[Dict[str, float]] = None):
+    def __init__(  # pylint: disable=too-many-arguments
+        self,
+        pdb_path: str,
+        chain_id1: str,
+        chain_id2: str,
+        pssm_paths: Optional[Dict[str, str]] = None,
+        interface_distance_cutoff: Optional[float] = 8.5,
+        targets: Optional[Dict[str, float]] = None,
+    ):
         """
             Args:
                 pdb_path(str): the path to the pdb file
@@ -324,11 +360,15 @@ class ProteinProteinInterfaceAtomicQuery(Query):
         self._interface_distance_cutoff = interface_distance_cutoff
 
     def get_query_id(self) -> str:
-        return "atom-ppi-{}:{}-{}".format(self.model_id, self._chain_id1, self._chain_id2)
+        return f"atom-ppi-{self.model_id}:{self._chain_id1}-{self._chain_id2}"
 
     def __eq__(self, other) -> bool:
-        return type(self) == type(other) and self.model_id == other.model_id and \
-            {self._chain_id1, self._chain_id2} == {other._chain_id1, other._chain_id2}
+        return (
+            isinstance(self, type(other))
+            and self.model_id == other.model_id
+            and {self._chain_id1, self._chain_id2}
+            == {other._chain_id1, other._chain_id2}
+        )
 
     def __hash__(self) -> hash:
         return hash((self.model_id, tuple(sorted([self._chain_id1, self._chain_id2]))))
@@ -340,9 +380,12 @@ class ProteinProteinInterfaceAtomicQuery(Query):
         """
 
         # get the contact residues
-        interface_pairs = get_residue_contact_pairs(self._pdb_path,
-                                                    self._chain_id1, self._chain_id2,
-                                                    self._interface_distance_cutoff)
+        interface_pairs = get_residue_contact_pairs(
+            self._pdb_path,
+            self._chain_id1,
+            self._chain_id2,
+            self._interface_distance_cutoff,
+        )
         if len(interface_pairs) == 0:
             raise ValueError("no interface residues found")
 
@@ -358,7 +401,9 @@ class ProteinProteinInterfaceAtomicQuery(Query):
             self._load_pssm(structure, self._pssm_paths)
 
         # build the graph
-        graph = build_atomic_graph(atoms_selected, self.get_query_id(), self._interface_distance_cutoff)
+        graph = build_atomic_graph(
+            atoms_selected, self.get_query_id(), self._interface_distance_cutoff
+        )
 
         # add data to the graph
         self._set_graph_targets(graph)
@@ -372,9 +417,15 @@ class ProteinProteinInterfaceAtomicQuery(Query):
 class ProteinProteinInterfaceResidueQuery(Query):
     "a query that builds residue-based graphs, using the residues at a protein-protein interface"
 
-    def __init__(self, pdb_path: str, chain_id1: str, chain_id2: str, pssm_paths: Optional[Dict[str, str]] = None,
-                 interface_distance_cutoff: float = 8.5,
-                 targets: Optional[Dict[str, float]] = None):
+    def __init__(  # pylint: disable=too-many-arguments
+        self,
+        pdb_path: str,
+        chain_id1: str,
+        chain_id2: str,
+        pssm_paths: Optional[Dict[str, str]] = None,
+        interface_distance_cutoff: float = 8.5,
+        targets: Optional[Dict[str, float]] = None,
+    ):
         """
             Args:
                 pdb_path(str): the path to the pdb file
@@ -399,11 +450,15 @@ class ProteinProteinInterfaceResidueQuery(Query):
         self._interface_distance_cutoff = interface_distance_cutoff
 
     def get_query_id(self) -> str:
-        return "residue-ppi-{}:{}-{}".format(self.model_id, self._chain_id1, self._chain_id2)
+        return f"residue-ppi-{self.model_id}:{self._chain_id1}-{self._chain_id2}"
 
     def __eq__(self, other) -> bool:
-        return type(self) == type(other) and self.model_id == other.model_id and \
-            {self._chain_id1, self._chain_id2} == {other._chain_id1, other._chain_id2}
+        return (
+            isinstance(self, type(other))
+            and self.model_id == other.model_id
+            and {self._chain_id1, self._chain_id2}
+            == {other._chain_id1, other._chain_id2}
+        )
 
     def __hash__(self) -> hash:
         return hash((self.model_id, tuple(sorted([self._chain_id1, self._chain_id2]))))
@@ -415,9 +470,12 @@ class ProteinProteinInterfaceResidueQuery(Query):
         """
 
         # get the contact residues
-        interface_pairs = get_residue_contact_pairs(self._pdb_path,
-                                                    self._chain_id1, self._chain_id2,
-                                                    self._interface_distance_cutoff)
+        interface_pairs = get_residue_contact_pairs(
+            self._pdb_path,
+            self._chain_id1,
+            self._chain_id2,
+            self._interface_distance_cutoff,
+        )
 
         if len(interface_pairs) == 0:
             raise ValueError("no interface residues found")
@@ -434,7 +492,9 @@ class ProteinProteinInterfaceResidueQuery(Query):
             self._load_pssm(structure, self._pssm_paths)
 
         # build the graph
-        graph = build_residue_graph(residues_selected, self.get_query_id(), self._interface_distance_cutoff)
+        graph = build_residue_graph(
+            residues_selected, self.get_query_id(), self._interface_distance_cutoff
+        )
 
         # add data to the graph
         self._set_graph_targets(graph)

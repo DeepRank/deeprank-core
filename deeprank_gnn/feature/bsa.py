@@ -28,14 +28,12 @@ def add_features(pdb_path: str, graph: Graph, *args, **kwargs):
                 sasa_chain_structures[chain_id] = freesasa.Structure()
 
             for atom in residue.atoms:
-
-                if atom.element != AtomicElement.H:
-                    sasa_chain_structures[chain_id].addAtom(f" {atom.element.name}", residue.amino_acid.three_letter_code,
-                                                            residue.number, residue.chain.id,
-                                                            atom.position[0], atom.position[1], atom.position[2])
-                    sasa_complete_structure.addAtom(f" {atom.element.name}", residue.amino_acid.three_letter_code,
-                                                    residue.number, residue.chain.id,
-                                                    atom.position[0], atom.position[1], atom.position[2])
+                sasa_chain_structures[chain_id].addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
+                                                        atom.residue.number, atom.residue.chain.id,
+                                                        atom.position[0], atom.position[1], atom.position[2])
+                sasa_complete_structure.addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
+                                                atom.residue.number, atom.residue.chain.id,
+                                                atom.position[0], atom.position[1], atom.position[2]) 
 
         elif type(node.id) == Atom:
             atom = node.id
@@ -44,12 +42,15 @@ def add_features(pdb_path: str, graph: Graph, *args, **kwargs):
             if chain_id not in sasa_chain_structures:
                 sasa_chain_structures[chain_id] = freesasa.Structure()
 
-            sasa_chain_structures[chain_id].addAtom(atom.name, residue.amino_acid.three_letter_code,
-                                                    residue.number, residue.chain.id,
+            sasa_chain_structures[chain_id].addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
+                                                    atom.residue.number, atom.residue.chain.id,
                                                     atom.position[0], atom.position[1], atom.position[2])
-            sasa_complete_structure.addAtom(atom.name, residue.amino_acid.three_letter_code,
-                                            residue.number, residue.chain.id,
+            sasa_complete_structure.addAtom(atom.name, atom.residue.amino_acid.three_letter_code,
+                                            atom.residue.number, atom.residue.chain.id,
                                             atom.position[0], atom.position[1], atom.position[2])
+
+            area_key = "atom"
+            selection = ('atom, (name %s) and (resi %s) and (chain %s)' % (atom.name, atom.residue.number_string, atom.residue.chain.id),)
         else:
             raise TypeError("Unexpected node type: {}".format(type(node.id)))
 

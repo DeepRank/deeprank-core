@@ -1,10 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 import numpy
 
-from deeprank_gnn.models.pair import Pair
-from deeprank_gnn.models.structure import Residue, Atom
-
+from .pair import Pair
+from .structure import Residue, Atom
 
 class Contact(Pair, ABC):
     pass
@@ -18,7 +17,7 @@ class ResidueContact(Contact):
         self._residue1 = residue1
         self._residue2 = residue2
 
-        Pair.__init__(self, residue1, residue2)
+        super().__init__(residue1, residue2)
 
     @property
     def residue1(self) -> Residue:
@@ -32,12 +31,16 @@ class ResidueContact(Contact):
 class AtomicContact(Contact):
     "A contact between two atoms from a structure"
 
-    def __init__(self, atom1: Atom, atom2: Atom):
+    def __init__(
+        self,
+        atom1: Atom,
+        atom2: Atom
+    ):
 
         self._atom1 = atom1
         self._atom2 = atom2
 
-        Pair.__init__(self, atom1, atom2)
+        super().__init__(atom1, atom2)
 
     @property
     def atom1(self) -> Atom:

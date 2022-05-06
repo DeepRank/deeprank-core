@@ -12,7 +12,6 @@ from deeprank_gnn.domain.feature import (FEATURENAME_AMINOACID, FEATURENAME_VARI
                                          FEATURENAME_HYDROGENBONDDONORS, FEATURENAME_HYDROGENBONDDONORSDIFFERENCE,
                                          FEATURENAME_HYDROGENBONDACCEPTORS, FEATURENAME_HYDROGENBONDACCEPTORSDIFFERENCE)
 
-
 _log = logging.getLogger(__name__)
 
 
@@ -41,8 +40,6 @@ def add_features(pdb_path: str, graph: Graph,
             variant = single_residue_variant.variant_amino_acid
 
             if residue == single_residue_variant.residue:
-
-                _log.debug(f"variant on {residue}: {wildtype} -> {variant}")
 
                 node.features[FEATURENAME_SIZEDIFFERENCE] = variant.size - wildtype.size
                 node.features[FEATURENAME_VARIANTAMINOACID] = variant.onehot

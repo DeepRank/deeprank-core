@@ -34,7 +34,8 @@ def test_preprocess():
             query = SingleResidueVariantResidueQuery(
                 str(PATH_TEST / "data/pdb/101M/101M.pdb"), "A", number, None,
                 alanine, phenylalanine,
-                pssm_paths={"A": str(PATH_TEST / "data/pssm/101M/101M.A.pdb.pssm")})
+                pssm_paths={"A": str(PATH_TEST / "data/pssm/101M/101M.A.pdb.pssm")}
+            )
             preprocessor.add_query(query)
             queries.append(query)
 

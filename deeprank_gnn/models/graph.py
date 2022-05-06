@@ -6,11 +6,17 @@ import logging
 import numpy
 import h5py
 
-from deeprank_gnn.models.structure import Atom, Residue
-from deeprank_gnn.models.contact import Contact
-from deeprank_gnn.models.grid import MapMethod, Grid, GridSettings
-from deeprank_gnn.domain.storage import *
-
+from .structure import Atom, Residue
+from .contact import Contact
+from .grid import MapMethod, Grid, GridSettings
+from ..domain.storage import (
+    HDF5KEY_GRAPH_SCORE,
+    HDF5KEY_GRAPH_NODENAMES,
+    HDF5KEY_GRAPH_NODEFEATURES,
+    HDF5KEY_GRAPH_EDGENAMES,
+    HDF5KEY_GRAPH_EDGEINDICES,
+    HDF5KEY_GRAPH_EDGEFEATURES
+    )
 
 _log = logging.getLogger(__name__)
 
@@ -20,7 +26,9 @@ class Edge:
         self.id = id_
         self.features = {}
 
-    def add_feature(self, feature_name: str, feature_function: Callable[[Contact], float]):
+    def add_feature(
+        self, feature_name: str, feature_function: Callable[[Contact], float]
+    ):
         feature_value = feature_function(self.id)
 
         self.features[feature_name] = feature_value
@@ -50,10 +58,10 @@ class NodeType(Enum):
 
 class Node:
     def __init__(self, id_: Union[Atom, Residue]):
-        if type(id_) == Atom:
+        if isinstance(id_, Atom):
             self._type = NodeType.ATOM
 
-        elif type(id_) == Residue:
+        elif isinstance(id_, Residue):
             self._type = NodeType.RESIDUE
         else:
             raise TypeError(type(id_))
@@ -75,12 +83,18 @@ class Node:
 
         return False
 
-    def add_feature(self, feature_name: str, feature_function: Callable[[Union[Atom, Residue]], numpy.ndarray]):
+    def add_feature(
+        self,
+        feature_name: str,
+        feature_function: Callable[[Union[Atom, Residue]], numpy.ndarray],
+    ):
         feature_value = feature_function(self.id)
 
         if len(feature_value.shape) != 1:
-            shape_s = 'x'.join(feature_value.shape)
-            raise ValueError(f"Expected a 1-dimensional array for feature {feature_name}, but got {shape_s}")
+            shape_s = "x".join(feature_value.shape)
+            raise ValueError(
+                f"Expected a 1-dimensional array for feature {feature_name}, but got {shape_s}"
+            )
 
         self.features[feature_name] = feature_value
 
@@ -109,7 +123,7 @@ class Graph:
         self._edges[edge.id] = edge
 
     def get_edge(self, id_: Contact) -> Edge:
-        return self._edges[edge.id]
+        return self._edges[id_]
 
     @property
     def nodes(self) -> List[Node]:
@@ -143,10 +157,10 @@ class Graph:
             for feature_name, feature_value in node.features.items():
                 grid.map_feature(node.position, feature_name, feature_value, method)
 
-    def write_to_hdf5(self, hdf5_path: str):
+    def write_to_hdf5(self, hdf5_path: str): # pylint: disable=too-many-locals
         "Write a featured graph to an hdf5 file, according to deeprank standards."
 
-        with h5py.File(hdf5_path, 'a') as hdf5_file:
+        with h5py.File(hdf5_path, "a") as hdf5_file:
 
             # create a group to hold everything
             graph_group = hdf5_file.require_group(self.id)
@@ -206,12 +220,14 @@ class Graph:
                 del hdf5_file[self.id]
                 raise
 
-    def write_as_grid_to_hdf5(self, hdf5_path: str, settings: GridSettings, method: MapMethod) -> str:
+    def write_as_grid_to_hdf5(
+        self, hdf5_path: str, settings: GridSettings, method: MapMethod
+    ) -> str:
 
         center = numpy.mean([node.position for node in self._nodes], axis=0)
         grid = Grid(self.id, settings, center)
 
         self.map_to_grid(grid, method)
-        grid.to_hdf5(hdf5_path)
+        grid.write_to_hdf5(hdf5_path)
 
         return hdf5_path
