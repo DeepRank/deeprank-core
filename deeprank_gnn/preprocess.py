@@ -11,8 +11,7 @@ from time import sleep
 
 import h5py
 
-from deeprank_gnn.domain.amino_acid import amino_acids
-from deeprank_gnn.models.query import Query
+from .models.query import Query
 
 
 _log = logging.getLogger(__name__)
@@ -135,6 +134,9 @@ class PreProcessor:
         "add a single graph building query"
 
         self._input_queue.put(query)
+        # Put an item into the queue.
+        # If the queue is full, wait until
+        # a free slot is available before adding the item.
 
     def add_queries(self, queries: List[Query]):
         "add multiple graph building queries"
