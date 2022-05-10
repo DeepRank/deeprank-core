@@ -296,6 +296,11 @@ class HDF5DataSet(Dataset):
             # positions
             pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
 
+            if 'node_of_interest' in grp:
+                node_of_interest_index = grp['node_of_interest'][()]
+            else:
+                node_of_interest_index = None
+
             # cluster
             cluster0 = None
             cluster1 = None
@@ -322,6 +327,7 @@ class HDF5DataSet(Dataset):
         data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
         data.cluster0 = cluster0
         data.cluster1 = cluster1
+        data.node_of_interest_index = node_of_interest_index
 
         # mol name
         data.mol = mol
