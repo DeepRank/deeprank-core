@@ -1,11 +1,9 @@
-import sys
-import os
-import torch
 import numpy as np
 
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_auc_score
+
 
 def get_binary(values, threshold, target):
     """
@@ -23,7 +21,7 @@ def get_binary(values, threshold, target):
     Returns:
         list: list of binary values
     """
-    inverse = ['fnat', 'bin_class']
+    inverse = ["fnat", "bin_class"]
     if target in inverse:
         values_binary = [1 if x > threshold else 0 for x in values]
     else:
@@ -32,7 +30,7 @@ def get_binary(values, threshold, target):
     return values_binary
 
 
-def get_comparison(prediction, ground_truth, binary=True, classes=[0, 1]):
+def get_comparison(prediction, ground_truth, binary=True, classes=None):
     """
     Computes the confusion matrix to get the number of:
 
@@ -52,6 +50,8 @@ def get_comparison(prediction, ground_truth, binary=True, classes=[0, 1]):
     Returns:
         int: false_positive, false_negative, true_positive, true_negative
     """
+    if classes is None:
+        classes = [0, 1]
     CM = confusion_matrix(ground_truth, prediction, labels=classes)
 
     false_positive = CM.sum(axis=0) - np.diag(CM)
@@ -59,16 +59,15 @@ def get_comparison(prediction, ground_truth, binary=True, classes=[0, 1]):
     true_positive = np.diag(CM)
     true_negative = CM.sum() - (false_positive + false_negative + true_positive)
 
-    if binary == True:
+    if binary:
         return false_positive[1], false_negative[1], true_positive[1], true_negative[1]
 
-    else:
-        return false_positive, false_negative, true_positive, true_negative
+
+    return false_positive, false_negative, true_positive, true_negative
 
 
-class Metrics(object):
-
-    def __init__(self, prediction, y, target, threshold=4, binary=True):
+class Metrics():
+    def __init__(self, prediction, y, target, threshold=4, binary=True): # noqa
         """
         Master class from which all metrics are computed
 
@@ -110,74 +109,84 @@ class Metrics(object):
         self.target = target
         self.threshold = threshold
 
-        print('Threshold set to {}'.format(self.threshold))
+        print(f"Threshold set to {self.threshold}")
 
-        if self.binary == True:
-            prediction_binary = get_binary(
-                self.prediction, self.threshold, self.target)
-            y_binary = get_binary(
-                self.y, self.threshold, self.target)
+        if self.binary:
+            prediction_binary = get_binary(self.prediction, self.threshold, self.target)
+            y_binary = get_binary(self.y, self.threshold, self.target)
             classes = [0, 1]
-            false_positive, false_negative, true_positive, true_negative = get_comparison(
-                prediction_binary, y_binary, self.binary, classes=classes)
+            (
+                false_positive,
+                false_negative,
+                true_positive,
+                true_negative,
+            ) = get_comparison(
+                prediction_binary, y_binary, self.binary, classes=classes
+            )
 
         else:
-            if target == 'capri_class':
+            if target == "capri_class":
                 classes = [1, 2, 3, 4, 5]
-            elif target == 'bin_class':
+            elif target == "bin_class":
                 classes = [0, 1]
             else:
-                raise ValueError('target must be capri_class on bin_class')
-            false_positive, false_negative, true_positive, true_negative = get_comparison(
-                self.prediction, self.y, self.binary, classes=classes)
+                raise ValueError("target must be capri_class on bin_class")
+            (
+                false_positive,
+                false_negative,
+                true_positive,
+                true_negative,
+            ) = get_comparison(self.prediction, self.y, self.binary, classes=classes)
 
         try:
             # Sensitivity, hit rate, recall, or true positive rate
-            self.sensitivity = true_positive/(true_positive+false_negative)
-        except:
+            self.sensitivity = true_positive / (true_positive + false_negative)
+        except BaseException:
             self.sensitivity = None
 
         try:
             # Specificity or true negative rate
-            self.specificity = true_negative/(true_negative+false_positive)
-        except:
+            self.specificity = true_negative / (true_negative + false_positive)
+        except BaseException:
             self.specificity = None
 
         try:
             # Precision or positive predictive value
-            self.precision = true_positive/(true_positive+false_positive)
-        except:
+            self.precision = true_positive / (true_positive + false_positive)
+        except BaseException:
             self.precision = None
 
         try:
             # Negative predictive value
-            self.NPV = true_negative/(true_negative+false_negative)
-        except:
+            self.NPV = true_negative / (true_negative + false_negative)
+        except BaseException:
             self.NPV = None
 
         try:
             # Fall out or false positive rate
-            self.FPR = false_positive/(false_positive+true_negative)
-        except:
+            self.FPR = false_positive / (false_positive + true_negative)
+        except BaseException:
             self.FPR = None
 
         try:
             # False negative rate
-            self.FNR = false_negative/(true_positive+false_negative)
-        except:
+            self.FNR = false_negative / (true_positive + false_negative)
+        except BaseException:
             self.FNR = None
 
         try:
             # False discovery rate
-            self.FDR = false_positive/(true_positive+false_positive)
-        except:
+            self.FDR = false_positive / (true_positive + false_positive)
+        except BaseException:
             self.FDR = None
 
-        self.accuracy = (true_positive+true_negative)/(true_positive+false_positive+false_negative+true_negative)
+        self.accuracy = (true_positive + true_negative) / (
+            true_positive + false_positive + false_negative + true_negative
+        )
 
         # regression metrics
         self.explained_variance = None
-        self.max_error =  None
+        self.max_error = None
         self.mean_abolute_error = None
         self.mean_squared_error = None
         self.root_mean_squared_error = None
@@ -185,36 +194,49 @@ class Metrics(object):
         self.median_squared_log_error = None
         self.r2_score = None
 
-        if target in ['fnat', 'irmsd', 'lrmsd']:
+        if target in ["fnat", "irmsd", "lrmsd"]:
 
             # Explained variance regression score function
-            self.explained_variance = metrics.explained_variance_score(self.y, self.prediction)
+            self.explained_variance = metrics.explained_variance_score(
+                self.y, self.prediction
+            )
 
             # Max_error metric calculates the maximum residual error
             self.max_error = metrics.max_error(self.y, self.prediction)
 
             # Mean absolute error regression loss
-            self.mean_absolute_error = metrics.mean_absolute_error(self.y, self.prediction)
+            self.mean_absolute_error = metrics.mean_absolute_error(
+                self.y, self.prediction
+            )
 
             # Mean squared error regression loss
-            self.mean_squared_error = metrics.mean_squared_error(self.y, self.prediction, squared = True)
+            self.mean_squared_error = metrics.mean_squared_error(
+                self.y, self.prediction, squared=True
+            )
 
             # Root mean squared error regression loss
-            self.root_mean_squared_error = metrics.mean_squared_error(self.y, self.prediction, squared = False)
+            self.root_mean_squared_error = metrics.mean_squared_error(
+                self.y, self.prediction, squared=False
+            )
 
             try:
                 # Mean squared logarithmic error regression loss
-                self.mean_squared_log_error = metrics.mean_squared_log_error(self.y, self.prediction)
+                self.mean_squared_log_error = metrics.mean_squared_log_error(
+                    self.y, self.prediction
+                )
             except ValueError:
-                print ("WARNING: Mean Squared Logarithmic Error cannot be used when "
-                            "targets contain negative values.")
+                print(
+                    "WARNING: Mean Squared Logarithmic Error cannot be used when "
+                    "targets contain negative values."
+                )
 
             # Median absolute error regression loss
-            self.median_squared_log_error = metrics.median_absolute_error(self.y, self.prediction)
+            self.median_squared_log_error = metrics.median_absolute_error(
+                self.y, self.prediction
+            )
 
             # R^2 (coefficient of determination) regression score function
             self.r2_score = metrics.r2_score(self.y, self.prediction)
-
 
     def format_score(self):
         """
@@ -229,15 +251,13 @@ class Metrics(object):
         """
         idx = np.argsort(self.prediction)
 
-        inverse = ['fnat', 'bin_class']
+        inverse = ["fnat", "bin_class"]
         if self.target in inverse:
             idx = idx[::-1]
 
-        ground_truth_bool = get_binary(
-            self.y, self.threshold, self.target)
+        ground_truth_bool = get_binary(self.y, self.threshold, self.target)
         ground_truth_bool = np.array(ground_truth_bool)
         return idx, ground_truth_bool
-
 
     def hitrate(self):
         """

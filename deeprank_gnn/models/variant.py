@@ -1,5 +1,4 @@
 
-
 from deeprank_gnn.models.amino_acid import AminoAcid
 from deeprank_gnn.models.structure import Residue
 

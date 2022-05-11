@@ -5,6 +5,7 @@ import numpy
 from .pair import Pair
 from .structure import Residue, Atom
 
+
 class Contact(Pair, ABC):
     pass
 

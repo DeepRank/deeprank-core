@@ -91,25 +91,31 @@ class Query:
 class SingleResidueVariantResidueQuery(Query):
     "creates a residue graph from a single residue variant in a pdb file"
 
-    def __init__(self,
-                 pdb_path: str, chain_id: str, residue_number: int, insertion_code: Optional[str],
-                 wildtype_amino_acid: AminoAcid, variant_amino_acid: AminoAcid,
-                 pssm_paths: Optional[Dict[str, str]] = None,
-                 radius: float = 10.0, external_distance_cutoff: float = 4.5,
-                 targets: Optional[Dict[str, float]] = None):
-
+    def __init__(  # pylint: disable=too-many-arguments
+        self,
+        pdb_path: str,
+        chain_id: str,
+        residue_number: int,
+        insertion_code: str,
+        wildtype_amino_acid: AminoAcid,
+        variant_amino_acid: AminoAcid,
+        pssm_paths: Optional[Dict[str, str]] = None,
+        radius: Optional[float] = 10.0,
+        external_distance_cutoff: Optional[float] = 4.5,
+        targets: Optional[Dict[str, float]] = None,
+    ):
         """
-            Args:
-                pdb_path(str): the path to the pdb file
-                chain_id(str): the pdb chain identifier of the variant residue
-                residue_number(int): the number of the variant residue
-                insertion_code(str): the insertion code of the variant residue, set to None if not applicable
-                wildtype_amino_acid(deeprank amino acid object): the wildtype amino acid
-                variant_amino_acid(deeprank amino acid object): the variant amino acid
-                pssm_paths(dict(str,str), optional): the paths to the pssm files, per chain identifier
-                radius(float): in Ångström, determines how many residues will be included in the graph
-                external_distance_cutoff(float): max distance in Ångström between a pair of atoms to consider them as an external edge in the graph
-                targets(dict(str,float)): named target values associated with this query
+        Args:
+            pdb_path(str): the path to the pdb file
+            chain_id(str): the pdb chain identifier of the variant residue
+            residue_number(int): the number of the variant residue
+            insertion_code(str): the insertion code of the variant residue, set to None if not applicable
+            wildtype_amino_acid(deeprank amino acid object): the wildtype amino acid
+            variant_amino_acid(deeprank amino acid object): the variant amino acid
+            pssm_paths(dict(str,str), optional): the paths to the pssm files, per chain identifier
+            radius(float): in Ångström, determines how many residues will be included in the graph
+            external_distance_cutoff(float): max distance in Ångström between a pair of atoms to consider them as an external edge in the graph
+            targets(dict(str,float)): named target values associated with this query
         """
 
         self._pdb_path = pdb_path

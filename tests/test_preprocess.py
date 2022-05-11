@@ -1,9 +1,7 @@
 from tempfile import mkdtemp
 from shutil import rmtree
 import os
-
 import h5py
-
 from deeprank_gnn.preprocess import PreProcessor
 from deeprank_gnn.models.query import SingleResidueVariantResidueQuery
 from deeprank_gnn.domain.amino_acid import alanine, phenylalanine
@@ -32,9 +30,13 @@ def test_preprocess():
         queries = []
         for number in range(1, count_queries + 1):
             query = SingleResidueVariantResidueQuery(
-                str(PATH_TEST / "data/pdb/101M/101M.pdb"), "A", number, None,
-                alanine, phenylalanine,
-                pssm_paths={"A": str(PATH_TEST / "data/pssm/101M/101M.A.pdb.pssm")}
+                str(PATH_TEST / "data/pdb/101M/101M.pdb"),
+                "A",
+                number,
+                None,
+                alanine,
+                phenylalanine,
+                pssm_paths={"A": str(PATH_TEST / "data/pssm/101M/101M.A.pdb.pssm")},
             )
             preprocessor.add_query(query)
             queries.append(query)
@@ -45,7 +47,7 @@ def test_preprocess():
 
         graph_names = []
         for path in preprocessor.output_paths:
-            with h5py.File(path, 'r') as f5:
+            with h5py.File(path, "r") as f5:
                 graph_names += list(f5.keys())
 
         for query in queries:

@@ -1,29 +1,26 @@
 import torch
 from torch.nn import Parameter
 import torch.nn.functional as F
-import torch.nn as nn
+from torch import nn
 
-from torch_scatter import scatter_add
 from torch_scatter import scatter_mean
-
-from torch_geometric.utils import remove_self_loops, add_self_loops, softmax
 
 # torch_geometric import
 from torch_geometric.nn.inits import uniform
 from torch_geometric.nn import max_pool_x
 
 # deeprank_gnn import
-from .community_pooling import get_preloaded_cluster, community_pooling
+from deeprank_gnn.community_pooling import get_preloaded_cluster, community_pooling
 
 
 class sGraphAttentionLayer(torch.nn.Module):
 
     """
     This is a new layer that is similar to the graph attention network but simpler
-    z_i =  1 / Ni \Sum_j a_ij * [x_i || x_j] * W + b_i
+    z_i =  1 / Ni \\Sum_j a_ij * [x_i || x_j] * W + b_i
     || is the concatenation operator: [1,2,3] || [4,5,6] = [1,2,3,4,5,6]
     Ni is the number of neighbor of node i
-    \Sum_j runs over the neighbors of node i
+    \\Sum_j runs over the neighbors of node i
     a_ij is the edge attribute between node i and j
     Args:
         in_channels (int): Size of each input sample.
@@ -32,25 +29,20 @@ class sGraphAttentionLayer(torch.nn.Module):
             an additive bias. (default: :obj:`True`)
     """
 
-    def __init__(self,
-                 in_channels,
-                 out_channels,
-                 bias=True,
-                 undirected=True):
+    def __init__(self, in_channels, out_channels, bias=True, undirected=True):
 
-        super(sGraphAttentionLayer, self).__init__()
+        super().__init__()
 
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.undirected = undirected
 
-        self.weight = Parameter(
-            torch.Tensor(2 * in_channels, out_channels))
+        self.weight = Parameter(torch.Tensor(2 * in_channels, out_channels))
 
         if bias:
             self.bias = Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
         self.reset_parameters()
 
@@ -63,8 +55,7 @@ class sGraphAttentionLayer(torch.nn.Module):
 
         row, col = edge_index
         num_node = len(x)
-        edge_attr = edge_attr.unsqueeze(
-            -1) if edge_attr.dim() == 1 else edge_attr
+        edge_attr = edge_attr.unsqueeze(-1) if edge_attr.dim() == 1 else edge_attr
 
         # create edge feature by concatenating node feature
         alpha = torch.cat([x[row], x[col]], dim=-1)
@@ -73,11 +64,10 @@ class sGraphAttentionLayer(torch.nn.Module):
         alpha = torch.mm(alpha, self.weight)
 
         # multiply each edge features with the corresponding dist
-        alpha = edge_attr*alpha
+        alpha = edge_attr * alpha
 
         # scatter the resulting edge feature to get node features
-        out = torch.zeros(
-            num_node, self.out_channels).to(alpha.device)
+        out = torch.zeros(num_node, self.out_channels).to(alpha.device)
         out = scatter_mean(alpha, row, dim=0, out=out)
 
         # if the graph is undirected and (i,j) and (j,i) are both in
@@ -93,15 +83,12 @@ class sGraphAttentionLayer(torch.nn.Module):
         return out
 
     def __repr__(self):
-        return '{}({}, {})'.format(self.__class__.__name__,
-                                   self.in_channels,
-                                   self.out_channels)
+        return f"{self.__class__.__name__}({self.in_channels}, {self.out_channels})"
 
 
 class sGAT(torch.nn.Module):
-
     def __init__(self, input_shape, output_shape=1, input_shape_edge=None):
-        super(sGAT, self).__init__()
+        super().__init__()
 
         self.conv1 = sGraphAttentionLayer(input_shape, 16)
         self.conv2 = sGraphAttentionLayer(16, 32)
@@ -109,23 +96,21 @@ class sGAT(torch.nn.Module):
         self.fc1 = torch.nn.Linear(32, 64)
         self.fc2 = torch.nn.Linear(64, output_shape)
 
-        self.clustering = 'mcl'
+        self.clustering = "mcl"
 
     def forward(self, data):
 
         act = nn.Tanhshrink()
         act = F.relu
-        #act = nn.LeakyReLU(0.25)
+        # act = nn.LeakyReLU(0.25)
 
         # first conv block
-        data.x = act(self.conv1(
-            data.x, data.edge_index, data.edge_attr))
+        data.x = act(self.conv1(data.x, data.edge_index, data.edge_attr))
         cluster = get_preloaded_cluster(data.cluster0, data.batch)
         data = community_pooling(cluster, data)
 
         # second conv block
-        data.x = act(self.conv2(
-            data.x, data.edge_index, data.edge_attr))
+        data.x = act(self.conv2(data.x, data.edge_index, data.edge_attr))
         cluster = get_preloaded_cluster(data.cluster1, data.batch)
         x, batch = max_pool_x(cluster, data.x, data.batch)
 
@@ -133,7 +118,7 @@ class sGAT(torch.nn.Module):
         x = scatter_mean(x, batch, dim=0)
         x = act(self.fc1(x))
         x = self.fc2(x)
-        #x = F.dropout(x, training=self.training)
+        # x = F.dropout(x, training=self.training)
 
         return x
         # return F.relu(x)

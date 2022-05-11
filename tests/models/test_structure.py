@@ -1,4 +1,4 @@
-import pickle
+# from deeprank_gnn.models.structure import AtomicElement
 
 from pdb2sql import pdb2sql
 

@@ -1,5 +1,5 @@
-from ..models.amino_acid import AminoAcid
-from ..models.polarity import Polarity
+from deeprank_gnn.models.amino_acid import AminoAcid
+from deeprank_gnn.models.polarity import Polarity
 
 # source for the number of hydrogen bond donors and acceptors:
 # https://bionumbers.hms.harvard.edu/files/Hydrogen%20bond%20donors%20and%20acceptors%20from%20amino%20acid%20residues.pdf

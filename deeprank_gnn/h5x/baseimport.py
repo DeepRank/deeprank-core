@@ -1,4 +1,4 @@
-from ..tools.visualization import hdf5_to_networkx, plotly_3d, plotly_2d
+from deeprank_gnn.tools.visualization import hdf5_to_networkx, plotly_3d, plotly_2d
 import plotly.offline as py
 
 def tsne_graph(grp, method):

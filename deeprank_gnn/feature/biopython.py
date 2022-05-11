@@ -1,9 +1,8 @@
-from typing import Dict, List, Optional
 import logging
 
 import numpy
 from Bio.PDB.PDBParser import PDBParser
-from Bio.PDB.ResidueDepth import ResidueDepth, get_surface, residue_depth
+from Bio.PDB.ResidueDepth import get_surface, residue_depth
 from Bio.PDB.HSExposure import HSExposureCA
 
 from deeprank_gnn.domain.feature import FEATURENAME_RESIDUEDEPTH, FEATURENAME_HALFSPHEREEXPOSURE
@@ -11,7 +10,7 @@ from deeprank_gnn.models.structure import Atom, Residue
 from deeprank_gnn.models.graph import Graph
 
 
-_log = logging.getLogger(__name__)
+logging.getLogger(__name__)
 
 
 def space_if_none(value):

@@ -5,13 +5,11 @@ import traceback
 from multiprocessing import Queue, Process, Pipe, cpu_count
 from queue import Empty as EmptyQueueError
 import logging
-import sys
 import os
 from time import sleep
 
 import h5py
 
-from deeprank_gnn.domain.amino_acid import amino_acids
 from deeprank_gnn.models.query import Query
 
 
@@ -19,7 +17,13 @@ _log = logging.getLogger(__name__)
 
 
 class _PreProcess(Process):
-    def __init__(self, input_queue: Queue, output_path: str, error_queue: Queue, feature_modules: List):
+    def __init__(
+        self,
+        input_queue: Queue,
+        output_path: str,
+        error_queue: Queue,
+        feature_modules: List,
+    ):
         Process.__init__(self)
         self.daemon = True
 
@@ -59,15 +63,17 @@ class _PreProcess(Process):
             try:
                 graph = query.build_graph(self._feature_modules)
                 if graph.has_nan():
-                    self._error_queue.put(f"skipping {query}, because of a generated NaN value in the graph")
+                    self._error_queue.put(
+                        f"skipping {query}, because of a generated NaN value in the graph"
+                    )
 
                 graph.write_to_hdf5(self._output_path)
-            except:
+            except BaseException:
                 self._error_queue.put(traceback.format_exc())
 
                 # Don't leave behind an unfinished hdf5 group.
                 if graph is not None:
-                    with h5py.File(self._output_path, 'a') as f5:
+                    with h5py.File(self._output_path, "a") as f5:
                         if graph.id in f5:
                             del f5[graph.id]
 
@@ -75,7 +81,12 @@ class _PreProcess(Process):
 class PreProcessor:
     "preprocesses a series of graph building operations (represented by queries)"
 
-    def __init__(self, feature_modules: List, prefix: Optional[str] = None, process_count: Optional[int] = None):
+    def __init__(
+        self,
+        feature_modules: List,
+        prefix: Optional[str] = None,
+        process_count: Optional[int] = None,
+    ):
         """
         Args:
             prefix: prefix for the output files, ./preprocessed-data- by default
@@ -92,13 +103,20 @@ class PreProcessor:
         if prefix is None:
             prefix = "preprocessed-data"
 
-        self._processes = [_PreProcess(self._input_queue, "{}-{}.hdf5".format(prefix, index), self._error_queue, feature_modules)
-                           for index in range(process_count)]
+        self._processes = [
+            _PreProcess(
+                self._input_queue,
+                f"{prefix}-{index}.hdf5",
+                self._error_queue,
+                feature_modules,
+            )
+            for index in range(process_count)
+        ]
 
     def start(self):
         "start the workers"
 
-        _log.info("starting {} worker processes".format(len(self._processes)))
+        _log.info("starting %d worker processes", len(self._processes))
         for process in self._processes:
             process.start()
             if not process.is_alive():
@@ -144,13 +162,16 @@ class PreProcessor:
 
     @property
     def output_paths(self) -> List[str]:
-        return [process.output_path for process in self._processes
-                if os.path.isfile(process.output_path)]
+        return [
+            process.output_path
+            for process in self._processes
+            if os.path.isfile(process.output_path)
+        ]
 
     def shutdown(self):
         "stop building graphs"
 
-        _log.info("shutting down {} worker processes..".format(len(self._processes)))
+        _log.info("shutting down %d worker processes..", len(self._processes))
 
         for process in self._processes:
             process.stop()
@@ -158,4 +179,3 @@ class PreProcessor:
     def __del__(self):
         # clean up all the created subprocesses
         self.shutdown()
-

@@ -1,4 +1,3 @@
-import numpy
 from pdb2sql import pdb2sql
 
 from deeprank_gnn.domain.forcefield import atomic_forcefield

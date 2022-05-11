@@ -1,22 +1,27 @@
 import tempfile
 import shutil
 import os
-
 import h5py
 from pdb2sql import pdb2sql
 import numpy
-
 from deeprank_gnn.models.grid import GridSettings, MapMethod
 from deeprank_gnn.models.graph import Graph, Edge, Node
 from deeprank_gnn.models.contact import ResidueContact
 from deeprank_gnn.tools.pdb import get_surrounding_residues
 from deeprank_gnn.domain.amino_acid import *
-from deeprank_gnn.domain.storage import *
+from deeprank_gnn.domain.storage import (
+    HDF5KEY_GRAPH_NODEFEATURES,
+    HDF5KEY_GRAPH_EDGEINDICES,
+    HDF5KEY_GRAPH_EDGEFEATURES,
+    HDF5KEY_GRID_MAPPEDFEATURES,
+    HDF5KEY_GRID_MAPPEDFEATURESVALUE
+
+)
 
 
-def test_graph_build_and_export():
-    """ Build a simple graph of two nodes and one edge in between them.
-        Test that the export methods can be called without failure.
+def test_graph_build_and_export(): # pylint: disable=too-many-locals
+    """Build a simple graph of two nodes and one edge in between them.
+    Test that the export methods can be called without failure.
     """
 
     entry_id = "test"
@@ -62,7 +67,7 @@ def test_graph_build_and_export():
         graph.write_as_grid_to_hdf5(hdf5_path, grid_settings, MapMethod.FAST_GAUSSIAN)
 
         # check the contents of the hdf5 file
-        with h5py.File(hdf5_path, 'r') as f5:
+        with h5py.File(hdf5_path, "r") as f5:
             entry_group = f5[entry_id]
 
             # check for graph values
@@ -86,7 +91,9 @@ def test_graph_build_and_export():
             for feature_name in (node_feature_name, edge_feature_name):
                 feature_name = f"{feature_name}_000"
 
-                assert feature_name in mapped_group, f"missing mapped feature {feature_name}"
+                assert (
+                    feature_name in mapped_group
+                ), f"missing mapped feature {feature_name}"
                 assert HDF5KEY_GRID_MAPPEDFEATURESVALUE in mapped_group[feature_name]
                 data = mapped_group[feature_name][HDF5KEY_GRID_MAPPEDFEATURESVALUE][()]
                 assert len(numpy.nonzero(data)) > 0, f"{feature_name}: all zero"

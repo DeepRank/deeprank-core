@@ -1,11 +1,10 @@
-from typing import List, Optional
+from typing import List
 import logging
 
 import numpy
 from scipy.spatial import distance_matrix
 
-from deeprank_gnn.models.variant import SingleResidueVariant
-from deeprank_gnn.models.structure import Structure, Atom
+from deeprank_gnn.models.structure import Atom
 from deeprank_gnn.models.graph import Graph, Edge
 from deeprank_gnn.models.contact import ResidueContact, AtomicContact
 from deeprank_gnn.domain.feature import (FEATURENAME_EDGEDISTANCE, FEATURENAME_EDGEVANDERWAALS,

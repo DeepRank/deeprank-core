@@ -1,9 +1,8 @@
-from typing import Dict, List, Optional
+from typing import List
 
 import numpy
 import freesasa
 
-from deeprank_gnn.models.variant import SingleResidueVariant
 from deeprank_gnn.models.structure import Residue, Atom
 from deeprank_gnn.models.graph import Node, Graph
 from deeprank_gnn.domain.feature import FEATURENAME_SASA

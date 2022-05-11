@@ -1,4 +1,3 @@
-
 # node features
 FEATURENAME_COVALENT = "covalent"
 FEATURENAME_POSITION = "pos"

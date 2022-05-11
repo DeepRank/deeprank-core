@@ -1,13 +1,19 @@
 import lzma
 import os
 import csv
-from typing import List, Tuple, Any
+from typing import List, Tuple, Any, Dict
 from math import sqrt
+import logging
+import random
 
+from matplotlib import pyplot
 from torch import argmax, tensor
 from torch.nn.functional import cross_entropy
 from torch.utils.tensorboard import SummaryWriter
 from sklearn.metrics import roc_auc_score
+
+
+_log = logging.getLogger(__name__)
 
 
 class MetricsExporter:
@@ -50,9 +56,17 @@ class MetricsExporterCollection:
 
 
 class TensorboardBinaryClassificationExporter(MetricsExporter):
-    "exports to tensorboard, works for binary classification only"
+    """ Exports to tensorboard, works for binary classification only.
 
-    def __init__(self, directory_path):
+        Currently outputs to tensorboard:
+         - Mathews Correlation Coefficient (MCC)
+         - Accuracy
+         - ROC area under the curve
+
+        Outputs are done per epoch.
+    """
+
+    def __init__(self, directory_path: str):
         self._directory_path = directory_path
         self._writer = SummaryWriter(log_dir=directory_path)
 
@@ -67,8 +81,8 @@ class TensorboardBinaryClassificationExporter(MetricsExporter):
                 entry_names: List[str], output_values: List[Any], target_values: List[Any]):
         "write to tensorboard"
 
-        loss = cross_entropy(tensor(output_values), tensor(target_values))
-        self._writer.add_scalar(f"{pass_name} loss", loss, epoch_number)
+        loss = cross_entropy(tensor(output_values), tensor(target_values)).item()
+        self._writer.add_scalar(f"{pass_name} cross entropy loss", loss, epoch_number)
 
         probabilities = []
         fp, fn, tp, tn = 0, 0, 0, 0
@@ -93,7 +107,7 @@ class TensorboardBinaryClassificationExporter(MetricsExporter):
 
         mcc_numerator = tn * tp - fp * fn
         if mcc_numerator == 0.0:
-             self._writer.add_scalar(f"{pass_name} MCC", 0.0, epoch_number)
+            self._writer.add_scalar(f"{pass_name} MCC", 0.0, epoch_number)
         else:
             mcc_denominator = sqrt((tn + fn) * (fp + tp) * (tn + fp) * (fn + tp))
 
@@ -104,14 +118,25 @@ class TensorboardBinaryClassificationExporter(MetricsExporter):
         accuracy = (tp + tn) / (tp + tn + fp + fn)
         self._writer.add_scalar(f"{pass_name} accuracy", accuracy, epoch_number)
 
-        roc_auc = roc_auc_score(target_values, probabilities)
-        self._writer.add_scalar(f"{pass_name} ROC AUC", roc_auc, epoch_number)
+        if len(set(target_values)) == 2:
+            roc_auc = roc_auc_score(target_values, probabilities)
+            self._writer.add_scalar(f"{pass_name} ROC AUC", roc_auc, epoch_number)
 
 
 class OutputExporter(MetricsExporter):
-    "a metrics exporter that writes output tables, containing every single data point"
+    """ A metrics exporter that writes CSV output tables, containing every single data point.
 
-    def __init__(self, directory_path):
+        Included are:
+            - entry names
+            - output values
+            - target values
+
+        The user can load these output tables in excel.
+
+        Outputs are done per epoch.
+    """
+
+    def __init__(self, directory_path: str):
         self._directory_path = directory_path
 
     def get_filename(self, pass_name, epoch_number):
@@ -122,8 +147,8 @@ class OutputExporter(MetricsExporter):
                 entry_names: List[str], output_values: List[Any], target_values: List[Any]):
         "write the output to the table"
 
-        with lzma.open(self.get_filename(pass_name, epoch_number), 'wt') as f:
-            w = csv.writer(f)
+        with lzma.open(self.get_filename(pass_name, epoch_number), 'wt', newline='\n') as f:
+            w = csv.writer(f, delimiter=',')
 
             w.writerow(["entry", "output", "target"])
 
@@ -132,3 +157,77 @@ class OutputExporter(MetricsExporter):
                 target_value = target_values[entry_index]
 
                 w.writerow([entry_name, str(output_value), str(target_value)])
+
+
+class ScatterPlotExporter(MetricsExporter):
+    """ A metrics exporter that ocasionally makes scatter plots, containing every single data point.
+
+        On the X-axis: targets values
+        On the Y-axis: output values
+    """
+
+    def __init__(self, directory_path: str, epoch_interval: int = 1):
+        """ Args:
+                directory_path: where to store the plots
+                epoch_interval: how often to make a plot, 5 means: every 5 epochs
+        """
+
+        self._epoch_interval = epoch_interval
+        self._directory_path = directory_path
+
+    def __enter__(self):
+        self._plot_data = {}
+        return self
+
+    def __exit__(self, exception_type, exception, traceback):
+        self._plot_data.clear()
+
+    def get_filename(self, epoch_number):
+        "returns the filename for the table"
+        return os.path.join(self._directory_path, f"scatter-{epoch_number}.png")
+
+    @staticmethod
+    def _get_color(pass_name):
+
+        pass_name = pass_name.lower().strip()
+
+        if pass_name in ("train", "training"):
+            return "blue"
+
+        elif pass_name in ("eval", "valid", "validation"):
+            return "red"
+
+        elif pass_name == ("test", "testing"):
+            return "green"
+        else:
+            return random.choice(["yellow", "cyan", "magenta"])
+
+
+    @staticmethod
+    def _plot(epoch_number: int, data: Dict[str, Tuple[List[float], List[float]]], png_path: str):
+
+        pyplot.title(f"Epoch {epoch_number}")
+
+        for pass_name, (truth_values, prediction_values) in data.items():
+            pyplot.scatter(truth_values, prediction_values, color=ScatterPlotExporter._get_color(pass_name), label=pass_name)
+
+        pyplot.xlabel("truth")
+        pyplot.ylabel("prediction")
+
+        pyplot.legend()
+        pyplot.savefig(png_path)
+        pyplot.close()
+
+    def process(self, pass_name: str, epoch_number: int,
+                entry_names: List[str], output_values: List[Any], target_values: List[Any]):
+        "make the plot, if the epoch matches with the interval"
+
+        if epoch_number % self._epoch_interval == 0:
+
+            if epoch_number not in self._plot_data:
+                self._plot_data[epoch_number] = {}
+
+            self._plot_data[epoch_number][pass_name] = (target_values, output_values)
+
+            path = self.get_filename(epoch_number)
+            self._plot(epoch_number, self._plot_data[epoch_number], path)

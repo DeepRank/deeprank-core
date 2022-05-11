@@ -20,8 +20,8 @@ def test_add_pssm():
         assert residue1 in chain1.pssm
         assert residue2 in chain2.pssm
 
-        assert type(chain1.pssm[residue1].information_content) == float
-        assert type(chain2.pssm[residue2].information_content) == float
+        assert isinstance(chain1.pssm[residue1].information_content, float)
+        assert isinstance(chain2.pssm[residue2].information_content, float)
 
-        assert type(chain1.pssm[residue1].conservations[alanine]) == float
-        assert type(chain2.pssm[residue2].conservations[alanine]) == float
+        assert isinstance(chain1.pssm[residue1].conservations[alanine], float)
+        assert isinstance(chain2.pssm[residue2].conservations[alanine], float)

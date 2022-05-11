@@ -1,10 +1,8 @@
 import re
 import logging
-
 from deeprank_gnn.models.forcefield.top import TopRowObject
 
-
-_log = logging.getLogger(__name__)
+logging.getLogger(__name__)
 
 
 class TopParser:

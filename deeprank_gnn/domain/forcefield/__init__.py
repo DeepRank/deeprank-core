@@ -1,15 +1,15 @@
 import os
 import logging
 import numpy
-from ...models.structure import Atom, Residue
-from ...models.forcefield.patch import PatchActionType
-from ...tools.forcefield.top import TopParser
-from ...tools.forcefield.patch import PatchParser
-from ...tools.forcefield.residue import ResidueClassParser
-from ...tools.forcefield.param import ParamParser
-from ...models.error import UnknownAtomError
+from deeprank_gnn.models.structure import Atom, Residue
+from deeprank_gnn.models.forcefield.patch import PatchActionType
+from deeprank_gnn.tools.forcefield.top import TopParser
+from deeprank_gnn.tools.forcefield.patch import PatchParser
+from deeprank_gnn.tools.forcefield.residue import ResidueClassParser
+from deeprank_gnn.tools.forcefield.param import ParamParser
+from deeprank_gnn.models.error import UnknownAtomError
 
-_log = logging.getLogger(__name__)
+logging.getLogger(__name__)
 
 
 _forcefield_directory_path = os.path.dirname(os.path.abspath(__file__))

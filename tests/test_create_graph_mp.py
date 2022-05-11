@@ -1,18 +1,16 @@
 import tempfile
 import shutil
 import os
-
 import unittest
 from deeprank_gnn.GraphGenMP import GraphHDF5
 
 
 class TestCreateGraph(unittest.TestCase):
-
     def setUp(self):
 
-        self.pdb_path = 'tests/data/pdb/3C8P/'
-        self.pssm_path = './tests/data/pssm/3C8P/'
-        self.ref = './tests/data/ref/3C8P/'
+        self.pdb_path = "tests/data/pdb/3C8P/"
+        self.pssm_path = "./tests/data/pssm/3C8P/"
+        self.ref = "./tests/data/ref/3C8P/"
 
         self._output_files = []
         self._work_directories = []
@@ -36,14 +34,24 @@ class TestCreateGraph(unittest.TestCase):
         return path
 
     def test_create_serial_with_bio(self):
-        GraphHDF5(pdb_path=self.pdb_path, ref_path=self.ref, pssm_path=self.pssm_path,
-                  graph_type='residue', outfile=self._make_output_file(),
-                  nproc=2, tmpdir=self._make_work_directory(), biopython=True)
+        GraphHDF5(
+            pdb_path=self.pdb_path,
+            ref_path=self.ref,
+            pssm_path=self.pssm_path,
+            outfile=self._make_output_file(),
+            nproc=2,
+            biopython=True,
+        )
 
     def test_create_serial(self):
-        GraphHDF5(pdb_path=self.pdb_path, ref_path=self.ref, pssm_path=self.pssm_path,
-                  graph_type='residue', outfile=self._make_output_file(),
-                  nproc=2, tmpdir=self._make_work_directory(), biopython=False)
+        GraphHDF5(
+            pdb_path=self.pdb_path,
+            ref_path=self.ref,
+            pssm_path=self.pssm_path,
+            outfile=self._make_output_file(),
+            nproc=2,
+            biopython=False,
+        )
 
 
 if __name__ == "__main__":

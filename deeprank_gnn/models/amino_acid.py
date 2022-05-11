@@ -1,6 +1,6 @@
 import numpy
 
-from .polarity import Polarity
+from deeprank_gnn.models.polarity import Polarity
 
 
 class AminoAcid:
