@@ -101,7 +101,7 @@ class NeuralNet(object):
             self.load_pretrained_model(database, Net)
 
         if metrics_exporters is not None:
-            self._metrics_exporters = metrics_exporters
+            self._metrics_exporters = MetricsExporterCollection(*metrics_exporters)
         else:
             self._metrics_exporters = MetricsExporterCollection()
 
