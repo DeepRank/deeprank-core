@@ -5,7 +5,9 @@
 - The Dutch National supercomputer hosted at SURF.
 - A cluster of heterogeneous nodes built by Lenovo, containing predominantly AMD technology.
 - Peak performance of 14 petaflop/s.
-- To login via the terminal: `ssh username@snellius.surf.nl`
+- To login via the terminal from a white-listed IP: `ssh user@snellius.surf.nl`
+- From abroad or not white-listed-IP, there is a separate login server: doornode.surfsara.nl (thus using `ssh user@doornode.surfsara.nl`). Use your usual login and password, and select 'Snellius'. Please note that you cannot copy files or use X11 when using the door node.
+- You can find the blocked ip-address when logging in to Snellius using `ssh -v [login]@snellius.surf.nl`
 - To go to shared 3dVac folder: `cd /projects/0/einf2380/`
 - The interactive nodes only accept (GSI-)ssh connections from known, white-listed IP, ranges.
 - type `accinfo` on terminal to get general infos.
