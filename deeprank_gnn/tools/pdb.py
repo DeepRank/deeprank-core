@@ -145,6 +145,25 @@ def _to_atoms(atom_rows: numpy.ndarray, structure: Structure) -> List[Atom]:
     return list(atoms)
 
 
+def get_structure(pdb, id_):
+    """Builds a structure from rows in a pdb file
+    Args:
+        pdb (pdb2sql object): the pdb structure that we're investigating
+        id (str): unique id for the pdb structure
+    Returns (Structure): the structure object, giving access to chains, residues, atoms
+    """
+
+    atom_rows = pdb.get(
+        "x,y,z,name,altLoc,occ,element,chainID,resSeq,resName,iCode", model=0
+    )
+
+    structure = Structure(id_)
+
+    _to_atoms(atom_rows, structure)
+
+    return structure
+
+
 def get_residue_contact_pairs( # pylint: disable=too-many-locals
     pdb_path: str,
     chain_id1: str,
