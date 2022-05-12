@@ -329,11 +329,6 @@ class HDF5DataSet(Dataset):
             else:
                 edge_index = torch.empty((2, 0), dtype=torch.long)
 
-            # edge feature (same issue as above)
-            edge_data = ()
-            if self.edge_feature is not None and len(self.edge_feature) > 0 and \
-               "edge_data" in grp:
-
             # internal edge feature (same issue as above)
             if self.edge_feature is not None and len(self.edge_feature) > 0 and \
                 "internal_edge_data" in grp:
