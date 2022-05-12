@@ -301,7 +301,7 @@ class HDF5DataSet(Dataset):
                     ind = np.vstack((ind, np.flip(ind, 1))).T
                 edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
             else:
-                edge_index = torch.empty((2, 0), dtype=torch.long)
+                edge_index = torch.empty((2, 0), dtype=torch.long).contiguous()
 
             # edge feature (same issue as above)
             if self.edge_feature is not None and len(self.edge_feature) > 0 and \
@@ -327,7 +327,7 @@ class HDF5DataSet(Dataset):
                     ind = np.vstack((ind, np.flip(ind, 1))).T
                 internal_edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
             else:
-                internal_edge_index = torch.empty((2, 0), dtype=torch.long)
+                internal_edge_index = torch.empty((2, 0), dtype=torch.long).contiguous()
 
             # internal edge feature (same issue as above)
             if self.edge_feature is not None and len(self.edge_feature) > 0 and \
