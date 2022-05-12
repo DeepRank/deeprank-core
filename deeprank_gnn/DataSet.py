@@ -325,9 +325,9 @@ class HDF5DataSet(Dataset):
                 ind = grp['internal_edge_index'][()]
                 if ind.ndim == 2:
                     ind = np.vstack((ind, np.flip(ind, 1))).T
-                edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
+                internal_edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
             else:
-                edge_index = torch.empty((2, 0), dtype=torch.long)
+                internal_edge_index = torch.empty((2, 0), dtype=torch.long)
 
             # internal edge feature (same issue as above)
             if self.edge_feature is not None and len(self.edge_feature) > 0 and \
@@ -396,8 +396,8 @@ class HDF5DataSet(Dataset):
         data.cluster0 = cluster0
         data.cluster1 = cluster1
 
-        data.cluster0 = cluster0
-        data.cluster1 = cluster1
+        data.internal_edge_index = internal_edge_index
+        data.internal_edge_attr = internal_edge_attr
 
         # mol name
         data.mol = mol
