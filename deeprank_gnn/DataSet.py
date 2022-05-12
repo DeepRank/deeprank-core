@@ -393,11 +393,11 @@ class HDF5DataSet(Dataset):
         # load
         data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
 
-        data.cluster0 = cluster0
-        data.cluster1 = cluster1
-
         data.internal_edge_index = internal_edge_index
         data.internal_edge_attr = internal_edge_attr
+
+        data.cluster0 = cluster0
+        data.cluster1 = cluster1
 
         # mol name
         data.mol = mol
