@@ -304,10 +304,10 @@ class HDF5DataSet(Dataset):
                 edge_index = torch.empty((2, 0), dtype=torch.long)
 
             # edge feature (same issue as above)
-            edge_data = ()
             if self.edge_feature is not None and len(self.edge_feature) > 0 and \
                "edge_data" in grp:
 
+                edge_data = ()
                 for feat in self.edge_feature:
                     vals = grp['edge_data/'+feat][()]
                     if vals.ndim == 1:
@@ -320,6 +320,37 @@ class HDF5DataSet(Dataset):
             else:
                 edge_attr = torch.empty((edge_index.shape[1], 0), dtype=torch.float).contiguous()
 
+            # internal edge index (same issue as above)
+            if "internal_edge_index" in grp:
+                ind = grp['internal_edge_index'][()]
+                if ind.ndim == 2:
+                    ind = np.vstack((ind, np.flip(ind, 1))).T
+                edge_index = torch.tensor(ind, dtype=torch.long).contiguous()
+            else:
+                edge_index = torch.empty((2, 0), dtype=torch.long)
+
+            # edge feature (same issue as above)
+            edge_data = ()
+            if self.edge_feature is not None and len(self.edge_feature) > 0 and \
+               "edge_data" in grp:
+
+            # internal edge feature (same issue as above)
+            if self.edge_feature is not None and len(self.edge_feature) > 0 and \
+                "internal_edge_data" in grp:
+
+                edge_data = ()
+                for feat in self.edge_feature:
+                    vals = grp['internal_edge_data/'+feat][()]
+                    if vals.ndim == 1:
+                        vals = vals.reshape(-1, 1)
+                    edge_data += (vals,)
+                edge_data = np.hstack(edge_data)
+                edge_data = np.vstack((edge_data, edge_data))
+                edge_data = self.edge_feature_transform(edge_data)
+                internal_edge_attr = torch.tensor(edge_data, dtype=torch.float).contiguous()
+            else:
+                internal_edge_attr = torch.empty((edge_index.shape[1], 0), dtype=torch.float).contiguous()
+
             # target
             if self.target is None:
                 y = None
@@ -331,11 +362,6 @@ class HDF5DataSet(Dataset):
 
             # positions
             pos = torch.tensor(grp['node_data/pos/'][()], dtype=torch.float).contiguous()
-
-            if 'node_of_interest' in grp:
-                node_of_interest_index = grp['node_of_interest'][()]
-            else:
-                node_of_interest_index = None
 
             # cluster
             cluster0 = None
@@ -371,6 +397,9 @@ class HDF5DataSet(Dataset):
 
         # load
         data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y, pos=pos)
+
+        data.cluster0 = cluster0
+        data.cluster1 = cluster1
 
         data.cluster0 = cluster0
         data.cluster1 = cluster1
