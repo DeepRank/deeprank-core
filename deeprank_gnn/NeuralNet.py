@@ -129,6 +129,15 @@ class NeuralNet():
         else:
             self._metrics_exporters = MetricsExporterCollection()
 
+    def _apply_clustering(self, dataset: HDF5DataSet):
+        if self.cluster_nodes is not None:
+            if self.cluster_nodes in ('mcl', 'louvain'):
+                PreCluster(dataset, method=self.cluster_nodes)
+            else:
+                raise ValueError(
+                    "Invalid node clustering method. \n\t"
+                    "Please set cluster_nodes to 'mcl', 'louvain' or None. Default to 'mcl' \n\t")
+
     def load_pretrained_model(self, database, Net):
         """
         Loads pretrained model
@@ -147,7 +156,7 @@ class NeuralNet():
             clustering_method=self.cluster_nodes,
         )
         self.test_loader = DataLoader(test_dataset)
-        PreCluster(test_dataset, method=self.cluster_nodes)
+        self._apply_clustering(test_dataset)
 
         print("Test set loaded")
         self.put_model_to_device(test_dataset, Net)
@@ -183,15 +192,7 @@ class NeuralNet():
             target=self.target,
             clustering_method=self.cluster_nodes,
         )
-
-        if self.cluster_nodes is not None:
-            if self.cluster_nodes in ('mcl', 'louvain'):
-                print("Loading clusters")
-                PreCluster(dataset, method=self.cluster_nodes)
-            else:
-                raise ValueError(
-                    "Invalid node clustering method. \n\t"
-                    "Please set cluster_nodes to 'mcl', 'louvain' or None. Default to 'mcl' \n\t")
+        self._apply_clustering(dataset)
 
         # divide the dataset
         train_dataset, valid_dataset = DivideDataSet(
@@ -221,10 +222,7 @@ class NeuralNet():
                 target=self.target,
                 clustering_method=self.cluster_nodes,
             )
-
-            if self.cluster_nodes in ('mcl', 'louvain'):
-                print("Loading clusters for the evaluation set.")
-                PreCluster(valid_dataset, method=self.cluster_nodes)
+            self._apply_clustering(valid_dataset)
 
             self.valid_loader = DataLoader(
                 valid_dataset, batch_size=self.batch_size, shuffle=self.shuffle
@@ -401,7 +399,7 @@ class NeuralNet():
                     target=self.target,
                     clustering_method=self.cluster_nodes)
 
-                PreCluster(test_dataset, method='mcl')
+                self._apply_clustering(test_dataset)
 
                 self.test_loader = DataLoader(test_dataset)
 
