@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="987px" preserveAspectRatio="none" style="width:513px;height:987px;background:#FFFFFF;" version="1.1" viewBox="0 0 513 987" width="513px" zoomAndPan="magnify"><defs/><g><!--MD5=[568d5275244cb385be0e693ac6bc45a2]
+class deeprank_gnn.DataSet.HDF5DataSet--><g id="elem_deeprank_gnn.DataSet.HDF5DataSet"><rect codeLine="2" fill="#F1F1F1" height="427.2305" id="deeprank_gnn.DataSet.HDF5DataSet" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="280" x="116.5" y="7"/><ellipse cx="131.5" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M133.9731,29.1431 Q133.3921,29.4419 132.7529,29.5913 Q132.1138,29.7407 131.4082,29.7407 Q128.9014,29.7407 127.5815,28.0889 Q126.2617,26.437 126.2617,23.3159 Q126.2617,20.1865 127.5815,18.5347 Q128.9014,16.8828 131.4082,16.8828 Q132.1138,16.8828 132.7612,17.0322 Q133.4087,17.1816 133.9731,17.4805 L133.9731,20.2031 Q133.3423,19.6221 132.7488,19.3523 Q132.1553,19.0825 131.5244,19.0825 Q130.1797,19.0825 129.4949,20.1492 Q128.8101,21.2158 128.8101,23.3159 Q128.8101,25.4077 129.4949,26.4744 Q130.1797,27.541 131.5244,27.541 Q132.1553,27.541 132.7488,27.2712 Q133.3423,27.0015 133.9731,26.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="248" x="145.5" y="28.291">deeprank_gnn.DataSet.HDF5DataSet</text><line style="stroke:#181818;stroke-width:0.5;" x1="117.5" x2="395.5" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="189" x="122.5" y="56.5352">available_edge_feature : list</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="190" x="122.5" y="73.0234">available_node_feature : list</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="158" x="122.5" y="89.5117">clustering_method : str</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="171" x="122.5" y="106">database : list, NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="145" x="122.5" y="122.4883">dict_filter : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199" x="122.5" y="138.9766">edge_feature : list, NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="122.5" y="155.4648">edge_feature_transform</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="122.5" y="171.9531">index : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="122.5" y="188.4414">index_complexes : list</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110" x="122.5" y="204.9297">index_train : list</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="121" x="122.5" y="221.418">node_feature : str</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28" x="122.5" y="237.9063">ntot</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="122.5" y="254.3945">ntrain</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="122.5" y="270.8828">target : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="122.5" y="287.3711">tqdm : bool</text><line style="stroke:#181818;stroke-width:0.5;" x1="117.5" x2="395.5" y1="294.3242" y2="294.3242"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="146" x="122.5" y="311.8594">check_edge_feature()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="122.5" y="328.3477">check_hdf5_files()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="122.5" y="344.8359">check_node_feature()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="122.5" y="361.3242">create_index_molecules()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="122.5" y="377.8125">filter(molgrp)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="71" x="122.5" y="394.3008">get(index)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="122.5" y="410.7891">len()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="198" x="122.5" y="427.2773">load_one_graph(fname, mol)</text></g><!--MD5=[c6d2bc84515172e100f6df50e7db8ed8]
+class torch.utils.data.dataset.Dataset--><g id="elem_torch.utils.data.dataset.Dataset"><rect codeLine="27" fill="#F1F1F1" height="48" id="torch.utils.data.dataset.Dataset" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="244" x="134.5" y="932"/><ellipse cx="149.5" cy="948" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M151.9731,954.1431 Q151.3921,954.4419 150.7529,954.5913 Q150.1138,954.7407 149.4082,954.7407 Q146.9014,954.7407 145.5815,953.0889 Q144.2617,951.437 144.2617,948.3159 Q144.2617,945.1865 145.5815,943.5347 Q146.9014,941.8828 149.4082,941.8828 Q150.1138,941.8828 150.7612,942.0322 Q151.4087,942.1816 151.9731,942.4805 L151.9731,945.2031 Q151.3423,944.6221 150.7488,944.3523 Q150.1553,944.0825 149.5244,944.0825 Q148.1797,944.0825 147.4949,945.1492 Q146.8101,946.2158 146.8101,948.3159 Q146.8101,950.4077 147.4949,951.4744 Q148.1797,952.541 149.5244,952.541 Q150.1553,952.541 150.7488,952.2712 Q151.3423,952.0015 151.9731,951.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="212" x="163.5" y="953.291">torch.utils.data.dataset.Dataset</text><line style="stroke:#181818;stroke-width:0.5;" x1="135.5" x2="377.5" y1="964" y2="964"/><line style="stroke:#181818;stroke-width:0.5;" x1="135.5" x2="377.5" y1="972" y2="972"/></g><!--MD5=[942d8c7baf367a37a6eba1c92f5b7d33]
+class torch_geometric.data.dataset.Dataset--><g id="elem_torch_geometric.data.dataset.Dataset"><rect codeLine="29" fill="#F1F1F1" height="377.7656" id="torch_geometric.data.dataset.Dataset" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="499" x="7" y="494"/><ellipse cx="124.75" cy="510" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M127.2231,516.1431 Q126.6421,516.4419 126.0029,516.5913 Q125.3638,516.7407 124.6582,516.7407 Q122.1514,516.7407 120.8315,515.0889 Q119.5117,513.437 119.5117,510.3159 Q119.5117,507.1865 120.8315,505.5347 Q122.1514,503.8828 124.6582,503.8828 Q125.3638,503.8828 126.0112,504.0322 Q126.6587,504.1816 127.2231,504.4805 L127.2231,507.2031 Q126.5923,506.6221 125.9988,506.3523 Q125.4053,506.0825 124.7744,506.0825 Q123.4297,506.0825 122.7449,507.1492 Q122.0601,508.2158 122.0601,510.3159 Q122.0601,512.4077 122.7449,513.4744 Q123.4297,514.541 124.7744,514.541 Q125.4053,514.541 125.9988,514.2712 Q126.5923,514.0015 127.2231,513.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="255" x="145.25" y="515.291">torch_geometric.data.dataset.Dataset</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="505" y1="526" y2="526"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135" x="13" y="543.5352">num_edge_features</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94" x="13" y="560.0234">num_features</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="13" y="576.5117">num_node_features</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="198" x="13" y="593">pre_filter : Optional[Callable]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="234" x="13" y="609.4883">pre_transform : Optional[Callable]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="13" y="625.9766">processed_dir</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="150" x="13" y="642.4648">processed_file_names</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="13" y="658.9531">processed_paths</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="13" y="675.4414">raw_dir</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105" x="13" y="691.9297">raw_file_names</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="13" y="708.418">raw_paths</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128" x="13" y="724.9063">root : Optional[str]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="204" x="13" y="741.3945">transform : Optional[Callable]</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="505" y1="748.3477" y2="748.3477"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="13" y="765.8828">download()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138" x="13" y="782.3711">get(idx: int) -&gt; Data</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="281" x="13" y="798.8594">index_select(idx: IndexType) -&gt; 'Dataset'</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="151" x="13" y="815.3477">indices() -&gt; Sequence</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="13" y="831.8359">len() -&gt; int</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="13" y="848.3242">process()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="487" x="13" y="864.8125">shuffle(return_perm: bool) -&gt; Union['Dataset', Tuple['Dataset', Tensor]]</text></g><!--MD5=[2c1435254e9c766aae795c75efccff65]
+link deeprank_gnn.DataSet.HDF5DataSet to torch_geometric.data.dataset.Dataset--><g id="link_deeprank_gnn.DataSet.HDF5DataSet_torch_geometric.data.dataset.Dataset"><path codeLine="51" d="M256.5,434.23 C256.5,447.29 256.5,460.44 256.5,473.49 " fill="none" id="deeprank_gnn.DataSet.HDF5DataSet-to-torch_geometric.data.dataset.Dataset" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="263.5,473.89,256.5,493.89,249.5,473.89,263.5,473.89" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f56e3b498910e0c11ec21c1001431b81]
+link torch_geometric.data.dataset.Dataset to torch.utils.data.dataset.Dataset--><g id="link_torch_geometric.data.dataset.Dataset_torch.utils.data.dataset.Dataset"><path codeLine="52" d="M256.5,872.22 C256.5,886.64 256.5,900.11 256.5,911.83 " fill="none" id="torch_geometric.data.dataset.Dataset-to-torch.utils.data.dataset.Dataset" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="263.5,911.99,256.5,931.99,249.5,911.99,263.5,911.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f71aa3e7d898d6faa3823e36ecaf8790]
+@startuml deeprank_gnn.DataSet.HDF5DataSet
+set namespaceSeparator none
+class "deeprank_gnn.DataSet.HDF5DataSet" as deeprank_gnn.DataSet.HDF5DataSet {
+  available_edge_feature : list
+  available_node_feature : list
+  clustering_method : str
+  database : list, NoneType
+  dict_filter : NoneType
+  edge_feature : list, NoneType
+  edge_feature_transform
+  index : NoneType
+  index_complexes : list
+  index_train : list
+  node_feature : str
+  ntot
+  ntrain
+  target : NoneType
+  tqdm : bool
+  check_edge_feature()
+  check_hdf5_files()
+  check_node_feature()
+  create_index_molecules()
+  filter(molgrp)
+  get(index)
+  len()
+  load_one_graph(fname, mol)
+}
+class "torch.utils.data.dataset.Dataset" as torch.utils.data.dataset.Dataset {
+}
+class "torch_geometric.data.dataset.Dataset" as torch_geometric.data.dataset.Dataset {
+  num_edge_features
+  num_features
+  num_node_features
+  pre_filter : Optional[Callable]
+  pre_transform : Optional[Callable]
+  processed_dir
+  processed_file_names
+  processed_paths
+  raw_dir
+  raw_file_names
+  raw_paths
+  root : Optional[str]
+  transform : Optional[Callable]
+  download()
+  get(idx: int) -> Data
+  index_select(idx: IndexType) -> 'Dataset'
+  indices() -> Sequence
+  len() -> int
+  process()
+  shuffle(return_perm: bool) -> Union['Dataset', Tuple['Dataset', Tensor]]
+}
+deeprank_gnn.DataSet.HDF5DataSet - -|> torch_geometric.data.dataset.Dataset
+torch_geometric.data.dataset.Dataset - -|> torch.utils.data.dataset.Dataset
+@enduml
+
+PlantUML version 1.2022.5(Sat Apr 30 12:55:52 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NL
+--></g></svg>

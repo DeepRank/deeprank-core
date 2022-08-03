@@ -362,6 +362,7 @@ def get_surrounding_residues(structure, residue, radius):
     distances = distance_matrix(structure_atom_positions, residue_atom_positions, p=2)
 
     close_residues = set([])
+
     for structure_atom_index, structure_atom in enumerate(structure_atoms):
 
         shortest_distance = numpy.min(distances[structure_atom_index, :])

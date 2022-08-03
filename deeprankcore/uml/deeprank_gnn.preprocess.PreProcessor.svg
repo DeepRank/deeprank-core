@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="450px" preserveAspectRatio="none" style="width:318px;height:450px;background:#FFFFFF;" version="1.1" viewBox="0 0 318 450" width="318px" zoomAndPan="magnify"><defs/><g><!--MD5=[9d9b53b731b3d61c70cdda9e20a5a81b]
+class deeprank_gnn.preprocess.PreProcessor--><g id="elem_deeprank_gnn.preprocess.PreProcessor"><rect codeLine="2" fill="#F1F1F1" height="146.9297" id="deeprank_gnn.preprocess.PreProcessor" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="304" x="7" y="297"/><ellipse cx="22" cy="313" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M24.4731,319.1431 Q23.8921,319.4419 23.2529,319.5913 Q22.6138,319.7407 21.9082,319.7407 Q19.4014,319.7407 18.0815,318.0889 Q16.7617,316.437 16.7617,313.3159 Q16.7617,310.1865 18.0815,308.5347 Q19.4014,306.8828 21.9082,306.8828 Q22.6138,306.8828 23.2612,307.0322 Q23.9087,307.1816 24.4731,307.4805 L24.4731,310.2031 Q23.8423,309.6221 23.2488,309.3523 Q22.6553,309.0825 22.0244,309.0825 Q20.6797,309.0825 19.9949,310.1492 Q19.3101,311.2158 19.3101,313.3159 Q19.3101,315.4077 19.9949,316.4744 Q20.6797,317.541 22.0244,317.541 Q22.6553,317.541 23.2488,317.2712 Q23.8423,317.0015 24.4731,316.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="272" x="36" y="318.291">deeprank_gnn.preprocess.PreProcessor</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="310" y1="329" y2="329"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91" x="13" y="346.5352">output_paths</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="310" y1="353.4883" y2="353.4883"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="227" x="13" y="371.0234">add_queries(queries: List[Query])</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="170" x="13" y="387.5117">add_query(query: Query)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="13" y="404">shutdown()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="13" y="420.4883">start()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="13" y="436.9766">wait()</text></g><!--MD5=[117d4c8d412aa616c72f6a8e3f4d63a1]
+class multiprocessing.queues.Queue--><g id="elem_multiprocessing.queues.Queue"><rect codeLine="10" fill="#F1F1F1" height="212.8828" id="multiprocessing.queues.Queue" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="245" x="36.5" y="7"/><ellipse cx="51.5" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M53.9731,29.1431 Q53.3921,29.4419 52.7529,29.5913 Q52.1138,29.7407 51.4082,29.7407 Q48.9014,29.7407 47.5815,28.0889 Q46.2617,26.437 46.2617,23.3159 Q46.2617,20.1865 47.5815,18.5347 Q48.9014,16.8828 51.4082,16.8828 Q52.1138,16.8828 52.7612,17.0322 Q53.4087,17.1816 53.9731,17.4805 L53.9731,20.2031 Q53.3423,19.6221 52.7488,19.3523 Q52.1553,19.0825 51.5244,19.0825 Q50.1797,19.0825 49.4949,20.1492 Q48.8101,21.2158 48.8101,23.3159 Q48.8101,25.4077 49.4949,26.4744 Q50.1797,27.541 51.5244,27.541 Q52.1553,27.541 52.7488,27.2712 Q53.3423,27.0015 53.9731,26.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="213" x="65.5" y="28.291">multiprocessing.queues.Queue</text><line style="stroke:#181818;stroke-width:0.5;" x1="37.5" x2="280.5" y1="39" y2="39"/><line style="stroke:#181818;stroke-width:0.5;" x1="37.5" x2="280.5" y1="47" y2="47"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138" x="42.5" y="64.5352">cancel_join_thread()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="42.5" y="81.0234">close()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52" x="42.5" y="97.5117">empty()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="42.5" y="114">full()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130" x="42.5" y="130.4883">get(block, timeout)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="42.5" y="146.9766">get_nowait()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88" x="42.5" y="163.4648">join_thread()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161" x="42.5" y="179.9531">put(obj, block, timeout)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="42.5" y="196.4414">put_nowait(obj)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="42.5" y="212.9297">qsize()</text></g><!--MD5=[2048c4667cca336304fda0fe32c87a71]
+link multiprocessing.queues.Queue to deeprank_gnn.preprocess.PreProcessor--><g id="link_multiprocessing.queues.Queue_deeprank_gnn.preprocess.PreProcessor"><path codeLine="22" d="M92.65,220.34 C89.03,235.77 88.48,251.64 93,267 C94.77,273.03 97.02,279.04 99.61,284.95 " fill="none" id="multiprocessing.queues.Queue-to-deeprank_gnn.preprocess.PreProcessor" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="105.37,296.92,106.3769,289.7795,100.1729,286.1038,99.1661,293.2442,105.37,296.92" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="85" x="94" y="263.5684">_input_queue</text></g><!--MD5=[2048c4667cca336304fda0fe32c87a71]
+link multiprocessing.queues.Queue to deeprank_gnn.preprocess.PreProcessor--><g id="link_multiprocessing.queues.Queue_deeprank_gnn.preprocess.PreProcessor"><path codeLine="23" d="M184.14,220.16 C185.6,235.83 185.82,251.82 184,267 C183.34,272.47 182.49,278.08 181.51,283.7 " fill="none" id="multiprocessing.queues.Queue-to-deeprank_gnn.preprocess.PreProcessor-1" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="178.99,296.82,184.046,291.6783,181.2444,285.0337,176.1884,290.1754,178.99,296.82" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="82" x="186" y="263.5684">_error_queue</text></g><!--MD5=[b53c8008c1acf65a87037bc52ecb9599]
+@startuml deeprank_gnn.preprocess.PreProcessor
+set namespaceSeparator none
+class "deeprank_gnn.preprocess.PreProcessor" as deeprank_gnn.preprocess.PreProcessor {
+  output_paths
+  add_queries(queries: List[Query])
+  add_query(query: Query)
+  shutdown()
+  start()
+  wait()
+}
+class "multiprocessing.queues.Queue" as multiprocessing.queues.Queue {
+  cancel_join_thread()
+  close()
+  empty()
+  full()
+  get(block, timeout)
+  get_nowait()
+  join_thread()
+  put(obj, block, timeout)
+  put_nowait(obj)
+  qsize()
+}
+multiprocessing.queues.Queue - -* deeprank_gnn.preprocess.PreProcessor : _input_queue
+multiprocessing.queues.Queue - -* deeprank_gnn.preprocess.PreProcessor : _error_queue
+@enduml
+
+PlantUML version 1.2022.5(Sat Apr 30 12:55:52 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NL
+--></g></svg>

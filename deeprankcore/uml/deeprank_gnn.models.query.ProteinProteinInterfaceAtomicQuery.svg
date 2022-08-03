@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="235px" preserveAspectRatio="none" style="width:493px;height:235px;background:#FFFFFF;" version="1.1" viewBox="0 0 493 235" width="493px" zoomAndPan="magnify"><defs/><g><!--MD5=[8002247986bfc4703a1ec204c628909c]
+class deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery--><g id="elem_deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery"><rect codeLine="2" fill="#F1F1F1" height="80.9766" id="deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="479" x="7" y="7"/><ellipse cx="22" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M24.4731,29.1431 Q23.8921,29.4419 23.2529,29.5913 Q22.6138,29.7407 21.9082,29.7407 Q19.4014,29.7407 18.0815,28.0889 Q16.7617,26.437 16.7617,23.3159 Q16.7617,20.1865 18.0815,18.5347 Q19.4014,16.8828 21.9082,16.8828 Q22.6138,16.8828 23.2612,17.0322 Q23.9087,17.1816 24.4731,17.4805 L24.4731,20.2031 Q23.8423,19.6221 23.2488,19.3523 Q22.6553,19.0825 22.0244,19.0825 Q20.6797,19.0825 19.9949,20.1492 Q19.3101,21.2158 19.3101,23.3159 Q19.3101,25.4077 19.9949,26.4744 Q20.6797,27.541 22.0244,27.541 Q22.6553,27.541 23.2488,27.2712 Q23.8423,27.0015 24.4731,26.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="447" x="36" y="28.291">deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="485" y1="39" y2="39"/><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="485" y1="47" y2="47"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="308" x="13" y="64.5352">build_graph(feature_modules: List) -&gt; Graph</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143" x="13" y="81.0234">get_query_id() -&gt; str</text></g><!--MD5=[3b91110f27b993f51136ac4ac8378e84]
+class deeprank_gnn.models.query.Query--><g id="elem_deeprank_gnn.models.query.Query"><rect codeLine="6" fill="#F1F1F1" height="80.9766" id="deeprank_gnn.models.query.Query" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="273" x="110" y="148"/><ellipse cx="125" cy="164" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M127.4731,170.1431 Q126.8921,170.4419 126.2529,170.5913 Q125.6138,170.7407 124.9082,170.7407 Q122.4014,170.7407 121.0815,169.0889 Q119.7617,167.437 119.7617,164.3159 Q119.7617,161.1865 121.0815,159.5347 Q122.4014,157.8828 124.9082,157.8828 Q125.6138,157.8828 126.2612,158.0322 Q126.9087,158.1816 127.4731,158.4805 L127.4731,161.2031 Q126.8423,160.6221 126.2488,160.3523 Q125.6553,160.0825 125.0244,160.0825 Q123.6797,160.0825 122.9949,161.1492 Q122.3101,162.2158 122.3101,164.3159 Q122.3101,166.4077 122.9949,167.4744 Q123.6797,168.541 125.0244,168.541 Q125.6553,168.541 126.2488,168.2712 Q126.8423,168.0015 127.4731,167.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="241" x="139" y="169.291">deeprank_gnn.models.query.Query</text><line style="stroke:#181818;stroke-width:0.5;" x1="111" x2="382" y1="180" y2="180"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="116" y="197.5352">model_id</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="116" y="214.0234">targets</text><line style="stroke:#181818;stroke-width:0.5;" x1="111" x2="382" y1="220.9766" y2="220.9766"/></g><!--MD5=[6ec2cb575f9b02ab0c8fed5d2fb385b6]
+link deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery to deeprank_gnn.models.query.Query--><g id="link_deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery_deeprank_gnn.models.query.Query"><path codeLine="10" d="M246.5,88.33 C246.5,100.55 246.5,114.26 246.5,127.51 " fill="none" id="deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery-to-deeprank_gnn.models.query.Query" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="253.5,127.66,246.5,147.66,239.5,127.66,253.5,127.66" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[d28c585124af524f1403a548857d5191]
+@startuml deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery
+set namespaceSeparator none
+class "deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery" as deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery {
+  build_graph(feature_modules: List) -> Graph
+  get_query_id() -> str
+}
+class "deeprank_gnn.models.query.Query" as deeprank_gnn.models.query.Query {
+  model_id
+  targets
+}
+deeprank_gnn.models.query.ProteinProteinInterfaceAtomicQuery - -|> deeprank_gnn.models.query.Query
+@enduml
+
+PlantUML version 1.2022.5(Sat Apr 30 12:55:52 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NL
+--></g></svg>

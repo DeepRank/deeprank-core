@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="3896px" preserveAspectRatio="none" style="width:822px;height:3896px;background:#FFFFFF;" version="1.1" viewBox="0 0 822 3896" width="822px" zoomAndPan="magnify"><defs/><g><!--MD5=[4f8be8376c508b442b9193e0fe095a2c]
+class .ndarray--><g id="elem_.ndarray"><rect codeLine="148" fill="#F1F1F1" height="3560.0039" id=".ndarray" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="297" x="178.5" y="7"/><ellipse cx="294.25" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M296.7231,29.1431 Q296.1421,29.4419 295.5029,29.5913 Q294.8638,29.7407 294.1582,29.7407 Q291.6514,29.7407 290.3315,28.0889 Q289.0117,26.437 289.0117,23.3159 Q289.0117,20.1865 290.3315,18.5347 Q291.6514,16.8828 294.1582,16.8828 Q294.8638,16.8828 295.5112,17.0322 Q296.1587,17.1816 296.7231,17.4805 L296.7231,20.2031 Q296.0923,19.6221 295.4988,19.3523 Q294.9053,19.0825 294.2744,19.0825 Q292.9297,19.0825 292.2449,20.1492 Q291.5601,21.2158 291.5601,23.3159 Q291.5601,25.4077 292.2449,26.4744 Q292.9297,27.541 294.2744,27.541 Q294.9053,27.541 295.4988,27.2712 Q296.0923,27.0015 296.7231,26.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="314.75" y="28.291">.ndarray</text><line style="stroke:#181818;stroke-width:0.5;" x1="179.5" x2="474.5" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74" x="184.5" y="56.5352">T : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="184.5" y="73.0234">base : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124" x="184.5" y="89.5117">ctypes : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="184.5" y="106">data : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="184.5" y="122.4883">dtype : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="184.5" y="138.9766">flags : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="184.5" y="155.4648">flat : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="184.5" y="171.9531">imag : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138" x="184.5" y="188.4414">itemsize : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126" x="184.5" y="204.9297">nbytes : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="184.5" y="221.418">ndim : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91" x="184.5" y="237.9063">real : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="184.5" y="254.3945">shape : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="184.5" y="270.8828">size : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="184.5" y="287.3711">strides : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74" x="184.5" y="303.8594">T : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="184.5" y="320.3477">base : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124" x="184.5" y="336.8359">ctypes : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="184.5" y="353.3242">data : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="184.5" y="369.8125">dtype : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="184.5" y="386.3008">flags : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="184.5" y="402.7891">flat : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="184.5" y="419.2773">imag : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138" x="184.5" y="435.7656">itemsize : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126" x="184.5" y="452.2539">nbytes : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="184.5" y="468.7422">ndim : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91" x="184.5" y="485.2305">real : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="184.5" y="501.7188">shape : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="184.5" y="518.207">size : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="184.5" y="534.6953">strides : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74" x="184.5" y="551.1836">T : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="184.5" y="567.6719">base : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124" x="184.5" y="584.1602">ctypes : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="184.5" y="600.6484">data : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="184.5" y="617.1367">dtype : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="184.5" y="633.625">flags : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="184.5" y="650.1133">flat : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="184.5" y="666.6016">imag : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138" x="184.5" y="683.0898">itemsize : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126" x="184.5" y="699.5781">nbytes : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="184.5" y="716.0664">ndim : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91" x="184.5" y="732.5547">real : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="184.5" y="749.043">shape : ndarray</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="184.5" y="765.5313">size : NoneType</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="184.5" y="782.0195">strides : NoneType</text><line style="stroke:#181818;stroke-width:0.5;" x1="179.5" x2="474.5" y1="788.9727" y2="788.9727"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="184.5" y="806.5078">all(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="184.5" y="822.9961">any(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="184.5" y="839.4844">argmax(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118" x="184.5" y="855.9727">argmin(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="234" x="184.5" y="872.4609">argpartition(kth, axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="184.5" y="888.9492">argsort(axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="285" x="184.5" y="905.4375">astype(dtype, order, casting, subok, copy)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="184.5" y="921.9258">byteswap(inplace)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="188" x="184.5" y="938.4141">choose(choices, out, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="184.5" y="954.9023">clip(min, max, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="208" x="184.5" y="971.3906">compress(condition, axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="184.5" y="987.8789">conj()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="184.5" y="1004.3672">conjugate()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="184.5" y="1020.8555">copy(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177" x="184.5" y="1037.3438">cumprod(axis, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="173" x="184.5" y="1053.832">cumsum(axis, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199" x="184.5" y="1070.3203">diagonal(offset, axis1, axis2)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="184.5" y="1086.8086">dot(b, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="71" x="184.5" y="1103.2969">dump(file)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="184.5" y="1119.7852">dumps()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="184.5" y="1136.2734">fill(value)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="184.5" y="1152.7617">flatten(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="184.5" y="1169.25">getfield(dtype, offset)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="184.5" y="1185.7383">item()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="184.5" y="1202.2266">itemset()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="184.5" y="1218.7148">max(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="227" x="184.5" y="1235.2031">mean(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="169" x="184.5" y="1251.6914">min(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="184.5" y="1268.1797">newbyteorder(new_order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="184.5" y="1284.668">nonzero()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="211" x="184.5" y="1301.1563">partition(kth, axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222" x="184.5" y="1317.6445">prod(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="184.5" y="1334.1328">ptp(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="179" x="184.5" y="1350.6211">put(indices, values, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="184.5" y="1367.1094">ravel(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="184.5" y="1383.5977">repeat(repeats, axis)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="184.5" y="1400.0859">reshape(shape, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="193" x="184.5" y="1416.5742">resize(new_shape, refcheck)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143" x="184.5" y="1433.0625">round(decimals, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191" x="184.5" y="1449.5508">searchsorted(v, side, sorter)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="184.5" y="1466.0391">setfield(val, dtype, offset)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="184.5" y="1482.5273">setflags(write, align, uic)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="184.5" y="1499.0156">sort(axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95" x="184.5" y="1515.5039">squeeze(axis)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="1531.9922">std(axis, dtype, out, ddof, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="218" x="184.5" y="1548.4805">sum(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="184.5" y="1564.9688">swapaxes(axis1, axis2)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="201" x="184.5" y="1581.457">take(indices, axis, out, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="184.5" y="1597.9453">tobytes(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="184.5" y="1614.4336">tofile(fid, sep, format)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="184.5" y="1630.9219">tolist()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="102" x="184.5" y="1647.4102">tostring(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="1663.8984">trace(offset, axis1, axis2, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="184.5" y="1680.3867">transpose()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="1696.875">var(axis, dtype, out, ddof, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="184.5" y="1713.3633">view(dtype, type)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="184.5" y="1729.8516">all(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="184.5" y="1746.3398">any(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="184.5" y="1762.8281">argmax(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118" x="184.5" y="1779.3164">argmin(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="234" x="184.5" y="1795.8047">argpartition(kth, axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="184.5" y="1812.293">argsort(axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="285" x="184.5" y="1828.7813">astype(dtype, order, casting, subok, copy)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="184.5" y="1845.2695">byteswap(inplace)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="188" x="184.5" y="1861.7578">choose(choices, out, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="184.5" y="1878.2461">clip(min, max, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="208" x="184.5" y="1894.7344">compress(condition, axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="184.5" y="1911.2227">conj()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="184.5" y="1927.7109">conjugate()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="184.5" y="1944.1992">copy(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177" x="184.5" y="1960.6875">cumprod(axis, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="173" x="184.5" y="1977.1758">cumsum(axis, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199" x="184.5" y="1993.6641">diagonal(offset, axis1, axis2)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="184.5" y="2010.1523">dot(b, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="71" x="184.5" y="2026.6406">dump(file)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="184.5" y="2043.1289">dumps()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="184.5" y="2059.6172">fill(value)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="184.5" y="2076.1055">flatten(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="184.5" y="2092.5938">getfield(dtype, offset)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="184.5" y="2109.082">item()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="184.5" y="2125.5703">itemset()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="184.5" y="2142.0586">max(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="227" x="184.5" y="2158.5469">mean(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="169" x="184.5" y="2175.0352">min(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="184.5" y="2191.5234">newbyteorder(new_order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="184.5" y="2208.0117">nonzero()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="211" x="184.5" y="2224.5">partition(kth, axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222" x="184.5" y="2240.9883">prod(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="184.5" y="2257.4766">ptp(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="179" x="184.5" y="2273.9648">put(indices, values, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="184.5" y="2290.4531">ravel(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="184.5" y="2306.9414">repeat(repeats, axis)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="184.5" y="2323.4297">reshape(shape, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="193" x="184.5" y="2339.918">resize(new_shape, refcheck)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143" x="184.5" y="2356.4063">round(decimals, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191" x="184.5" y="2372.8945">searchsorted(v, side, sorter)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="184.5" y="2389.3828">setfield(val, dtype, offset)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="184.5" y="2405.8711">setflags(write, align, uic)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="184.5" y="2422.3594">sort(axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95" x="184.5" y="2438.8477">squeeze(axis)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="2455.3359">std(axis, dtype, out, ddof, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="218" x="184.5" y="2471.8242">sum(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="184.5" y="2488.3125">swapaxes(axis1, axis2)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="201" x="184.5" y="2504.8008">take(indices, axis, out, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="184.5" y="2521.2891">tobytes(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="184.5" y="2537.7773">tofile(fid, sep, format)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="184.5" y="2554.2656">tolist()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="102" x="184.5" y="2570.7539">tostring(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="2587.2422">trace(offset, axis1, axis2, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="184.5" y="2603.7305">transpose()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="2620.2188">var(axis, dtype, out, ddof, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="184.5" y="2636.707">view(dtype, type)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="184.5" y="2653.1953">all(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="184.5" y="2669.6836">any(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="184.5" y="2686.1719">argmax(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118" x="184.5" y="2702.6602">argmin(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="234" x="184.5" y="2719.1484">argpartition(kth, axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="184.5" y="2735.6367">argsort(axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="285" x="184.5" y="2752.125">astype(dtype, order, casting, subok, copy)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="184.5" y="2768.6133">byteswap(inplace)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="188" x="184.5" y="2785.1016">choose(choices, out, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="184.5" y="2801.5898">clip(min, max, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="208" x="184.5" y="2818.0781">compress(condition, axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="184.5" y="2834.5664">conj()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="184.5" y="2851.0547">conjugate()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="184.5" y="2867.543">copy(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177" x="184.5" y="2884.0313">cumprod(axis, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="173" x="184.5" y="2900.5195">cumsum(axis, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199" x="184.5" y="2917.0078">diagonal(offset, axis1, axis2)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="184.5" y="2933.4961">dot(b, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="71" x="184.5" y="2949.9844">dump(file)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="184.5" y="2966.4727">dumps()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="63" x="184.5" y="2982.9609">fill(value)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="184.5" y="2999.4492">flatten(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147" x="184.5" y="3015.9375">getfield(dtype, offset)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="184.5" y="3032.4258">item()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="184.5" y="3048.9141">itemset()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="184.5" y="3065.4023">max(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="227" x="184.5" y="3081.8906">mean(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="169" x="184.5" y="3098.3789">min(axis, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="184.5" y="3114.8672">newbyteorder(new_order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68" x="184.5" y="3131.3555">nonzero()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="211" x="184.5" y="3147.8438">partition(kth, axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="222" x="184.5" y="3164.332">prod(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="184.5" y="3180.8203">ptp(axis, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="179" x="184.5" y="3197.3086">put(indices, values, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="184.5" y="3213.7969">ravel(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="184.5" y="3230.2852">repeat(repeats, axis)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="184.5" y="3246.7734">reshape(shape, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="193" x="184.5" y="3263.2617">resize(new_shape, refcheck)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143" x="184.5" y="3279.75">round(decimals, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191" x="184.5" y="3296.2383">searchsorted(v, side, sorter)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="172" x="184.5" y="3312.7266">setfield(val, dtype, offset)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="184.5" y="3329.2148">setflags(write, align, uic)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="184.5" y="3345.7031">sort(axis, kind, order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95" x="184.5" y="3362.1914">squeeze(axis)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="3378.6797">std(axis, dtype, out, ddof, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="218" x="184.5" y="3395.168">sum(axis, dtype, out, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="184.5" y="3411.6563">swapaxes(axis1, axis2)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="201" x="184.5" y="3428.1445">take(indices, axis, out, mode)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="184.5" y="3444.6328">tobytes(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149" x="184.5" y="3461.1211">tofile(fid, sep, format)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="184.5" y="3477.6094">tolist()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="102" x="184.5" y="3494.0977">tostring(order)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="3510.5859">trace(offset, axis1, axis2, dtype, out)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="184.5" y="3527.0742">transpose()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="250" x="184.5" y="3543.5625">var(axis, dtype, out, ddof, keepdims)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="184.5" y="3560.0508">view(dtype, type)</text></g><!--MD5=[d47085fed44eaf77dd2aa3c4127aee34]
+class deeprank_gnn.models.grid.Grid--><g id="elem_deeprank_gnn.models.grid.Grid"><rect codeLine="221" fill="#F1F1F1" height="245.8594" id="deeprank_gnn.models.grid.Grid" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="766" x="7" y="3644"/><ellipse cx="276.75" cy="3660" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M279.2231,3666.1431 Q278.6421,3666.4419 278.0029,3666.5913 Q277.3638,3666.7407 276.6582,3666.7407 Q274.1514,3666.7407 272.8315,3665.0889 Q271.5117,3663.437 271.5117,3660.3159 Q271.5117,3657.1865 272.8315,3655.5347 Q274.1514,3653.8828 276.6582,3653.8828 Q277.3638,3653.8828 278.0112,3654.0322 Q278.6587,3654.1816 279.2231,3654.4805 L279.2231,3657.2031 Q278.5923,3656.6221 277.9988,3656.3523 Q277.4053,3656.0825 276.7744,3656.0825 Q275.4297,3656.0825 274.7449,3657.1492 Q274.0601,3658.2158 274.0601,3660.3159 Q274.0601,3662.4077 274.7449,3663.4744 Q275.4297,3664.541 276.7744,3664.541 Q277.4053,3664.541 277.9988,3664.2712 Q278.5923,3664.0015 279.2231,3663.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="218" x="297.25" y="3665.291">deeprank_gnn.models.grid.Grid</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="772" y1="3676" y2="3676"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="13" y="3693.5352">center</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="13" y="3710.0234">features</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="13" y="3726.5117">id : str</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="13" y="3743">xgrid</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="16" x="13" y="3759.4883">xs</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35" x="13" y="3775.9766">ygrid</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="14" x="13" y="3792.4648">ys</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="13" y="3808.9531">zgrid</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="15" x="13" y="3825.4414">zs</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="772" y1="3832.3945" y2="3832.3945"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="412" x="13" y="3849.9297">add_feature_values(feature_name: str, data: numpy.ndarray)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="754" x="13" y="3866.418">map_feature(position: numpy.ndarray, feature_name: str, feature_value: numpy.ndarray, method: MapMethod)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="13" y="3882.9063">to_hdf5(hdf5_path: str)</text></g><!--MD5=[808f84aea4c458b3ebe5654d61555a8f]
+class deeprank_gnn.models.grid.GridSettings--><g id="elem_deeprank_gnn.models.grid.GridSettings"><rect codeLine="235" fill="#F1F1F1" height="97.4648" id="deeprank_gnn.models.grid.GridSettings" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="305" x="510.5" y="1738.5"/><ellipse cx="525.5" cy="1754.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M527.9731,1760.6431 Q527.3921,1760.9419 526.7529,1761.0913 Q526.1138,1761.2407 525.4082,1761.2407 Q522.9014,1761.2407 521.5815,1759.5889 Q520.2617,1757.937 520.2617,1754.8159 Q520.2617,1751.6865 521.5815,1750.0347 Q522.9014,1748.3828 525.4082,1748.3828 Q526.1138,1748.3828 526.7612,1748.5322 Q527.4087,1748.6816 527.9731,1748.9805 L527.9731,1751.7031 Q527.3423,1751.1221 526.7488,1750.8523 Q526.1553,1750.5825 525.5244,1750.5825 Q524.1797,1750.5825 523.4949,1751.6492 Q522.8101,1752.7158 522.8101,1754.8159 Q522.8101,1756.9077 523.4949,1757.9744 Q524.1797,1759.041 525.5244,1759.041 Q526.1553,1759.041 526.7488,1758.7712 Q527.3423,1758.5015 527.9731,1757.9204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="273" x="539.5" y="1759.791">deeprank_gnn.models.grid.GridSettings</text><line style="stroke:#181818;stroke-width:0.5;" x1="511.5" x2="814.5" y1="1770.5" y2="1770.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="89" x="516.5" y="1788.0352">points_count</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="516.5" y="1804.5234">resolution</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="27" x="516.5" y="1821.0117">size</text><line style="stroke:#181818;stroke-width:0.5;" x1="511.5" x2="814.5" y1="1827.9648" y2="1827.9648"/></g><!--MD5=[b8b64b3a467cfe71ba96e01f4099688c]
+link .ndarray to deeprank_gnn.models.grid.Grid--><g id="link_.ndarray_deeprank_gnn.models.grid.Grid"><path codeLine="240" d="M292.3,3567.17 C292.19,3577.14 292.1,3587.09 292,3597 C291.93,3604.56 289.87,3606.75 292,3614 C293.76,3619.99 295.85,3625.97 298.18,3631.9 " fill="none" id=".ndarray-to-deeprank_gnn.models.grid.Grid" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="303.33,3643.99,304.6656,3636.9037,298.638,3632.9453,297.3024,3640.0317,303.33,3643.99" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="22" x="293" y="3610.5684">_xs</text></g><!--MD5=[b8b64b3a467cfe71ba96e01f4099688c]
+link .ndarray to deeprank_gnn.models.grid.Grid--><g id="link_.ndarray_deeprank_gnn.models.grid.Grid"><path codeLine="241" d="M350.65,3567.13 C352.38,3582.83 354.16,3598.45 356,3614 C356.64,3619.44 357.4,3624.97 358.24,3630.54 " fill="none" id=".ndarray-to-deeprank_gnn.models.grid.Grid-1" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="360.37,3643.59,363.3553,3637.0259,358.4443,3631.7455,355.459,3638.3097,360.37,3643.59" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="21" x="357" y="3610.5684">_ys</text></g><!--MD5=[b8b64b3a467cfe71ba96e01f4099688c]
+link .ndarray to deeprank_gnn.models.grid.Grid--><g id="link_.ndarray_deeprank_gnn.models.grid.Grid"><path codeLine="242" d="M383.67,3567.29 C384.4,3590.13 385.07,3611.36 385.69,3630.79 " fill="none" id=".ndarray-to-deeprank_gnn.models.grid.Grid-2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="386.11,3643.95,389.9169,3637.8256,385.7278,3631.9561,381.9209,3638.0805,386.11,3643.95" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="21" x="387" y="3610.5684">_zs</text></g><!--MD5=[0f03bf8c5e8f8fae36351aec7b226d0d]
+link deeprank_gnn.models.grid.GridSettings to deeprank_gnn.models.grid.Grid--><g id="link_deeprank_gnn.models.grid.GridSettings_deeprank_gnn.models.grid.Grid"><path codeLine="243" d="M664.99,1835.62 C672.38,2045.02 688.6,2902.94 493,3567 C486.63,3588.62 477.87,3610.66 468.12,3631.8 " fill="none" id="deeprank_gnn.models.grid.GridSettings-to-deeprank_gnn.models.grid.Grid" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="462.45,3643.79,468.6304,3640.0748,467.578,3632.9409,461.3976,3636.6561,462.45,3643.79" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="58" x="482" y="3610.5684">_settings</text></g><!--MD5=[95e2b73012b14ec27401d662e8569ed3]
+@startuml deeprank_gnn.models.grid.Grid
+set namespaceSeparator none
+class ".ndarray" as .ndarray {
+  T : ndarray
+  base : NoneType
+  ctypes : NoneType
+  data : NoneType
+  dtype : NoneType
+  flags : NoneType
+  flat : ndarray
+  imag : ndarray
+  itemsize : NoneType
+  nbytes : NoneType
+  ndim : NoneType
+  real : ndarray
+  shape : ndarray
+  size : NoneType
+  strides : NoneType
+  all(axis, out, keepdims)
+  any(axis, out, keepdims)
+  argmax(axis, out)
+  argmin(axis, out)
+  argpartition(kth, axis, kind, order)
+  argsort(axis, kind, order)
+  astype(dtype, order, casting, subok, copy)
+  byteswap(inplace)
+  choose(choices, out, mode)
+  clip(min, max, out)
+  compress(condition, axis, out)
+  conj()
+  conjugate()
+  copy(order)
+  cumprod(axis, dtype, out)
+  cumsum(axis, dtype, out)
+  diagonal(offset, axis1, axis2)
+  dot(b, out)
+  dump(file)
+  dumps()
+  fill(value)
+  flatten(order)
+  getfield(dtype, offset)
+  item()
+  itemset()
+  max(axis, out)
+  mean(axis, dtype, out, keepdims)
+  min(axis, out, keepdims)
+  newbyteorder(new_order)
+  nonzero()
+  partition(kth, axis, kind, order)
+  prod(axis, dtype, out, keepdims)
+  ptp(axis, out)
+  put(indices, values, mode)
+  ravel(order)
+  repeat(repeats, axis)
+  reshape(shape, order)
+  resize(new_shape, refcheck)
+  round(decimals, out)
+  searchsorted(v, side, sorter)
+  setfield(val, dtype, offset)
+  setflags(write, align, uic)
+  sort(axis, kind, order)
+  squeeze(axis)
+  std(axis, dtype, out, ddof, keepdims)
+  sum(axis, dtype, out, keepdims)
+  swapaxes(axis1, axis2)
+  take(indices, axis, out, mode)
+  tobytes(order)
+  tofile(fid, sep, format)
+  tolist()
+  tostring(order)
+  trace(offset, axis1, axis2, dtype, out)
+  transpose()
+  var(axis, dtype, out, ddof, keepdims)
+  view(dtype, type)
+}
+class ".ndarray" as .ndarray {
+  T : ndarray
+  base : NoneType
+  ctypes : NoneType
+  data : NoneType
+  dtype : NoneType
+  flags : NoneType
+  flat : ndarray
+  imag : ndarray
+  itemsize : NoneType
+  nbytes : NoneType
+  ndim : NoneType
+  real : ndarray
+  shape : ndarray
+  size : NoneType
+  strides : NoneType
+  all(axis, out, keepdims)
+  any(axis, out, keepdims)
+  argmax(axis, out)
+  argmin(axis, out)
+  argpartition(kth, axis, kind, order)
+  argsort(axis, kind, order)
+  astype(dtype, order, casting, subok, copy)
+  byteswap(inplace)
+  choose(choices, out, mode)
+  clip(min, max, out)
+  compress(condition, axis, out)
+  conj()
+  conjugate()
+  copy(order)
+  cumprod(axis, dtype, out)
+  cumsum(axis, dtype, out)
+  diagonal(offset, axis1, axis2)
+  dot(b, out)
+  dump(file)
+  dumps()
+  fill(value)
+  flatten(order)
+  getfield(dtype, offset)
+  item()
+  itemset()
+  max(axis, out)
+  mean(axis, dtype, out, keepdims)
+  min(axis, out, keepdims)
+  newbyteorder(new_order)
+  nonzero()
+  partition(kth, axis, kind, order)
+  prod(axis, dtype, out, keepdims)
+  ptp(axis, out)
+  put(indices, values, mode)
+  ravel(order)
+  repeat(repeats, axis)
+  reshape(shape, order)
+  resize(new_shape, refcheck)
+  round(decimals, out)
+  searchsorted(v, side, sorter)
+  setfield(val, dtype, offset)
+  setflags(write, align, uic)
+  sort(axis, kind, order)
+  squeeze(axis)
+  std(axis, dtype, out, ddof, keepdims)
+  sum(axis, dtype, out, keepdims)
+  swapaxes(axis1, axis2)
+  take(indices, axis, out, mode)
+  tobytes(order)
+  tofile(fid, sep, format)
+  tolist()
+  tostring(order)
+  trace(offset, axis1, axis2, dtype, out)
+  transpose()
+  var(axis, dtype, out, ddof, keepdims)
+  view(dtype, type)
+}
+class ".ndarray" as .ndarray {
+  T : ndarray
+  base : NoneType
+  ctypes : NoneType
+  data : NoneType
+  dtype : NoneType
+  flags : NoneType
+  flat : ndarray
+  imag : ndarray
+  itemsize : NoneType
+  nbytes : NoneType
+  ndim : NoneType
+  real : ndarray
+  shape : ndarray
+  size : NoneType
+  strides : NoneType
+  all(axis, out, keepdims)
+  any(axis, out, keepdims)
+  argmax(axis, out)
+  argmin(axis, out)
+  argpartition(kth, axis, kind, order)
+  argsort(axis, kind, order)
+  astype(dtype, order, casting, subok, copy)
+  byteswap(inplace)
+  choose(choices, out, mode)
+  clip(min, max, out)
+  compress(condition, axis, out)
+  conj()
+  conjugate()
+  copy(order)
+  cumprod(axis, dtype, out)
+  cumsum(axis, dtype, out)
+  diagonal(offset, axis1, axis2)
+  dot(b, out)
+  dump(file)
+  dumps()
+  fill(value)
+  flatten(order)
+  getfield(dtype, offset)
+  item()
+  itemset()
+  max(axis, out)
+  mean(axis, dtype, out, keepdims)
+  min(axis, out, keepdims)
+  newbyteorder(new_order)
+  nonzero()
+  partition(kth, axis, kind, order)
+  prod(axis, dtype, out, keepdims)
+  ptp(axis, out)
+  put(indices, values, mode)
+  ravel(order)
+  repeat(repeats, axis)
+  reshape(shape, order)
+  resize(new_shape, refcheck)
+  round(decimals, out)
+  searchsorted(v, side, sorter)
+  setfield(val, dtype, offset)
+  setflags(write, align, uic)
+  sort(axis, kind, order)
+  squeeze(axis)
+  std(axis, dtype, out, ddof, keepdims)
+  sum(axis, dtype, out, keepdims)
+  swapaxes(axis1, axis2)
+  take(indices, axis, out, mode)
+  tobytes(order)
+  tofile(fid, sep, format)
+  tolist()
+  tostring(order)
+  trace(offset, axis1, axis2, dtype, out)
+  transpose()
+  var(axis, dtype, out, ddof, keepdims)
+  view(dtype, type)
+}
+class "deeprank_gnn.models.grid.Grid" as deeprank_gnn.models.grid.Grid {
+  center
+  features
+  id : str
+  xgrid
+  xs
+  ygrid
+  ys
+  zgrid
+  zs
+  add_feature_values(feature_name: str, data: numpy.ndarray)
+  map_feature(position: numpy.ndarray, feature_name: str, feature_value: numpy.ndarray, method: MapMethod)
+  to_hdf5(hdf5_path: str)
+}
+class "deeprank_gnn.models.grid.GridSettings" as deeprank_gnn.models.grid.GridSettings {
+  points_count
+  resolution
+  size
+}
+.ndarray - -* deeprank_gnn.models.grid.Grid : _xs
+.ndarray - -* deeprank_gnn.models.grid.Grid : _ys
+.ndarray - -* deeprank_gnn.models.grid.Grid : _zs
+deeprank_gnn.models.grid.GridSettings - -* deeprank_gnn.models.grid.Grid : _settings
+@enduml
+
+PlantUML version 1.2022.5(Sat Apr 30 12:55:52 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NL
+--></g></svg>
